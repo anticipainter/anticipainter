@@ -43,7 +43,7 @@ export class Grid {
 		return undefined
 	}
 
-	setVerticalWall(x, y, wall) {
+	setVerticalWall(x, y, type) {
 		let wall = new type();
 		if (x === typeof Vector) return this.setHorizontalWall(x.x, x.y, y)
 		wall.x = clamp(x, 0, this.size.x - 1)
