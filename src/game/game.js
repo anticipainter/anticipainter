@@ -1,13 +1,11 @@
-import {Vector} from "./vector.js";
+import {Player} from "./player.js";
+import {Grid} from "./grid.js";
 
 export class Game {
-	vector = new Vector()
+	player = new Player()
+	grid = new Grid(3, 5)
 
 	constructor() {
 		console.log($("#test"))
-	}
-
-	toString() {
-		return this.vector
 	}
 }
