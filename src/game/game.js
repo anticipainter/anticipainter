@@ -6,6 +6,10 @@ export class Game {
 	grid = new Grid(3, 5)
 
 	constructor() {
-		console.log($("#test"))
+		console.log($("#game"))
+	}
+
+	render(canvas) {
+		this.grid.render(canvas)
 	}
 }
