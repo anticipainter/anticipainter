@@ -1,7 +1,7 @@
 import {Game} from "./game/game.js"
 
 const app = new PIXI.Application({
-
+	antialias: true
 })
 document.body.appendChild(app.view)
 app.renderer.view.style.position = "absolute";
