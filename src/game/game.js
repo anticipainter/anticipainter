@@ -1,10 +1,10 @@
-import {Player} from "./player.js";
-import {Tile} from "./tile/tile.js";
-import {Wall} from "./wall/wall.js";
-import {Vector} from "./vector.js";
-import {Grid} from "./grid.js";
-import {Generator} from "./generator.js";
-import {Orientation} from "./util.js";
+import {Player} from "./player.js"
+import {Tile} from "./tile/tile.js"
+import {Wall} from "./wall/wall.js"
+import {Vector} from "./vector.js"
+import {Grid} from "./grid.js"
+import {Generator} from "./generator.js"
+import {Orientation} from "./util.js"
 
 export class Game {
 	static sprites = new PIXI.Container()

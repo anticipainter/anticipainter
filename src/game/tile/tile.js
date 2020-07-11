@@ -1,4 +1,4 @@
-import {Entity} from "../entity.js";
+import {Entity} from "../entity.js"
 
 export class Tile extends Entity {
 	image = new Image()

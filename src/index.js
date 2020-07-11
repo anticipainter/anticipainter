@@ -1,4 +1,4 @@
-import {Game} from "./game/game.js";
+import {Game} from "./game/game.js"
 
 const app = new PIXI.Application({
 

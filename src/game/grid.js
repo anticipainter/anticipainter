@@ -1,8 +1,8 @@
-import {Vector} from "./vector.js";
-import {clamp, Orientation} from "./util.js";
-import {Default} from "./tile/default.js";
-import {Tracer} from "./tile/tracer.js";
-import {Game} from "./game.js";
+import {Vector} from "./vector.js"
+import {clamp, Orientation} from "./util.js"
+import {Default} from "./tile/default.js"
+import {Tracer} from "./tile/tracer.js"
+import {Game} from "./game.js"
 
 export class Grid {
 	constructor(width = 0, height = 0) {

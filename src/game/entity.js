@@ -1,5 +1,5 @@
-import {Vector} from "./vector.js";
-import {Game} from "./game.js";
+import {Vector} from "./vector.js"
+import {Game} from "./game.js"
 
 export class Entity {
 	position = new Vector()
