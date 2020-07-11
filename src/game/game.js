@@ -1,5 +1,6 @@
 import {Player} from "./player.js";
 import {Grid} from "./grid.js";
+import {Generator} from "./generator.js";
 
 export class Game {
 	player = new Player()
@@ -7,6 +8,8 @@ export class Game {
 
 	constructor() {
 		console.log($("#game"))
+		this.generator = new Generator(this.grid)
+		this.generator.generate()
 	}
 
 	render(canvas) {
