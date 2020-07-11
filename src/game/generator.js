@@ -33,17 +33,17 @@ export class Generator {
 	}
 
 	surround(position) { // surround a tile with walls
-		this.grid.setWall(position.x - 1, position.y, Orientation.VERTICAL, new Wall())
 		this.grid.setWall(position.x, position.y, Orientation.VERTICAL, new Wall())
-		this.grid.setWall(position.x, position.y - 1, Orientation.HORIZONTAL, new Wall())
+		this.grid.setWall(position.x + 1, position.y, Orientation.VERTICAL, new Wall())
 		this.grid.setWall(position.x, position.y, Orientation.HORIZONTAL, new Wall())
+		this.grid.setWall(position.x, position.y + 1, Orientation.HORIZONTAL, new Wall())
 	}
 
 	open(position, direction) { // open (remove) one of the four walls surrounding a tile in a specified direction
-		if (direction === Direction.LEFT) this.grid.removeWall(position.x - 1, position.y, Orientation.VERTICAL)
-		else if (direction === Direction.RIGHT) this.grid.removeWall(position.x, position.y, Orientation.VERTICAL)
-		else if (direction === Direction.UP) this.grid.removeWall(position.x, position.y - 1, Orientation.HORIZONTAL)
-		else if (direction === Direction.DOWN) this.grid.removeWall(position.x, position.y, Orientation.HORIZONTAL)
+		if (direction === Direction.LEFT) this.grid.removeWall(position.x, position.y, Orientation.VERTICAL)
+		else if (direction === Direction.RIGHT) this.grid.removeWall(position.x + 1, position.y, Orientation.VERTICAL)
+		else if (direction === Direction.UP) this.grid.removeWall(position.x, position.y, Orientation.HORIZONTAL)
+		else if (direction === Direction.DOWN) this.grid.removeWall(position.x, position.y + 1, Orientation.HORIZONTAL)
 	}
 
 	generate() {

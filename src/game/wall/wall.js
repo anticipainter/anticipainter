@@ -13,8 +13,8 @@ export class Wall extends Entity {
 	update() {
 		super.update();
 		let x = 0, y = 0
-		if (this.orientation === Orientation.HORIZONTAL) y = 0.5
-		if (this.orientation === Orientation.VERTICAL) x = 0.5
+		if (this.orientation === Orientation.HORIZONTAL) y = -0.5
+		if (this.orientation === Orientation.VERTICAL) x = -0.5
 
 		this.sprite.x = (this.position.x + x) * 64
 		this.sprite.y = (this.position.y + y) * 64

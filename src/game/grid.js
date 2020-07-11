@@ -10,16 +10,21 @@ export class Grid {
 		this.tiles = []
 		this.verticalWalls = []
 		this.horizontalWalls = []
-		for (let y = 0; y < this.size.y; y++) {
-			this.tiles.push([])
-			this.verticalWalls.push([])
-			if (y < this.size.y - 1) this.horizontalWalls.push([])
-			for (let x = 0; x < this.size.x; x++) {
-				this.tiles[y][x] = undefined
-				if (x < this.size.x - 1) this.verticalWalls[y][x] = undefined
-				if (y < this.size.y - 1) this.horizontalWalls[y][x] = undefined
+		for (let y = 0; y <= this.size.y; y++) {
+			if (y < this.size.y) {
+				this.tiles.push([])
+				this.verticalWalls.push([])
+			}
+			this.horizontalWalls.push([])
+			for (let x = 0; x <= this.size.x; x++) {
+				if (x < this.size.x && y < this.size.y) this.tiles[y][x] = undefined
+				if (x < this.size.x) this.horizontalWalls[y][x] = undefined
+				if (y < this.size.y) this.verticalWalls[y][x] = undefined
 			}
 		}
+		console.log(this.tiles)
+		console.log(this.horizontalWalls)
+		console.log(this.verticalWalls)
 	}
 
 	setTile(x, y, tile) {
@@ -59,10 +64,10 @@ export class Grid {
 
 	setWall(x, y, orientation, wall) {
 		if (x instanceof Vector) return this.setWall(x.x, x.y, y, orientation)
-		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0))
-		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0))
-		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
-		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
+		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0))
+		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0))
+		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
+		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
 		wall.position.x = x
 		wall.position.y = y
 		wall.orientation = orientation
@@ -73,18 +78,18 @@ export class Grid {
 
 	getWall(x, y, orientation) {
 		if (x instanceof Vector) return this.getWall(x.x, x.y, y)
-		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0))
-		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0))
-		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
-		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
+		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0))
+		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0))
+		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
+		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
 		if (orientation === Orientation.VERTICAL) return this.verticalWalls[y][x]
 		else if (orientation === Orientation.HORIZONTAL) return this.horizontalWalls[y][x]
 	}
 
 	removeWall(x, y, orientation) {
 		if (x instanceof Vector) return this.removeWall(x.x, x.y, y)
-		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
-		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
+		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
+		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
 		if (orientation === Orientation.VERTICAL) {
 			Game.sprites.removeChild(this.verticalWalls[y][x])
 			this.verticalWalls[y][x].sprite = undefined
@@ -98,7 +103,7 @@ export class Grid {
 	}
 
 	forEachWallHorizontal(func) {
-		for (let y = 0; y < this.size.y - 1; y++) {
+		for (let y = 0; y < this.size.y + 1; y++) {
 			for (let x = 0; x < this.size.x; x++) {
 				if (this.horizontalWalls[y][x] !== undefined) func(this.horizontalWalls[y][x])
 			}
@@ -107,7 +112,7 @@ export class Grid {
 
 	forEachWallVertical(func) {
 		for (let y = 0; y < this.size.y; y++) {
-			for (let x = 0; x < this.size.x - 1; x++) {
+			for (let x = 0; x < this.size.x + 1; x++) {
 				if (this.verticalWalls[y][x] !== undefined) func(this.verticalWalls[y][x])
 			}
 		}
