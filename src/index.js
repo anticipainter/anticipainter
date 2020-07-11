@@ -1,9 +1,10 @@
 import {Game} from "./game/game.js"
 
 const app = new PIXI.Application({
-	antialias: true
+	antialias: true,
+	backgroundColor: 0x263238
 })
-document.body.appendChild(app.view)
+$("#game").append(app.view)
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 app.renderer.autoDensity = true;
