@@ -12,7 +12,7 @@ export class Game {
 		this.generator.generate()
 	}
 
-	render(canvas) {
-		this.grid.render(canvas)
+	render(context) {
+		this.grid.render(context)
 	}
 }

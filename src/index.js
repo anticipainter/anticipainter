@@ -4,4 +4,4 @@ import {Wall} from "./game/wall/wall.js"
 import {Orientation} from "./game/util.js"
 
 let game = new Game()
-game.render($("#game")[0])
+game.render($("#game")[0].getContext("2d"))

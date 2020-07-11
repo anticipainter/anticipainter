@@ -78,8 +78,7 @@ export class Grid {
 		else if (orientation === Orientation.HORIZONTAL) this.horizontalWalls[y][x] = undefined
 	}
 
-	render(canvas) {
-		let context = canvas.getContext("2d")
+	render(context) {
 		for (let y = 0; y < this.size.y; y++) {
 			for (let x = 0; x < this.size.x; x++) {
 				if (this.getTile(x, y) instanceof Tracer) {
