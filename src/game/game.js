@@ -59,13 +59,14 @@ export class Game {
 
 	update() {
 		this.frame++
-		let intensity = (Math.sin(this.frame / 100) + 1) / 2
-		let color = Math.round((intensity * 0.05 + 0.1) * 255) * (1 + 256 + 65536)
-		color += Math.round(0x000008 * intensity) + 0x000008
-		// console.log(grey * Math.pow(256, 0))
-		// this.app.renderer.backgroundColor = intensity * (1 + 256 + 65536)
+		// let intensity = (Math.sin(this.frame / 100) + 1) / 2
+		// let color = Math.floor((intensity * 0.05 + 0.1) * 256) * (1 + 256 + 65536)
+		// color += Math.round(0x000008 * intensity) + 0x000008
+		// this.app.renderer.backgroundColor = color
+
 		let pos = new Vector(Math.round(this.player.position.x), Math.round(this.player.position.y))
 		this.grid.getTile(pos).activate()
+
 		if (this.frame % Game.resizeRate === 0) this.onResize()
 		for (let entity of Game.entities) {
 			entity.update()
