@@ -24,18 +24,11 @@ export class Generator {
 		return candidates[Math.floor(Math.random() * candidates.length)]
 	}
 
-	addDirection(position, direction) { // move in a direction from a certain position
-		if (direction === Direction.LEFT) return new Vector(position.x - 1, position.y)
-		else if (direction === Direction.RIGHT) return new Vector(position.x + 1, position.y)
-		else if (direction === Direction.UP) return new Vector(position.x, position.y - 1)
-		else if (direction === Direction.DOWN) return new Vector(position.x, position.y + 1)
-	}
-
 	findDirection(position) { // find a direction for a tile that doesn't directly face the edge of the grid
 		let directions = Direction.all()
 		let valid = []
 		for (let i = 0; i < directions.length; i++) {
-			let next = this.addDirection(position, directions[i])
+			let next = Vector.add(position, Direction.toVector(directions[i]))
 			if (next.x >= 0 && next.x < this.grid.size.x && next.y >= 0 && next.y < this.grid.size.y) valid.push(directions[i])
 		}
 		return valid[Math.floor(Math.random() * valid.length)]
@@ -48,13 +41,6 @@ export class Generator {
 		this.grid.setWall(position.x, position.y, Orientation.HORIZONTAL, new Wall())
 	}
 
-	inverse(direction) {
-		if (direction === Direction.LEFT) return Direction.RIGHT
-		if (direction === Direction.RIGHT) return Direction.LEFT
-		if (direction === Direction.UP) return Direction.DOWN
-		if (direction === Direction.DOWN) return Direction.UP
-	}
-
 	open(position, direction) { // open (remove) one of the four walls surrounding a tile in a specified direction
 		if (direction === Direction.LEFT) this.grid.removeWall(position.x - 1, position.y, Orientation.VERTICAL)
 		else if (direction === Direction.RIGHT) this.grid.removeWall(position.x, position.y, Orientation.VERTICAL)
@@ -63,18 +49,9 @@ export class Generator {
 	}
 
 	generate() {
-		/* let start = new Vector(
-			Math.floor(Math.random() * this.grid.size.x),
-			Math.floor(Math.random() * this.grid.size.y)
-		) */
 		let start = this.findAvailable()
 		this.grid.setTile(start, new Default())
 		this.surround(start)
-
-		/* let base = new Vector(
-			Math.floor(Math.random() * this.grid.size.x),
-			Math.floor(Math.random() * this.grid.size.y)
-		) */
 		while (true) {
 			let base = this.findAvailable()
 			if (base === undefined) break
@@ -82,7 +59,7 @@ export class Generator {
 			while (!(this.grid.getTile(current) instanceof Default)) {
 				let direction = this.findDirection(current)
 				this.grid.setTile(current, new Tracer(direction))
-				current = this.addDirection(current, direction)
+				current = Vector.add(current, Direction.toVector(direction))
 			}
 			let lastDirection = undefined
 			current = base
@@ -90,11 +67,11 @@ export class Generator {
 				let direction = this.grid.getTile(current).direction
 				this.grid.setTile(current, new Default())
 				this.surround(current)
-				if (lastDirection !== undefined) this.open(current, this.inverse(lastDirection))
-				current = this.addDirection(current, direction)
+				if (lastDirection !== undefined) this.open(current, Direction.inverse(lastDirection))
+				current = Vector.add(current, Direction.toVector(direction))
 				lastDirection = direction
 			}
-			this.open(current, this.inverse(lastDirection))
+			this.open(current, Direction.inverse(lastDirection))
 		}
 	}
 }
