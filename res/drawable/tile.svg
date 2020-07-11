@@ -6,7 +6,6 @@
     <rect
         x="20" y="20"
         width="960" height="960"
-        opacity="0.5"
-        fill="#424242"/>
+        fill="#546e7a"/>
 
 </svg>
