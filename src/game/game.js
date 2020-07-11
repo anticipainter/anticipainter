@@ -4,6 +4,7 @@ import {Wall} from "./wall/wall.js"
 import {Vector} from "./vector.js"
 import {Grid} from "./grid.js"
 import {Generator} from "./generator.js"
+import {Sequence} from "./sequence.js"
 import {Direction, Orientation} from "./util.js"
 
 export class Game {
@@ -110,6 +111,7 @@ export class Game {
 		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
 		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
+		else if (key === 32) console.log(Sequence.generate(this.grid, this.player, 3, 3))
 	}
 
 	render() {
