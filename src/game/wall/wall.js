@@ -5,6 +5,6 @@ export class Wall extends Entity {
 	orientation = Orientation.HORIZONTAL
 
 	constructor() {
-		super();
+		super()
 	}
 }

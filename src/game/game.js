@@ -4,10 +4,10 @@ import {Generator} from "./generator.js";
 
 export class Game {
 	player = new Player()
-	grid = new Grid(3, 5)
+	grid = new Grid(5, 5)
 
 	constructor() {
-		console.log($("#game"))
+		// console.log($("#game"))
 		this.generator = new Generator(this.grid)
 		this.generator.generate()
 	}
