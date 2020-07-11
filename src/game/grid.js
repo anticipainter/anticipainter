@@ -59,7 +59,7 @@ export class Grid {
 	}
 
 	setWall(x, y, orientation, wall) {
-		if (x instanceof Vector) return this.setTile(x.x, x.y, y, orientation)
+		if (x instanceof Vector) return this.setWall(x.x, x.y, y, orientation)
 		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0))
 		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0))
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
