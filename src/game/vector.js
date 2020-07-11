@@ -24,6 +24,10 @@ export class Vector {
 		return (b === 0) ? new Vector(a.x / b, a.y / b) : new Vector();
 	}
 
+	static lerp(a, b, t) {
+		return Vector.add(a, Vector.mul(Vector.sub(b, a), t))
+	}
+
 	static rotate(vector, degrees=90) {
 		let rotated = new Vector();
 		rotated.x = Math.round(vector.x * Math.cos(degrees * 0.0174533) - vector.y * Math.sin(degrees * 0.0174533));
