@@ -4,7 +4,7 @@ import {Wall} from "./wall/wall.js"
 import {Vector} from "./vector.js"
 import {Grid} from "./grid.js"
 import {Generator} from "./generator.js"
-import {Orientation} from "./util.js"
+import {Direction, Orientation} from "./util.js"
 
 export class Game {
 	static sprites = new PIXI.Container()
@@ -80,6 +80,13 @@ export class Game {
 		this.app.renderer.resize(window.innerWidth, window.innerHeight);
 		Game.sprites.pivot.set(64 * Game.size.x / 2, 64 * Game.size.y / 2)
 		Game.sprites.position.set(this.app.renderer.width / 2, this.app.renderer.height / 2)
+	}
+
+	keyPress(key) {
+		if ([65, 37].includes(key)) this.player.queueMove(Direction.LEFT)
+		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
+		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
+		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
 	}
 
 	render() {

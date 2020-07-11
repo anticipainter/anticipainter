@@ -11,4 +11,16 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 
 let game = new Game(app)
 
-
+let keys = []
+$(document).keydown(function(event) {
+	if (!keys.includes(event.which)) {
+		keys.push(event.which)
+		game.keyPress(event.which)
+	}
+})
+$(document).keyup(function(event) {
+	keys = keys.filter(key => key !== event.which)
+})
+$(document).blur(function() {
+	keys.length = 0
+})

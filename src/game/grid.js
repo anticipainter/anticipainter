@@ -20,7 +20,6 @@ export class Grid {
 				if (y < this.size.y - 1) this.horizontalWalls[y][x] = undefined
 			}
 		}
-		console.log(this.verticalWalls)
 	}
 
 	setTile(x, y, tile) {
