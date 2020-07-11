@@ -1,5 +1,6 @@
 import {Vector} from "./vector.js";
 import {clamp, Orientation} from "./util.js";
+import {Tracer} from "./tile/tracer.js";
 
 export class Grid {
 	constructor(width = 0, height = 0) {
@@ -80,7 +81,10 @@ export class Grid {
 		let context = canvas.getContext("2d")
 		for (let y = 0; y < this.size.y; y++) {
 			for (let x = 0; x < this.size.x; x++) {
-				if (this.getTile(x, y) !== undefined) {
+				if (this.getTile(x, y) instanceof Tracer) {
+					context.fillStyle = "#00ff00"
+					context.fillRect(x * 100, y * 100, 100, 100)
+				} else if (this.getTile(x, y) !== undefined) {
 					context.fillStyle = "#0000ff"
 					context.fillRect(x * 100, y * 100, 100, 100)
 				}
