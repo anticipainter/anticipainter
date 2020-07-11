@@ -35,7 +35,7 @@ export class Game {
 		this.grid = new Grid(Game.size.x, Game.size.y)
 		this.generator = new Generator(this.grid)
 		this.generator.generate()
-		this.player = new Player()
+		this.player = new Player(this)
 
 		this.grid.forEachTile(function (tile) {
 			tile.start()
