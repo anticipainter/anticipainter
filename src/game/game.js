@@ -14,6 +14,9 @@ export class Game {
 	static size = new Vector(9, 9)
 	static resizeRate = 15
 
+	static screenShakeIntensity = 3
+	static screenShakeIntensityBonk = 10
+
 	constructor(app) {
 		this.app = app
 		this.frame = 0
@@ -64,8 +67,17 @@ export class Game {
 		// color += Math.round(0x000008 * intensity) + 0x000008
 		// this.app.renderer.backgroundColor = color
 
-		let pos = new Vector(Math.round(this.player.position.x), Math.round(this.player.position.y))
-		this.grid.getTile(pos).activate()
+		let playerPos = new Vector(Math.round(this.player.position.x), Math.round(this.player.position.y))
+		this.grid.getTile(playerPos).activate()
+
+		let pos = new Vector()
+		if (this.player.lerp <= 1 && this.player.lastAttemptedMove !== undefined) {
+			let direction = this.player.lastAttemptedMove
+			let lerp = (this.player.lerp < 0.5) ? this.player.lerp : 1 - this.player.lerp
+			if (!this.player.bonk) pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(direction), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensity)
+			else pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(Direction.inverse(direction)), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensityBonk)
+		}
+		this.app.stage.pivot.set(pos.x, pos.y)
 
 		if (this.frame % Game.resizeRate === 0) this.onResize()
 		for (let entity of Game.entities) {

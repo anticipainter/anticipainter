@@ -6,6 +6,7 @@ export class Player extends Entity {
 	game = undefined
 	currentMove = undefined
 	nextMove = undefined
+	lastAttemptedMove = undefined
 	lastPosition = undefined
 	bonk = false
 	lerp = 0
@@ -31,6 +32,7 @@ export class Player extends Entity {
 			this.currentMove = this.nextMove
 			this.nextMove = undefined
 			this.bonk = this.checkWall(this.position, this.currentMove)
+			this.lastAttemptedMove = this.currentMove
 			if (!this.bonk) {
 				this.lastPosition = this.position
 				this.position = Vector.add(this.position, Direction.toVector(this.currentMove))
