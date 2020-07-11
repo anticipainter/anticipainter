@@ -26,8 +26,6 @@ export class Grid {
 
 	setTile(x, y, tile) {
 		if (x instanceof Vector) return this.setTile(x.x, x.y, y)
-		// x = clamp(x, 0, this.size.x)
-		// y = clamp(y, 0, this.size.y)
 		if (x < 0 || x >= this.size.x) return
 		if (y < 0 || y >= this.size.y) return
 		tile.position.x = x
@@ -37,8 +35,6 @@ export class Grid {
 
 	getTile(x, y) {
 		if (x instanceof Vector) return this.getTile(x.x, x.y)
-		// x = clamp(x, 0, this.size.x)
-		// y = clamp(y, 0, this.size.y)
 		if (x < 0 || x >= this.size.x) return
 		if (y < 0 || y >= this.size.y) return
 		return this.tiles[y][x]
@@ -61,8 +57,6 @@ export class Grid {
 
 	setWall(x, y, orientation, wall) {
 		if (x instanceof Vector) return this.setWall(x.x, x.y, y, orientation)
-		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0))
-		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0))
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
 		wall.position.x = x
@@ -75,8 +69,6 @@ export class Grid {
 
 	getWall(x, y, orientation) {
 		if (x instanceof Vector) return this.getWall(x.x, x.y, y)
-		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0))
-		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0))
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
 		if (orientation === Orientation.VERTICAL) return this.verticalWalls[y][x]
