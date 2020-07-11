@@ -40,7 +40,7 @@ export class Player extends Entity {
 			this.lerp = 0
 		}
 		if (this.currentMove !== undefined) {
-			this.lerp += 0.2
+			this.lerp += 0.25
 			let position
 			if (this.bonk) {
 				let bonkPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove), 0.25))
