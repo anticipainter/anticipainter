@@ -12,9 +12,11 @@ export class Game {
 	static entities = []
 
 	static size = new Vector(9, 9)
+	static resizeRate = 15
 
 	constructor(app) {
 		this.app = app
+		this.frame = 0
 
 		this.app.loader.on("progress", this.loadProgressHandler)
 		this.loadResource(Player)
@@ -22,6 +24,7 @@ export class Game {
 			.loadResource(Wall)
 
 		this.onResize()
+
 
 		let game = this
 		this.app.loader.load((loader, resources) => { game.start(loader, resources) })
@@ -31,7 +34,7 @@ export class Game {
 	start(loader, resources) {
 		Game.resources = resources
 
-		// this.test()
+		this.test()
 		this.grid = new Grid(Game.size.x, Game.size.y)
 		this.generator = new Generator(this.grid)
 		this.generator.generate()
@@ -46,21 +49,24 @@ export class Game {
 		this.player.start()
 
 		this.app.stage.addChild(Game.sprites)
-		this.app.ticker.add(this.update)
+		let game = this
+		this.app.ticker.add(() => {game.update()})
 	}
 
 	test() {
-		for (let y = 0; y < Game.size.y; y++) {
-			for (let x = 0; x < Game.size.x; x++) {
-				let tile = new Wall()
-				tile.position.x = x;
-				tile.position.y = y;
-				if ((x + y) % 2 === 0) tile.setOrientation(Orientation.VERTICAL)
-			}
-		}
+
 	}
 
 	update() {
+		this.frame++
+		let intensity = (Math.sin(this.frame / 100) + 1) / 2
+		let color = Math.round((intensity * 0.05 + 0.1) * 255) * (1 + 256 + 65536)
+		color += Math.round(0x000008 * intensity) + 0x000008
+		// console.log(grey * Math.pow(256, 0))
+		// this.app.renderer.backgroundColor = intensity * (1 + 256 + 65536)
+		// this.app.renderer.backgroundColor = Math.floor(0x424242 * intensity)
+		this.app.renderer.backgroundColor = color
+		if (this.frame % Game.resizeRate === 0) this.onResize()
 		for (let entity of Game.entities) {
 			entity.update()
 		}
@@ -77,9 +83,13 @@ export class Game {
 	}
 
 	onResize() {
+		let width = this.app.renderer.width
+		let height = this.app.renderer.height
+		let scale = height / 1080 * 16 / Game.size.y
 		this.app.renderer.resize(window.innerWidth, window.innerHeight);
-		Game.sprites.pivot.set(64 * Game.size.x / 2, 64 * Game.size.y / 2)
-		Game.sprites.position.set(this.app.renderer.width / 2, this.app.renderer.height / 2)
+		Game.sprites.pivot.set(64 * (Game.size.x - 1) / 2, 64 * (Game.size.y - 1) / 2)
+		Game.sprites.position.set(width / 2, height / 2)
+		Game.sprites.scale.set(scale, scale)
 	}
 
 	keyPress(key) {

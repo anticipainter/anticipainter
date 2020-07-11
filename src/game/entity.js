@@ -14,8 +14,9 @@ export class Entity {
 		if (registryName === undefined || !(registryName in Game.resources)) return
 
 		this.sprite = new PIXI.Sprite(Game.resources[registryName].texture)
-		this.sprite.width = 64
-		this.sprite.height = 64
+		this.sprite.width *= 64 / 1000
+		this.sprite.height *= 64 / 1000
+		this.sprite.anchor.set(0.5, 0.5)
 
 		Game.sprites.addChild(this.sprite)
 	}
