@@ -11,7 +11,7 @@ export class Game {
 	static resources = {}
 	static entities = []
 
-	static size = new Vector(5, 5)
+	static size = new Vector(9, 9)
 
 	constructor(app) {
 		this.app = app
@@ -32,18 +32,18 @@ export class Game {
 		Game.resources = resources
 
 		// this.test()
-		this.grid = new Grid(5, 5)
+		this.grid = new Grid(Game.size.x, Game.size.y)
 		this.generator = new Generator(this.grid)
 		this.generator.generate()
 		this.player = new Player()
 
-		this.player.start()
 		this.grid.forEachTile(function (tile) {
 			tile.start()
 		})
 		this.grid.forEachWall(function (wall) {
 			wall.start()
 		})
+		this.player.start()
 
 		this.app.stage.addChild(Game.sprites)
 		this.app.ticker.add(this.update)
