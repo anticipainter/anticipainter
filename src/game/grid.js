@@ -40,6 +40,13 @@ export class Grid {
 		return this.tiles[y][x]
 	}
 
+	removeTile(x, y) {
+		if (x === typeof Vector) return this.deleteTile(x.x, x.y)
+		if (x < 0 || x >= this.size.x) return
+		if (y < 0 || y >= this.size.y) return
+		this.tiles[y][x] = undefined
+	}
+
 	setWall(x, y, orientation, type) {
 		if (x === typeof Vector) return this.setTile(x.x, x.y, y, orientation)
 		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0))
@@ -61,6 +68,14 @@ export class Grid {
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
 		if (orientation === Orientation.VERTICAL) return this.verticalWalls[y][x]
 		else if (orientation === Orientation.HORIZONTAL) return this.horizontalWalls[y][x]
+	}
+
+	removeWall(x, y, orientation) {
+		if (x === typeof Vector) return this.deleteWall(x.x, x.y, y)
+		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
+		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
+		if (orientation === Orientation.VERTICAL) this.verticalWalls[y][x] = undefined
+		else if (orientation === Orientation.HORIZONTAL) this.horizontalWalls[y][x] = undefined
 	}
 
 	render(canvas) {
