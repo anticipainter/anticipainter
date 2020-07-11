@@ -1,5 +1,6 @@
 import {Vector} from "./vector.js";
 import {clamp, Orientation} from "./util.js";
+import {Default} from "./tile/default.js";
 import {Tracer} from "./tile/tracer.js";
 
 export class Grid {
@@ -84,7 +85,7 @@ export class Grid {
 				if (this.getTile(x, y) instanceof Tracer) {
 					context.fillStyle = "#00ff00"
 					context.fillRect(x * 100, y * 100, 100, 100)
-				} else if (this.getTile(x, y) !== undefined) {
+				} else if (this.getTile(x, y) instanceof Default) {
 					context.fillStyle = "#0000ff"
 					context.fillRect(x * 100, y * 100, 100, 100)
 				}

@@ -4,6 +4,10 @@ export class Vector {
 		this.y = y;
 	}
 
+	static equals(a, b) {
+		return a.x == b.x && a.y == b.y
+	}
+
 	static add(a, b) {
 		return new Vector(a.x + b.x, a.y + b.y);
 	}
