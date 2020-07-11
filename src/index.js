@@ -1,7 +1,14 @@
 import {Game} from "./game/game.js";
-import {Tile} from "./game/tile/tile.js"
-import {Wall} from "./game/wall/wall.js"
-import {Orientation} from "./game/util.js"
 
-let game = new Game()
-game.render($("#game")[0].getContext("2d"))
+const app = new PIXI.Application({
+
+})
+document.body.appendChild(app.view)
+app.renderer.view.style.position = "absolute";
+app.renderer.view.style.display = "block";
+app.renderer.autoDensity = true;
+app.renderer.resize(window.innerWidth, window.innerHeight);
+
+let game = new Game(app)
+
+

@@ -1,7 +1,11 @@
 import {Entity} from "./entity.js";
 
 export class Player extends Entity {
-	constructor() {
-		super()
+	static getRegistryName() {
+		return "player"
+	}
+
+	static getResourcePath() {
+		return "res/drawable/player.svg"
 	}
 }

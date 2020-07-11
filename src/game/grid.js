@@ -2,6 +2,7 @@ import {Vector} from "./vector.js";
 import {clamp, Orientation} from "./util.js";
 import {Default} from "./tile/default.js";
 import {Tracer} from "./tile/tracer.js";
+import {Game} from "./game.js";
 
 export class Grid {
 	constructor(width = 0, height = 0) {
@@ -19,6 +20,7 @@ export class Grid {
 				if (y < this.size.y - 1) this.horizontalWalls[y][x] = undefined
 			}
 		}
+		console.log(this.verticalWalls)
 	}
 
 	setTile(x, y, tile) {
@@ -27,8 +29,8 @@ export class Grid {
 		// y = clamp(y, 0, this.size.y)
 		if (x < 0 || x >= this.size.x) return
 		if (y < 0 || y >= this.size.y) return
-		tile.x = x
-		tile.y = y
+		tile.position.x = x
+		tile.position.y = y
 		this.tiles[y][x] = tile
 	}
 
@@ -48,14 +50,24 @@ export class Grid {
 		this.tiles[y][x] = undefined
 	}
 
+	forEachTile(func) {
+		for (let y = 0; y < this.size.y; y++) {
+			for (let x = 0; x < this.size.x; x++) {
+				if (this.tiles[y][x] !== undefined) func(this.tiles[y][x])
+			}
+		}
+	}
+
 	setWall(x, y, orientation, wall) {
 		if (x instanceof Vector) return this.setTile(x.x, x.y, y, orientation)
 		// x = clamp(x, 0, this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0))
 		// y = clamp(y, 0, this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0))
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
-		wall.x = x
-		wall.y = y
+		wall.position.x = x
+		wall.position.y = y
+		wall.orientation = orientation
+		// wall.setOrientation(orientation)
 		if (orientation === Orientation.VERTICAL) this.verticalWalls[y][x] = wall
 		else if (orientation === Orientation.HORIZONTAL) this.horizontalWalls[y][x] = wall
 	}
@@ -74,8 +86,37 @@ export class Grid {
 		if (x instanceof Vector) return this.removeWall(x.x, x.y, y)
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? -1 : 0)) return
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? -1 : 0)) return
-		if (orientation === Orientation.VERTICAL) this.verticalWalls[y][x] = undefined
-		else if (orientation === Orientation.HORIZONTAL) this.horizontalWalls[y][x] = undefined
+		if (orientation === Orientation.VERTICAL) {
+			Game.sprites.removeChild(this.verticalWalls[y][x])
+			this.verticalWalls[y][x].sprite = undefined
+			this.verticalWalls[y][x] = undefined
+		}
+		else if (orientation === Orientation.HORIZONTAL) {
+			Game.sprites.removeChild(this.horizontalWalls[y][x])
+			this.horizontalWalls[y][x].sprite = undefined
+			this.horizontalWalls[y][x] = undefined
+		}
+	}
+
+	forEachWallHorizontal(func) {
+		for (let y = 0; y < this.size.y - 1; y++) {
+			for (let x = 0; x < this.size.x; x++) {
+				if (this.horizontalWalls[y][x] !== undefined) func(this.horizontalWalls[y][x])
+			}
+		}
+	}
+
+	forEachWallVertical(func) {
+		for (let y = 0; y < this.size.y; y++) {
+			for (let x = 0; x < this.size.x - 1; x++) {
+				if (this.verticalWalls[y][x] !== undefined) func(this.verticalWalls[y][x])
+			}
+		}
+	}
+
+	forEachWall(func) {
+		this.forEachWallHorizontal(func)
+		this.forEachWallVertical(func)
 	}
 
 	render(context) {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg" version="1.1"
+	width="1000"
+	height="1000">
+
+	<rect
+		x="0" y="490"
+		width="1000" height="20"
+		fill="#ff0066"/>
+
+</svg>
