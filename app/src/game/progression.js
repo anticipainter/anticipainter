@@ -54,6 +54,8 @@ export class Progression {
 					this.index++
 				}
 			}
+		} else if (now - this.intervalStart >= this.currentInterval - 200) {
+			this.game.display.dimSequence()
 		}
 		this.updateTimer(now)
 		this.updateTileCount()
