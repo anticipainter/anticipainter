@@ -8,7 +8,9 @@ export class Display {
 		this.view = {
 			main: $("#hud"),
 			sequence: $("#sequence"),
-			sector: $("#timer-sector")
+			sector: $("#timer-sector"),
+			numerator: $("#score-numerator"),
+			denominator: $("#score-denominator")
 		}
 	}
 
@@ -22,6 +24,11 @@ export class Display {
 		let angle = Math.round((1 - (time / 5)) * 360)
 		this.view.number.text(num)
 		this.view.sector.attr("d", this.getTimerPath(angle))
+	}
+
+	setScore(count, total) {
+		this.view.numerator.text(count)
+		this.view.denominator.text(total)
 	}
 
 	getTimerPath(percent) {
