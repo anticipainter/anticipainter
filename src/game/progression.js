@@ -1,10 +1,12 @@
 import {Sequence} from "./sequence.js"
+import {Hazard} from "./wall/hazard.js"
 
 export class Progression {
 	sequenceLength = 3
 	scanDistance = 3
 	sequenceInterval = 5000
 	sequenceTiming = 250
+	hazardFrequency = 0.25
 
 	constructor(game) {
 		this.sequence = undefined
@@ -17,6 +19,7 @@ export class Progression {
 		this.currentInterval = this.sequenceInterval
 		this.currentTiming = this.sequenceTiming
 		this.generateSequence()
+		this.placeHazards()
 	}
 
 	update() {
@@ -48,5 +51,17 @@ export class Progression {
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
 		this.game.display.clear()
 		this.game.display.showSequence(this.sequence)
+	}
+
+	placeHazards() {
+		let grid = this.game.grid
+		let frequency = this.hazardFrequency
+		this.game.grid.forEachWall(function(wall) {
+			if (Math.random() < frequency) {
+				let hazard = new Hazard()
+				grid.setWall(wall.position, wall.orientation, hazard)
+				hazard.start()
+			}
+		})
 	}
 }
