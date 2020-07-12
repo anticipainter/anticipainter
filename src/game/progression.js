@@ -45,7 +45,13 @@ export class Progression {
 				}
 			}
 		}
+		this.updateTimer(now)
 		this.updateTileCount()
+	}
+
+	updateTimer(now) {
+		let elapsed = Math.min(now - this.intervalStart, this.currentInterval)
+		// console.log(Math.ceil((this.currentInterval - elapsed) / 1000))
 	}
 
 	updateTileCount() {
