@@ -17,7 +17,7 @@ export class Display {
 	}
 
 	setTimer(time) {
-		console.log(time)
+		// console.log(time)
 		let num = Math.floor(time)
 		let angle = Math.round((1 - (time / 5)) * 360)
 		this.view.sector.attr("d", this.getTimerPath(angle))
@@ -44,12 +44,14 @@ export class Display {
 
 	showSequence(sequence) {
 		for (let direction of sequence) {
-			let path = this.getResourcePath(direction)
-			this.view.sequence.append(`
-				<div class="item">
-					<img class="arrow" src="${path}" alt="arrow"/>
-				</div>
-			`)
+			if (direction !== undefined) {
+				let path = this.getResourcePath(direction)
+				this.view.sequence.append(`
+					<div class="item">
+						<img class="arrow" src="${path}" alt="arrow"/>
+					</div>
+				`)
+			}
 		}
 	}
 
