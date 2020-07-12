@@ -31,7 +31,6 @@ export class Game {
 
 		this.onResize()
 
-
 		let game = this
 		this.app.loader.load((loader, resources) => { game.start(loader, resources) })
 		window.onresize = function() { game.onResize() }
@@ -70,8 +69,7 @@ export class Game {
 		// color += Math.round(0x000008 * intensity) + 0x000008
 		// this.app.renderer.backgroundColor = color
 
-		let playerPos = new Vector(Math.round(this.player.position.x), Math.round(this.player.position.y))
-		this.grid.getTile(playerPos).activate()
+		if (this.player.painting) this.grid.getTile(this.player.position.getRounded()).activate()
 
 		let pos = new Vector()
 		if (this.player.lerp <= 1 && this.player.lastAttemptedMove !== undefined) {

@@ -8,6 +8,7 @@ export class Player extends Entity {
 	upcomingMoves = []
 	lastAttemptedMove = undefined
 	lastPosition = undefined
+	painting = false
 	bonk = false
 	lerp = 0
 

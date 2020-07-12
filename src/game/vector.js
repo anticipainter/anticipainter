@@ -4,6 +4,10 @@ export class Vector {
 		this.y = y;
 	}
 
+	getRounded() {
+		return new Vector(Math.round(this.x), Math.round(this.y))
+	}
+
 	static equals(a, b) {
 		return a.x == b.x && a.y == b.y
 	}
