@@ -38,9 +38,11 @@ export class Progression {
 				this.generateSequence()
 			} else { // if the sequence is starting or ongoing
 				if (this.index === 0) { // if the sequence needs to start
+					this.game.display.dimSequence()
 					this.game.player.startSequence()
 				}
 				while (this.index < iterations) {
+					this.game.display.fadeDirection(this.index)
 					if (this.sequence[this.index] !== undefined) {
 						this.game.player.queueMove(this.sequence[this.index], true)
 						if (this.index === this.sequence.length - 2) this.game.player.endSequence()

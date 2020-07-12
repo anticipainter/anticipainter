@@ -63,6 +63,21 @@ export class Display {
 		}
 	}
 
+	dimSequence() {
+		for (let child of this.view.sequence.children()) {
+			$(child).animate({opacity: 0.25}, 0, () => {})
+		}
+	}
+
+	fadeDirection(index) {
+		let child = $(this.view.sequence.children()[index])
+		child.animate({opacity: 1.0}, 100, function() {
+			// child.animate({opacity: 0.25}, 200, function() {
+			//
+			// })
+		})
+	}
+
 	getResourcePath(direction) {
 		if (direction === Direction.LEFT) return "res/drawable/arrow_left.svg"
 		if (direction === Direction.RIGHT) return "res/drawable/arrow_right.svg"
