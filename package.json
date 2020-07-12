@@ -15,5 +15,8 @@
 	},
 	"repository": {
 		"url": "https://github.com/cooper-anderson/anticipainter"
+	},
+	"dependencies": {
+		"jquery": "^3.5.1"
 	}
 }
