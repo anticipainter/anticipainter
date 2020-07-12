@@ -77,7 +77,7 @@ export class Game {
 			this.grid.forEachTile(tile => tile.update())
 			if (this.victoryTimer === 0) {
 				$("body").fadeTo("slow", 0, () => {
-					window.location = "menu.html"
+					window.location = "results.html?state=win&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
 				})
 			}
 			return
@@ -107,24 +107,8 @@ export class Game {
 		this.progression.update()
 	}
 
-	// updateVictory() {
-	// 	if (Game.sprites.alpha > 0) Game.sprites.alpha -= 0.05
-	// 	else {
-			// $("body").fadeTo("slow", 0, () => {
-			// 	window.location = "menu.html"
-			// })
-
-		// }
-	// }
-
 	gameVictory() {
 		this.victory = true
-		// $("body").fadeTo("slow", 0, () => {
-		// 	window.location = "menu.html"
-		// })
-		$("body").fadeTo("slow", 0, () => {
-			window.location = "results.html?state=win&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
-		})
 	}
 
 	gameOver() {

@@ -65,7 +65,7 @@ export class Display {
 
 	dimSequence() {
 		for (let child of this.view.sequence.children()) {
-			$(child).animate({opacity: 0.25}, 0, () => {})
+			$(child).animate({opacity: 0.25}, 100, () => {})
 		}
 	}
 
