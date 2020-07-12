@@ -2,6 +2,7 @@ import {Entity} from "./entity.js"
 import {Vector} from "./vector.js"
 import {Direction, Orientation} from "./util.js"
 import {Hazard} from "./wall/hazard.js";
+import {Game} from "./game.js";
 
 export class Player extends Entity {
 	game = undefined
@@ -18,6 +19,16 @@ export class Player extends Entity {
 	constructor(game) {
 		super()
 		this.game = game
+	}
+
+	start() {
+		super.start()
+		this.eyes = new PIXI.Sprite(Game.resources["player_eyes"].texture)
+		this.eyes.anchor.set(0.5, 0.5)
+		this.eyesLast = Direction.UP
+		this.eyesAngle = 0
+		this.eyesSpeed = 10
+		this.sprite.addChild(this.eyes)
 	}
 
 	startSequence() {
@@ -45,7 +56,7 @@ export class Player extends Entity {
 
 	update() {
 		if (this.dead) {
-			console.log(this.lerp)
+			this.updateEyes()
 			let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove), 0.25))
 			let position = Vector.lerp(this.position, deadPosition, this.lerp / 0.25)
 			if (this.lerp > 1) {
@@ -71,6 +82,7 @@ export class Player extends Entity {
 		if (this.currentMove === undefined && this.upcomingMoves.length) {
 			this.currentMove = this.upcomingMoves[0]
 			this.upcomingMoves.shift()
+			this.setEyes()
 			this.lastAttemptedMove = this.currentMove
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			this.dead = this.checkHazard(this.position, this.currentMove)
@@ -112,6 +124,37 @@ export class Player extends Entity {
 			this.sprite.y = position.y * 64
 			if (this.lerp >= 1) this.currentMove = undefined
 		}
+		this.updateEyes()
+	}
+
+	areEyesStopped() {
+		return this.eyesLast === this.lastAttemptedMove
+	}
+
+	setEyes() {
+		if (this.lastAttemptedMove === undefined) return
+		this.eyesAngle = Direction.toAngle(this.lastAttemptedMove)
+		this.eyesLast = this.lastAttemptedMove
+		this.eyes.angle = this.eyesAngle
+	}
+
+	updateEyes() {
+		if (!this.dead) {
+			let loop = this.game.frame % 360
+			if (loop <= 15) {
+				let percent = loop / 15
+				if (percent < 0.5) this.eyes.alpha = 1 - 2 * percent
+				else this.eyes.alpha = 2 * percent - 1
+			}
+		}
+		if (this.lastAttemptedMove === undefined) return
+		if (this.areEyesStopped()) return
+		if (this.eyesAngle === Direction.toAngle(this.lastAttemptedMove)) this.eyesLast = this.lastAttemptedMove
+		else if (this.eyesLast === Direction.inverse(this.lastAttemptedMove)) this.eyesAngle += this.eyesSpeed * 2
+		else if (this.eyesLast === Direction.rightOf(this.lastAttemptedMove)) this.eyesAngle -= this.eyesSpeed
+		else if (this.eyesLast === Direction.leftOf(this.lastAttemptedMove)) this.eyesAngle += this.eyesSpeed
+		this.eyesAngle = (this.eyesAngle + 360) % 360
+		this.eyes.angle = this.eyesAngle
 	}
 
 	static getRegistryName() {
@@ -120,5 +163,12 @@ export class Player extends Entity {
 
 	static getResourcePath() {
 		return "res/drawable/player.svg"
+	}
+
+	static getLoadableObject() {
+		return [
+			{name: "player", url: "res/drawable/player.svg"},
+			{name: "player_eyes", url: "res/drawable/player_eyes.svg"}
+		]
 	}
 }

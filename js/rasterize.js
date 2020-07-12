@@ -4,7 +4,6 @@ const out = "../out/raster"
 
 function callback(err, result) {
 	if (err) console.error('Oh Nos: ',err)
-	console.log(result)
 	return result
 }
 

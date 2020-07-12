@@ -43,6 +43,11 @@
 			width="500" height="500"
 			transform="translate(-500, -500)"
 			fill="#819ca9"/>
-		
+
+		<g opacity="0.7" fill="#cfd8dc" transform="translate(100, 0)">
+			<circle cx="0" cy="-80" r="50"/>
+			<circle cx="0" cy="80" r="50"/>
+		</g>
+
 	</g>
 </svg>

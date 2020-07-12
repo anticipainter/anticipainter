@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg" version="1.1"
+	width="1000" height="1000">
+
+	<g opacity="0.7" fill="#cfd8dc" transform="translate(500, 500) translate(0, -100)">
+		<circle cx="-80" cy="0" r="50"/>
+		<circle cx="80" cy="0" r="50"/>
+	</g>
+
+</svg>

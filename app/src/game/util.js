@@ -39,6 +39,12 @@ export const Direction = {
 		if ([this.LEFT, this.RIGHT].includes(direction)) return Orientation.VERTICAL
 		if ([this.UP, this.DOWN].includes(direction)) return Orientation.HORIZONTAL
 	},
+	toAngle(direction) {
+		if (direction === this.LEFT) return 270
+		if (direction === this.RIGHT) return 90
+		if (direction === this.UP) return 0
+		if (direction === this.DOWN) return 180
+	},
 	wallCoordinates(position, direction) {
 		return new Vector(position.x + (direction === Direction.RIGHT ? 1 : 0), position.y + (direction === Direction.DOWN ? 1 : 0))
 	},

@@ -29,7 +29,7 @@ export class Game {
 		this.view = $("#game")
 		this.display = new Display(this)
 
-		this.app.loader.on("progress", this.loadProgressHandler)
+		this.app.loader.onProgress.add(this.loadProgressHandler)
 		this.loadResource(Player)
 			.loadResource(Tile)
 			.loadResource(Wall)
@@ -106,8 +106,8 @@ export class Game {
 	}
 
 	loadProgressHandler(loader, resource) {
-		console.log("loading: " + resource.url)
-		console.log("progress: " + loader.progress.toFixed(1) + "%")
+		console.info("loading: " + resource.url)
+		console.info("progress: " + loader.progress.toFixed(1) + "%")
 	}
 
 	onResize() {

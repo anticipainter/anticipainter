@@ -20,7 +20,6 @@ let game = new Game(app)
 
 let keys = []
 $(document).on("keydown", function(event) {
-	console.log(event)
 	if (event.which === 27) {
 		body.fadeTo("slow", 0, () => {
 			window.location = "menu.html"
