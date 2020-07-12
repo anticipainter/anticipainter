@@ -14,6 +14,8 @@ export class Progression {
 		this.sequence = undefined
 		this.index = 0
 		this.wave = 0
+		this.scoreCount = 0
+		this.scoreTotal = 0
 		this.game = game
 	}
 
@@ -71,6 +73,8 @@ export class Progression {
 			if (tile.activated) count++
 		})
 		this.game.display.setScore(count, total)
+		this.scoreCount = count
+		this.scoreTotal = total
 		let percent = count / total
 		/* if (percent < 0.05) {
 			this.sequenceLength = 2

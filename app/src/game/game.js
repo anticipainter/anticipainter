@@ -96,7 +96,7 @@ export class Game {
 
 	gameOver() {
 		$("body").fadeTo("slow", 0, () => {
-			window.location = "menu.html"
+			window.location = "results.html?state=lose&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
 		})
 	}
 
