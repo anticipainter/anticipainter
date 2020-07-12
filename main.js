@@ -4,6 +4,9 @@ let mainWindow
 
 function createMainWindow() {
 	const window = new BrowserWindow({
+		webPreferences: {
+			nodeIntegration: true
+		},
 		backgroundColor: 0x1b1b1b,
 		autoHideMenuBar: true,
 		show: false
