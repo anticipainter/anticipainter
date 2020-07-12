@@ -45,9 +45,7 @@ html, body {
 	display: flex;
 	color: #808e95;
 	justify-content: center;
-	/*display: inline-block;*/
 	align-items: center;
-	/*vertical-align: middle;*/
 }
 
 #score-wrapper > span {
@@ -64,11 +62,6 @@ html, body {
 	position: relative;
 	display: flex;
 	justify-content: center;
-	/*height: 100%;*/
-	/*width: 100%;*/
-	/*display: flex;*/
-	/*justify-content: flex-end;*/
-	/*flex-direction: column;*/
 }
 
 #timer-svg {
