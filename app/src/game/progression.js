@@ -100,9 +100,9 @@ export class Progression {
 		let grid = this.game.grid
 		let frequency = this.hazardFrequency
 		this.game.grid.forEachWall(function(old) {
-			let wall
-			if (Math.random() < frequency) wall = new Hazard()
-			else wall = new Wall()
+			let Type = Math.random() < frequency ? Hazard : Wall
+			if (typeof old === Type) return
+			let wall = new Type()
 			grid.setWall(old.position, old.orientation, wall)
 			wall.start()
 		})

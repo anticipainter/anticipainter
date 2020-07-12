@@ -9,11 +9,13 @@ export class Wall extends Entity {
 		super.start()
 		this.setOrientation(this.orientation)
 		this.updateSpritePos()
+		if (this.sprite !== undefined) this.sprite.alpha = 0.5
 	}
 
 	update() {
 		super.update();
 		this.updateSpritePos()
+		if (this.sprite !== undefined && this.sprite.alpha < 1) this.sprite.alpha += 0.05
 	}
 
 	updateSpritePos() {
