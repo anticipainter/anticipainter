@@ -45,7 +45,7 @@ export class Progression {
 	}
 
 	generateSequence(sequence) {
-		this.sequence = Sequence.generate(this.game.grid, this.game.player, 3, 3)
+		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
 		this.game.display.clear()
 		this.game.display.showSequence(this.sequence)
 	}
