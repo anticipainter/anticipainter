@@ -127,12 +127,6 @@ export class Game {
 		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
 		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
-		else if (key === 32) {
-			let sequence = Sequence.generate(this.grid, this.player, 3, 3)
-			this.display.clear()
-			this.display.showSequence(sequence)
-			this.progression.runSequence(sequence)
-		}
 	}
 
 	render() {

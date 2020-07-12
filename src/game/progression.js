@@ -3,7 +3,7 @@ import {Sequence} from "./sequence.js"
 export class Progression {
 	sequenceLength = 3
 	scanDistance = 3
-	sequenceInterval = 3000
+	sequenceInterval = 5000
 	sequenceTiming = 250
 
 	constructor(game) {
@@ -16,7 +16,7 @@ export class Progression {
 		this.intervalStart = new Date().getTime()
 		this.currentInterval = this.sequenceInterval
 		this.currentTiming = this.sequenceTiming
-		this.sequence = Sequence.generate(this.game.grid, this.game.player, 3, 3)
+		this.generateSequence()
 	}
 
 	update() {
@@ -25,12 +25,13 @@ export class Progression {
 
 		} else */ if (now - this.intervalStart >= this.currentInterval) {
 			let iterations = Math.floor((now - this.intervalStart - this.currentInterval) / this.currentTiming) + 1
-			if (iterations > this.sequence.length) { // if the sequence is finished
+			if (this.index >= this.sequence.length) { // if the sequence is finished
+				this.game.player.endSequence()
+				this.index = 0
 				this.intervalStart += this.currentInterval + this.currentTiming * (this.sequence.length - 1)
 				this.currentInterval = this.sequenceInterval
 				this.currentTiming = this.sequenceTiming
-				this.index = 0
-				this.game.player.endSequence()
+				this.generateSequence()
 			} else { // if the sequence is starting or ongoing
 				if (this.index === 0) { // if the sequence needs to start
 					this.game.player.startSequence()
@@ -43,7 +44,9 @@ export class Progression {
 		}
 	}
 
-	runSequence(sequence) {
-		this.sequence = sequence
+	generateSequence(sequence) {
+		this.sequence = Sequence.generate(this.game.grid, this.game.player, 3, 3)
+		this.game.display.clear()
+		this.game.display.showSequence(this.sequence)
 	}
 }
