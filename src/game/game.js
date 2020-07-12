@@ -2,10 +2,11 @@ import {Player} from "./player.js"
 import {Tile} from "./tile/tile.js"
 import {Wall} from "./wall/wall.js"
 import {Hazard} from "./wall/hazard.js"
-import {Vector} from "./vector.js"
 import {Grid} from "./grid.js"
 import {Generator} from "./generator.js"
 import {Sequence} from "./sequence.js"
+import {Progression} from "./progression.js"
+import {Vector} from "./vector.js"
 import {Direction, Orientation} from "./util.js"
 
 export class Game {
@@ -32,6 +33,7 @@ export class Game {
 		this.onResize()
 
 		let game = this
+		this.progression = new Progression(this)
 		this.app.loader.load((loader, resources) => { game.start(loader, resources) })
 		window.onresize = function() { game.onResize() }
 	}
@@ -69,7 +71,7 @@ export class Game {
 		// color += Math.round(0x000008 * intensity) + 0x000008
 		// this.app.renderer.backgroundColor = color
 
-		if (this.player.painting) this.grid.getTile(this.player.position.getRounded()).activate()
+		// if (this.player.painting) this.grid.getTile(this.player.position.getRounded()).activate()
 
 		let pos = new Vector()
 		if (this.player.lerp <= 1 && this.player.lastAttemptedMove !== undefined) {
@@ -84,6 +86,7 @@ export class Game {
 		for (let entity of Game.entities) {
 			entity.update()
 		}
+		this.progression.update()
 	}
 
 	loadResource(type) {
@@ -111,7 +114,7 @@ export class Game {
 		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
 		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
-		else if (key === 32) console.log(Sequence.generate(this.grid, this.player, 3, 3))
+		else if (key === 32) this.progression.runSequence(Sequence.generate(this.grid, this.player, 3, 3))
 	}
 
 	render() {
