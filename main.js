@@ -10,7 +10,7 @@ function createMainWindow() {
 	})
 	// window.maximize()
 
-	window.loadURL(__dirname + "/app/index.html")
+	window.loadFile("app/index.html")
 
 	window.on("closed", () => {
 		mainWindow = null
