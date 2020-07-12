@@ -33,10 +33,9 @@ export class Generator {
 	}
 
 	surround(position) { // surround a tile with walls
-		this.grid.setWall(position.x, position.y, Orientation.VERTICAL, new Wall())
-		this.grid.setWall(position.x + 1, position.y, Orientation.VERTICAL, new Wall())
-		this.grid.setWall(position.x, position.y, Orientation.HORIZONTAL, new Wall())
-		this.grid.setWall(position.x, position.y + 1, Orientation.HORIZONTAL, new Wall())
+		let directions = Direction.all()
+		for (let i = 0; i < directions.length; i++)
+			this.grid.setWall(Direction.wallCoordinates(position, directions[i]), Direction.toOrientation(directions[i]), new Wall())
 	}
 
 	open(position, direction) { // open (remove) one of the four walls surrounding a tile in a specified direction

@@ -3,10 +3,7 @@ import {Direction, Orientation} from "./util.js"
 
 export class Sequence {
 	static checkWall(grid, position, direction) {
-		if (direction === Direction.LEFT) return grid.getWall(position.x, position.y, Orientation.VERTICAL) !== undefined
-		if (direction === Direction.RIGHT) return grid.getWall(position.x + 1, position.y, Orientation.VERTICAL) !== undefined
-		if (direction === Direction.UP) return grid.getWall(position.x, position.y, Orientation.HORIZONTAL) !== undefined
-		if (direction === Direction.DOWN) return grid.getWall(position.x, position.y + 1, Orientation.HORIZONTAL) !== undefined
+		return grid.getWall(Direction.wallCoordinates(position, direction), Direction.toOrientation(direction)) !== undefined
 	}
 
 	static generate(grid, player, length, scanDistance) {

@@ -21,10 +21,7 @@ export class Player extends Entity {
 	}
 
 	checkWall(position, direction) {
-		if (direction === Direction.LEFT) return this.game.grid.getWall(position.x, position.y, Orientation.VERTICAL) !== undefined
-		if (direction === Direction.RIGHT) return this.game.grid.getWall(position.x + 1, position.y, Orientation.VERTICAL) !== undefined
-		if (direction === Direction.UP) return this.game.grid.getWall(position.x, position.y, Orientation.HORIZONTAL) !== undefined
-		if (direction === Direction.DOWN) return this.game.grid.getWall(position.x, position.y + 1, Orientation.HORIZONTAL) !== undefined
+		return this.game.grid.getWall(Direction.wallCoordinates(position, direction), Direction.toOrientation(direction)) !== undefined
 	}
 
 	update() {
