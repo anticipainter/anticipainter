@@ -52,12 +52,14 @@ export class Display {
 
 	showSequence(sequence) {
 		for (let direction of sequence) {
-			let path = this.getResourcePath(direction)
-			this.view.sequence.append(`
-				<div class="item">
-					<img class="arrow" src="${path}" alt="arrow"/>
-				</div>
-			`)
+			if (direction !== undefined) {
+				let path = this.getResourcePath(direction)
+				this.view.sequence.append(`
+					<div class="item">
+						<img class="arrow" src="${path}" alt="arrow"/>
+					</div>
+				`)
+			}
 		}
 	}
 

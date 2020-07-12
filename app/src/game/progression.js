@@ -41,7 +41,10 @@ export class Progression {
 					this.game.player.startSequence()
 				}
 				while (this.index < iterations) {
-					this.game.player.queueMove(this.sequence[this.index], true)
+					if (this.sequence[this.index] !== undefined) {
+						this.game.player.queueMove(this.sequence[this.index], true)
+						if (this.index === this.sequence.length - 2) this.game.player.endSequence()
+					}
 					this.index++
 				}
 			}
@@ -88,6 +91,7 @@ export class Progression {
 		if (this.game.player.dead) return
 		this.placeHazards()
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
+		this.sequence.push(undefined)
 		this.game.display.clear()
 		this.game.display.showSequence(this.sequence)
 	}
