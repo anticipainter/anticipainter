@@ -28,6 +28,8 @@ export class Game {
 		this.frame = 0
 		this.view = $("#game")
 		this.display = new Display(this)
+		this.victory = false
+		this.victoryTimer = 180
 
 		this.app.loader.onProgress.add(this.loadProgressHandler)
 		this.loadResource(Player)
@@ -69,6 +71,17 @@ export class Game {
 
 	update() {
 		this.frame++
+		if (this.victory) {
+			this.victoryTimer--
+			this.player.updateVictory()
+			this.grid.forEachTile(tile => tile.update())
+			if (this.victoryTimer === 0) {
+				$("body").fadeTo("slow", 0, () => {
+					window.location = "menu.html"
+				})
+			}
+			return
+		}
 		// let intensity = (Math.sin(this.frame / 100) + 1) / 2
 		// let color = Math.floor((intensity * 0.05 + 0.1) * 256) * (1 + 256 + 65536)
 		// color += Math.round(0x000008 * intensity) + 0x000008
@@ -92,6 +105,23 @@ export class Game {
 		this.player.update()
 
 		this.progression.update()
+	}
+
+	// updateVictory() {
+	// 	if (Game.sprites.alpha > 0) Game.sprites.alpha -= 0.05
+	// 	else {
+			// $("body").fadeTo("slow", 0, () => {
+			// 	window.location = "menu.html"
+			// })
+
+		// }
+	// }
+
+	gameVictory() {
+		this.victory = true
+		// $("body").fadeTo("slow", 0, () => {
+		// 	window.location = "menu.html"
+		// })
 	}
 
 	gameOver() {

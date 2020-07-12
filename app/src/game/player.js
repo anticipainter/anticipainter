@@ -127,6 +127,14 @@ export class Player extends Entity {
 		this.updateEyes()
 	}
 
+	updateVictory() {
+		this.lerp = Math.min(this.lerp + 0.2, 1)
+		let position = Vector.lerp(this.lastPosition, this.position, this.lerp)
+		this.sprite.x = position.x * 64
+		this.sprite.y = position.y * 64
+		this.eyes.angle += 15
+	}
+
 	areEyesStopped() {
 		return this.eyesLast === this.lastAttemptedMove
 	}

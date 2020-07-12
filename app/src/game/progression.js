@@ -78,6 +78,9 @@ export class Progression {
 		this.scoreCount = count
 		this.scoreTotal = total
 		let percent = count / total
+		if (count === total) {
+			this.game.gameVictory()
+		}
 		/* if (percent < 0.05) {
 			this.sequenceLength = 2
 			this.scanDistance = 2
