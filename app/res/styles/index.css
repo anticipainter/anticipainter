@@ -8,6 +8,10 @@ html, body {
 	font-family: Verdana, sans-serif;
 }
 
+.no-mouse {
+	pointer-events: none;
+}
+
 .container {
 	position: absolute;
 	width: 100%;
