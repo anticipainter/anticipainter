@@ -1,11 +1,41 @@
 import {Direction} from "../util.js";
+import {Vector} from "../vector.js";
 
 export class Display {
-	constructor() {
+	constructor(game) {
+		this.game = game
+		$("#timer").load("res/drawable/timer.svg")
 		this.view = {
 			main: $("#hud"),
-			sequence: $("#sequence")
+			sequence: $("#sequence"),
+			sector: $("#timer-sector")
 		}
+	}
+
+	start() {
+		this.view.sector = $("#timer-sector")
+	}
+
+	setTimer(time) {
+		console.log(time)
+		let num = Math.floor(time)
+		let angle = Math.round((1 - (time / 5)) * 360)
+		this.view.sector.attr("d", this.getTimerPath(angle))
+	}
+
+	getTimerPath(percent) {
+		let start = new Vector(500, 0)
+		let mid = new Vector(500, 500)
+		let offset = Vector.rotate(new Vector(0, 500), percent).getRounded()
+		let end = Vector.sub(mid, offset)
+		let radius = 500
+		let arcSweep = percent < 180 ? 1 : 0
+		return `
+			M ${start.x} ${start.y}
+			A ${radius} ${radius} 0 ${arcSweep} 0 ${end.x} ${end.y}
+			L ${mid.x} ${mid.y}
+			L ${start.x} ${start.y}
+		`
 	}
 
 	clear() {

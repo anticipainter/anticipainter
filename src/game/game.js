@@ -27,7 +27,7 @@ export class Game {
 		this.app = app
 		this.frame = 0
 		this.view = $("#game")
-		this.display = new Display()
+		this.display = new Display(this)
 
 		this.app.loader.on("progress", this.loadProgressHandler)
 		this.loadResource(Player)
@@ -46,7 +46,6 @@ export class Game {
 	start(loader, resources) {
 		Game.resources = resources
 
-		this.test()
 		this.grid = new Grid(Game.size.x, Game.size.y)
 		this.generator = new Generator(this.grid)
 		this.generator.generate()
@@ -57,22 +56,15 @@ export class Game {
 
 		this.player = new Player(this)
 
-		this.grid.forEachTile(function (tile) {
-			tile.start()
-		})
-		this.grid.forEachWall(function (wall) {
-			wall.start()
-		})
+		this.display.start()
+		this.grid.forEachTile(function (tile) { tile.start() })
+		this.grid.forEachWall(function (wall) { wall.start() })
 		this.player.start()
 		this.progression.start()
 
 		this.app.stage.addChild(Game.sprites)
 		let game = this
 		this.app.ticker.add(() => {game.update()})
-	}
-
-	test() {
-
 	}
 
 	update() {

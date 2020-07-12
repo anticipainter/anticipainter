@@ -51,7 +51,7 @@ export class Progression {
 
 	updateTimer(now) {
 		let elapsed = Math.min(now - this.intervalStart, this.currentInterval)
-		// console.log(Math.ceil((this.currentInterval - elapsed) / 1000))
+		this.game.display.setTimer((this.currentInterval - elapsed) / 1000)
 	}
 
 	updateTileCount() {
