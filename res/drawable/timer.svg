@@ -5,16 +5,30 @@
 	width="1000" height="1000"
 	viewBox="0 0 1000 1000">
 
+	<circle
+		cx="500" cy="500" r="500"
+		opacity="0.5"
+		fill="#424242" mask="url(#mask)"/>
+
 	<path
 		id="timer-sector"
 		fill="#cfd8dc"
 		mask="url(#mask)"
 		d="
 			M 500 0
-			A 500 500 0 0 0 172 877
+			A 500 500 0 1 0 501 0
 			L 500 500
 			L 500 0
 		"/>
+
+	<text
+		id="timer-number"
+		x="500" y="490"
+		text-anchor="middle"
+		dominant-baseline="central"
+		font-size="384"
+		font-family="Verdana"
+		fill="#cfd8dc"/>
 
 	<mask id="mask">
 		<rect x="0" y="0" width="1000" height="1000" fill="black"/>

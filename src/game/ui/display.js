@@ -13,13 +13,14 @@ export class Display {
 	}
 
 	start() {
+		this.view.number = $("#timer-number")
 		this.view.sector = $("#timer-sector")
 	}
 
 	setTimer(time) {
-		console.log(time)
-		let num = Math.floor(time)
+		let num = Math.ceil(time)
 		let angle = Math.round((1 - (time / 5)) * 360)
+		this.view.number.text(num)
 		this.view.sector.attr("d", this.getTimerPath(angle))
 	}
 
