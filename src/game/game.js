@@ -1,6 +1,7 @@
 import {Player} from "./player.js"
 import {Tile} from "./tile/tile.js"
 import {Wall} from "./wall/wall.js"
+import {Hazard} from "./wall/hazard.js"
 import {Vector} from "./vector.js"
 import {Grid} from "./grid.js"
 import {Generator} from "./generator.js"
@@ -26,6 +27,7 @@ export class Game {
 		this.loadResource(Player)
 			.loadResource(Tile)
 			.loadResource(Wall)
+			.loadResource(Hazard)
 
 		this.onResize()
 
