@@ -64,10 +64,10 @@ export class Progression {
 			total++
 			if (tile.activated) count++
 		})
-		// console.log(count, "/", total)
+		this.game.display.setScore(count, total)
 	}
 
-	generateSequence(sequence) {
+	generateSequence() {
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
 		this.sequence.push(undefined)
 		this.game.display.clear()

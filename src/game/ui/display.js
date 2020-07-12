@@ -8,19 +8,27 @@ export class Display {
 		this.view = {
 			main: $("#hud"),
 			sequence: $("#sequence"),
-			sector: $("#timer-sector")
+			sector: $("#timer-sector"),
+			numerator: $("#score-numerator"),
+			denominator: $("#score-denominator")
 		}
 	}
 
 	start() {
+		this.view.number = $("#timer-number")
 		this.view.sector = $("#timer-sector")
 	}
 
 	setTimer(time) {
-		// console.log(time)
-		let num = Math.floor(time)
+		let num = Math.ceil(time)
 		let angle = Math.round((1 - (time / 5)) * 360)
+		this.view.number.text(num)
 		this.view.sector.attr("d", this.getTimerPath(angle))
+	}
+
+	setScore(count, total) {
+		this.view.numerator.text(count)
+		this.view.denominator.text(total)
 	}
 
 	getTimerPath(percent) {
