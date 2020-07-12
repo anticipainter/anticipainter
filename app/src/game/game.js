@@ -94,6 +94,12 @@ export class Game {
 		this.progression.update()
 	}
 
+	gameOver() {
+		$("body").fadeTo("slow", 0, () => {
+			window.location = "menu.html"
+		})
+	}
+
 	loadResource(type) {
 		/* if (type instanceof Entity) */ this.app.loader.add(type.getLoadableObject())
 		return this

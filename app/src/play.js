@@ -2,9 +2,7 @@ import {Game} from "./game/game.js"
 
 let body = $("body")
 
-body.fadeTo("slow", 1, () => {
-
-})
+body.fadeTo("slow", 1, () => { })
 
 const app = new PIXI.Application({
 	antialias: true,

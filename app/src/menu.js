@@ -1,8 +1,6 @@
 let body = $("body")
 
-body.fadeTo("slow", 1, () => {
-
-})
+body.fadeTo("slow", 1, () => { })
 
 $("#play").on("click", e => {
 	body.fadeTo("fast", 0, () => {
