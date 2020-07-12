@@ -59,12 +59,26 @@ export class Grid {
 		if (x instanceof Vector) return this.setWall(x.x, x.y, y, orientation)
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
+		if (orientation === Orientation.VERTICAL) {
+			this.tryRemoveWallSprite(this.verticalWalls, x, y)
+			this.verticalWalls[y][x] = wall
+		} else if (orientation === Orientation.HORIZONTAL) {
+			this.tryRemoveWallSprite(this.horizontalWalls, x, y)
+			this.horizontalWalls[y][x] = wall
+		}
 		wall.position.x = x
 		wall.position.y = y
 		wall.orientation = orientation
-		// wall.setOrientation(orientation)
-		if (orientation === Orientation.VERTICAL) this.verticalWalls[y][x] = wall
-		else if (orientation === Orientation.HORIZONTAL) this.horizontalWalls[y][x] = wall
+	}
+
+	tryRemoveWallSprite(walls, x, y) {
+		if (walls[y][x] === undefined) return
+		let wall = walls[y][x]
+		if (wall.sprite !== undefined) {
+			wall.removeFromGameList()
+			wall.sprite = undefined
+		}
+		walls[y][x] = undefined
 	}
 
 	getWall(x, y, orientation) {
@@ -80,12 +94,12 @@ export class Grid {
 		if (x < 0 || x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
 		if (y < 0 || y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
 		if (orientation === Orientation.VERTICAL) {
-			Game.sprites.removeChild(this.verticalWalls[y][x])
+			this.verticalWalls[y][x].removeFromGameList()
 			this.verticalWalls[y][x].sprite = undefined
 			this.verticalWalls[y][x] = undefined
 		}
 		else if (orientation === Orientation.HORIZONTAL) {
-			Game.sprites.removeChild(this.horizontalWalls[y][x])
+			this.horizontalWalls[y][x].removeFromGameList()
 			this.horizontalWalls[y][x].sprite = undefined
 			this.horizontalWalls[y][x] = undefined
 		}

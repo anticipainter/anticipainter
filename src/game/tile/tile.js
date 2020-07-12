@@ -1,4 +1,5 @@
 import {Entity} from "../entity.js"
+import {Game} from "../game.js";
 
 export class Tile extends Entity {
 	image = new Image()
@@ -15,6 +16,14 @@ export class Tile extends Entity {
 		if (this.activated && this.sprite.alpha < 0.5) {
 			this.sprite.alpha += 0.05
 		}
+	}
+
+	addToGameList() {
+		if (this.sprite !== undefined) Game.tiles.addChild(this.sprite)
+	}
+
+	removeFromGameList() {
+		if (this.sprite !== undefined) Game.tiles.removeChild(this.sprite)
 	}
 
 	activate() {

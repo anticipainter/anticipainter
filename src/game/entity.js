@@ -8,8 +8,6 @@ export class Entity {
 	}
 
 	start() {
-		Game.entities.push(this)
-
 		let registryName = this.constructor.getRegistryName()
 		if (registryName === undefined || !(registryName in Game.resources)) return
 
@@ -18,13 +16,21 @@ export class Entity {
 		this.sprite.height *= 64 / 1000
 		this.sprite.anchor.set(0.5, 0.5)
 
-		Game.sprites.addChild(this.sprite)
+		this.addToGameList()
 	}
 
 	update() {
 		if (this.sprite === undefined) return
 		this.sprite.x = this.position.x * 64
 		this.sprite.y = this.position.y * 64
+	}
+
+	addToGameList() {
+		if (this.sprite !== undefined) Game.sprites.addChild(this.sprite)
+	}
+
+	removeFromGameList() {
+		if (this.sprite !== undefined) Game.sprites.removeChild(this.sprite)
 	}
 
 	static getRegistryName() {

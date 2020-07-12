@@ -1,7 +1,16 @@
 import {Wall} from "./wall.js"
 import {Orientation} from "../util.js"
+import {Game} from "../game.js";
 
 export class Hazard extends Wall {
+	addToGameList() {
+		if (this.sprite !== undefined) Game.hazards.addChild(this.sprite)
+	}
+
+	removeFromGameList() {
+		if (this.sprite !== undefined) Game.hazards.removeChild(this.sprite)
+	}
+
 	getLocalRegistryName() {
 		if (this.orientation === Orientation.HORIZONTAL) return "hazard_horizontal"
 		if (this.orientation === Orientation.VERTICAL) return "hazard_vertical"

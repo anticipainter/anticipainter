@@ -20,6 +20,14 @@ export class Wall extends Entity {
 		this.sprite.y = (this.position.y + y) * 64
 	}
 
+	addToGameList() {
+		if (this.sprite !== undefined) Game.walls.addChild(this.sprite)
+	}
+
+	removeFromGameList() {
+		if (this.sprite !== undefined) Game.walls.removeChild(this.sprite)
+	}
+
 	setOrientation(orientation) {
 		this.orientation = orientation
 		// this.sprite.setTexture(Game.resources[this.getLocalRegistryName()])

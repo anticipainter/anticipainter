@@ -12,8 +12,10 @@ import {Display} from "./ui/display.js";
 
 export class Game {
 	static sprites = new PIXI.Container()
+	static tiles = new PIXI.Container()
+	static walls = new PIXI.Container()
+	static hazards = new PIXI.Container()
 	static resources = {}
-	static entities = []
 
 	static size = new Vector(9, 9)
 	static resizeRate = 15
@@ -48,6 +50,11 @@ export class Game {
 		this.grid = new Grid(Game.size.x, Game.size.y)
 		this.generator = new Generator(this.grid)
 		this.generator.generate()
+
+		Game.sprites.addChild(Game.tiles)
+		Game.sprites.addChild(Game.walls)
+		Game.sprites.addChild(Game.hazards)
+
 		this.player = new Player(this)
 
 		this.grid.forEachTile(function (tile) {
@@ -86,9 +93,11 @@ export class Game {
 		this.app.stage.pivot.set(pos.x, pos.y)
 
 		if (this.frame % Game.resizeRate === 0) this.onResize()
-		for (let entity of Game.entities) {
-			entity.update()
-		}
+
+		this.grid.forEachTile(tile => tile.update())
+		this.grid.forEachWall(wall => wall.update())
+		this.player.update()
+
 		this.progression.update()
 	}
 
