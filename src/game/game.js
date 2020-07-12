@@ -121,8 +121,8 @@ export class Game {
 			let sequence = Sequence.generate(this.grid, this.player, 3, 3)
 			this.display.clear()
 			this.display.showSequence(sequence)
+			this.progression.runSequence(sequence)
 		}
-		else if (key === 32) this.progression.runSequence(Sequence.generate(this.grid, this.player, 3, 3))
 	}
 
 	render() {
