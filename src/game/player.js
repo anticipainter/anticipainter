@@ -35,6 +35,16 @@ export class Player extends Entity {
 	}
 
 	update() {
+		if (this.awaitingSequenceStart) {
+			this.locked = true
+			this.painting = true
+			this.awaitingSequenceStart = false
+		}
+		if (!this.upcomingMoves.length && this.awaitingSequenceEnd) {
+			this.locked = false
+			this.painting = false
+			this.awaitingSequenceEnd = false
+		}
 		if (this.currentMove === undefined && this.upcomingMoves.length) {
 			this.currentMove = this.upcomingMoves[0]
 			this.upcomingMoves.shift()
@@ -66,16 +76,6 @@ export class Player extends Entity {
 			this.sprite.x = position.x * 64
 			this.sprite.y = position.y * 64
 			if (this.lerp >= 1) this.currentMove = undefined
-		}
-		if (this.awaitingSequenceStart) {
-			this.locked = true
-			this.painting = true
-			this.awaitingSequenceStart = false
-		}
-		if (!this.upcomingMoves.length && this.awaitingSequenceEnd) {
-			this.locked = false
-			this.painting = false
-			this.awaitingSequenceEnd = false
 		}
 	}
 

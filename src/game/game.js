@@ -64,6 +64,7 @@ export class Game {
 			wall.start()
 		})
 		this.player.start()
+		this.progression.start()
 
 		this.app.stage.addChild(Game.sprites)
 		let game = this
