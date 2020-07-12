@@ -1,2 +1,2 @@
-# gmtk-submission
+# anticipainter
 GMTK-Submission

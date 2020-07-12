@@ -1,0 +1,14 @@
+{
+	"name": "anticipainter",
+	"version": "1.0.0",
+	"description": "Submission to the GMTK game jam 2020",
+	"scripts": {
+		"start": "electron main.js"
+	},
+	"devDependencies": {
+		"electron": "latest"
+	},
+	"repository": {
+		"url": "https://github.com/cooper-anderson/anticipainter"
+	}
+}
