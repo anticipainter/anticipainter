@@ -5,7 +5,7 @@ import {Direction, Orientation} from "./util.js"
 export class Player extends Entity {
 	game = undefined
 	currentMove = undefined
-	nextMove = undefined
+	upcomingMoves = []
 	lastAttemptedMove = undefined
 	lastPosition = undefined
 	bonk = false
@@ -16,8 +16,8 @@ export class Player extends Entity {
 		this.game = game
 	}
 
-	queueMove(move) {
-		if (this.nextMove === undefined) this.nextMove = move
+	queueMove(move, override = false) {
+		if (!this.upcomingMoves.length || override) this.upcomingMoves.push(move)
 	}
 
 	checkWall(position, direction) {
@@ -28,9 +28,9 @@ export class Player extends Entity {
 	}
 
 	update() {
-		if (this.currentMove === undefined && this.nextMove !== undefined) {
-			this.currentMove = this.nextMove
-			this.nextMove = undefined
+		if (this.currentMove === undefined && this.upcomingMoves.length) {
+			this.currentMove = this.upcomingMoves[0]
+			this.upcomingMoves.shift()
 			this.bonk = this.checkWall(this.position, this.currentMove)
 			this.lastAttemptedMove = this.currentMove
 			if (!this.bonk) {
