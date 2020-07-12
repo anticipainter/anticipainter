@@ -1,9 +1,10 @@
 import {Sequence} from "./sequence.js"
 import {Hazard} from "./wall/hazard.js"
+import {Wall} from "./wall/wall.js";
 
 export class Progression {
-	sequenceLength = 3
-	scanDistance = 3
+	sequenceLength = 2
+	scanDistance = 2
 	sequenceInterval = 5000
 	sequenceTiming = 250
 	hazardFrequency = 0.25
@@ -63,10 +64,29 @@ export class Progression {
 			if (tile.activated) count++
 		})
 		this.game.display.setScore(count, total)
+		let percent = count / total
+		if (percent < 0.05) {
+			this.sequenceLength = 2
+			this.scanDistance = 2
+			this.hazardFrequency = 0.25
+		} else if (percent < 0.25) {
+			this.sequenceLength = 3
+			this.scanDistance = 3
+			this.hazardFrequency = 0.35
+		} else if (percent < 0.5) {
+			this.sequenceLength = 4
+			this.scanDistance = 4
+			this.hazardFrequency = 0.5
+		} else {
+			this.sequenceLength = 5
+			this.scanDistance = 5
+			this.hazardFrequency = 0.8
+		}
 	}
 
 	generateSequence() {
 		if (this.game.player.dead) return
+		this.placeHazards()
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
 		this.game.display.clear()
 		this.game.display.showSequence(this.sequence)
@@ -75,12 +95,12 @@ export class Progression {
 	placeHazards() {
 		let grid = this.game.grid
 		let frequency = this.hazardFrequency
-		this.game.grid.forEachWall(function(wall) {
-			if (Math.random() < frequency) {
-				let hazard = new Hazard()
-				grid.setWall(wall.position, wall.orientation, hazard)
-				hazard.start()
-			}
+		this.game.grid.forEachWall(function(old) {
+			let wall
+			if (Math.random() < frequency) wall = new Hazard()
+			else wall = new Wall()
+			grid.setWall(old.position, old.orientation, wall)
+			wall.start()
 		})
 	}
 }

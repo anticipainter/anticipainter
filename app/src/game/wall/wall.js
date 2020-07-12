@@ -8,10 +8,16 @@ export class Wall extends Entity {
 	start() {
 		super.start()
 		this.setOrientation(this.orientation)
+		this.updateSpritePos()
 	}
 
 	update() {
 		super.update();
+		this.updateSpritePos()
+	}
+
+	updateSpritePos() {
+		if (this.sprite === undefined) return
 		let x = 0, y = 0
 		if (this.orientation === Orientation.HORIZONTAL) y = -0.5
 		if (this.orientation === Orientation.VERTICAL) x = -0.5
