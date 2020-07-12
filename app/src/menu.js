@@ -9,9 +9,9 @@ $("#play").on("click", e => {
 	})
 })
 
-$("#credits").on("click", e => {
+$("#about").on("click", e => {
 	body.fadeTo("fast", 0, () => {
-		window.location = "credits.html"
+		window.location = "about.html"
 	})
 })
 
