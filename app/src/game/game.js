@@ -122,6 +122,9 @@ export class Game {
 		// $("body").fadeTo("slow", 0, () => {
 		// 	window.location = "menu.html"
 		// })
+		$("body").fadeTo("slow", 0, () => {
+			window.location = "results.html?state=win&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
+		})
 	}
 
 	gameOver() {
