@@ -45,6 +45,17 @@ export class Progression {
 				}
 			}
 		}
+		this.updateTileCount()
+	}
+
+	updateTileCount() {
+		let count = 0
+		let total = 0
+		this.game.grid.forEachTile(function(tile) {
+			total++
+			if (tile.activated) count++
+		})
+		// console.log(count, "/", total)
 	}
 
 	generateSequence(sequence) {
