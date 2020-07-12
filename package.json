@@ -1,0 +1,19 @@
+{
+	"name": "anticipainter",
+	"version": "1.0.0",
+	"description": "Submission to the GMTK game jam 2020",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron main.js",
+		"build": "electron-packager ./ Anticipainter --platform=win32 --arch=x64 --out=out --overwrite --icon=out/raster/icon.ico --asar",
+		"rasterize": "node js/rasterize.js"
+	},
+	"devDependencies": {
+		"electron": "latest",
+		"electron-packager": "latest",
+		"node-pandoc": "latest"
+	},
+	"repository": {
+		"url": "https://github.com/cooper-anderson/anticipainter"
+	}
+}

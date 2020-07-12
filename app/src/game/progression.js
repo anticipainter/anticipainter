@@ -53,6 +53,7 @@ export class Progression {
 	}
 
 	updateTimer(now) {
+		if (this.game.player.dead) return
 		let elapsed = Math.min(now - this.intervalStart, this.currentInterval)
 		this.game.display.setTimer((this.currentInterval - elapsed) / 1000)
 	}
@@ -68,6 +69,7 @@ export class Progression {
 	}
 
 	generateSequence() {
+		if (this.game.player.dead) return
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
 		this.sequence.push(undefined)
 		this.game.display.clear()

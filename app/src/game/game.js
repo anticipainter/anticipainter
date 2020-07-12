@@ -29,7 +29,7 @@ export class Game {
 		this.view = $("#game")
 		this.display = new Display(this)
 
-		this.app.loader.on("progress", this.loadProgressHandler)
+		this.app.loader.onProgress.add(this.loadProgressHandler)
 		this.loadResource(Player)
 			.loadResource(Tile)
 			.loadResource(Wall)
@@ -94,14 +94,20 @@ export class Game {
 		this.progression.update()
 	}
 
+	gameOver() {
+		$("body").fadeTo("slow", 0, () => {
+			window.location = "menu.html"
+		})
+	}
+
 	loadResource(type) {
 		/* if (type instanceof Entity) */ this.app.loader.add(type.getLoadableObject())
 		return this
 	}
 
 	loadProgressHandler(loader, resource) {
-		console.log("loading: " + resource.url)
-		console.log("progress: " + loader.progress.toFixed(1) + "%")
+		console.info("loading: " + resource.url)
+		console.info("progress: " + loader.progress.toFixed(1) + "%")
 	}
 
 	onResize() {
