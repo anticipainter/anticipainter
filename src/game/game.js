@@ -7,6 +7,7 @@ import {Grid} from "./grid.js"
 import {Generator} from "./generator.js"
 import {Sequence} from "./sequence.js"
 import {Direction, Orientation} from "./util.js"
+import {Display} from "./ui/display.js";
 
 export class Game {
 	static sprites = new PIXI.Container()
@@ -22,6 +23,8 @@ export class Game {
 	constructor(app) {
 		this.app = app
 		this.frame = 0
+		this.view = $("#game")
+		this.display = new Display()
 
 		this.app.loader.on("progress", this.loadProgressHandler)
 		this.loadResource(Player)
@@ -97,10 +100,10 @@ export class Game {
 	}
 
 	onResize() {
+		this.app.renderer.resize(this.view.innerWidth(), this.view.innerHeight());
 		let width = this.app.renderer.width
 		let height = this.app.renderer.height
-		let scale = height / 1080 * 16 / Game.size.y
-		this.app.renderer.resize(window.innerWidth, window.innerHeight);
+		let scale = Math.min(width, height) / 1080 * 16 / Game.size.y
 		Game.sprites.pivot.set(64 * (Game.size.x - 1) / 2, 64 * (Game.size.y - 1) / 2)
 		Game.sprites.position.set(width / 2, height / 2)
 		Game.sprites.scale.set(scale, scale)
@@ -111,7 +114,11 @@ export class Game {
 		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
 		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
-		else if (key === 32) console.log(Sequence.generate(this.grid, this.player, 3, 3))
+		else if (key === 32) {
+			let sequence = Sequence.generate(this.grid, this.player, 3, 3)
+			this.display.clear()
+			this.display.showSequence(sequence)
+		}
 	}
 
 	render() {

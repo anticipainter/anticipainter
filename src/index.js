@@ -5,11 +5,12 @@ const app = new PIXI.Application({
 	backgroundColor: 0x263238
 })
 
-$("#game").append(app.view)
+let view = $("#game")
+view.append(app.view)
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 app.renderer.autoDensity = true;
-app.renderer.resize(window.innerWidth, window.innerHeight);
+app.renderer.resize(view.innerWidth(), view.innerHeight());
 
 let game = new Game(app)
 
