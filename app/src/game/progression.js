@@ -1,17 +1,19 @@
 import {Sequence} from "./sequence.js"
 import {Hazard} from "./wall/hazard.js"
-import {Wall} from "./wall/wall.js";
+import {Wall} from "./wall/wall.js"
 
 export class Progression {
 	sequenceLength = 2
 	scanDistance = 2
 	sequenceInterval = 5000
 	sequenceTiming = 250
-	hazardFrequency = 0.25
+	hazardFrequency = 0
+	regenerationWanted = false
 
 	constructor(game) {
 		this.sequence = undefined
 		this.index = 0
+		this.wave = 0
 		this.game = game
 	}
 
@@ -56,7 +58,7 @@ export class Progression {
 	updateTimer(now) {
 		if (this.game.player.dead) return
 		let elapsed = Math.min(now - this.intervalStart, this.currentInterval)
-		this.game.display.setTimer((this.currentInterval - elapsed) / 1000)
+		this.game.display.setTimer((this.currentInterval - elapsed) / 1000, this.currentInterval / 1000)
 	}
 
 	updateTileCount() {
@@ -68,7 +70,7 @@ export class Progression {
 		})
 		this.game.display.setScore(count, total)
 		let percent = count / total
-		if (percent < 0.05) {
+		/* if (percent < 0.05) {
 			this.sequenceLength = 2
 			this.scanDistance = 2
 			this.hazardFrequency = 0.25
@@ -84,12 +86,139 @@ export class Progression {
 			this.sequenceLength = 5
 			this.scanDistance = 5
 			this.hazardFrequency = 0.8
+		} */
+		// Progression that includes timing changes
+		/* if (percent < 0.05) {
+			this.sequenceLength = 2
+			this.scanDistance = 2
+			this.hazardFrequency = 0
+			if (this.wave < 0) this.regenerationWanted = true
+			this.wave = 0
+		} else if (percent < 0.1) {
+			this.sequenceInterval = 5000
+			this.sequenceLength = 2
+			this.scanDistance = 2
+			this.hazardFrequency = 0.2
+			if (this.wave < 1) this.regenerationWanted = true
+			this.wave = 1
+		} else if (percent < 0.2) {
+			this.sequenceInterval = 5000
+			this.sequenceLength = 3
+			this.scanDistance = 2
+			this.hazardFrequency = 0.25
+			if (this.wave < 2) this.regenerationWanted = true
+			this.wave = 2
+		} else if (percent < 0.3) {
+			this.sequenceInterval = 5000
+			this.sequenceLength = 3
+			this.scanDistance = 3
+			this.hazardFrequency = 0.35
+			if (this.wave < 3) this.regenerationWanted = true
+			this.wave = 3
+		} else if (percent < 0.4) {
+			this.sequenceInterval = 8000
+			this.sequenceLength = 4
+			this.scanDistance = 3
+			this.hazardFrequency = 0.35
+			if (this.wave < 4) this.regenerationWanted = true
+			this.wave = 4
+		} else if (percent < 0.5) {
+			this.sequenceInterval = 5000
+			this.sequenceLength = 4
+			this.scanDistance = 3
+			this.hazardFrequency = 0.35
+			if (this.wave < 5) this.regenerationWanted = true
+			this.wave = 5
+		} else if (percent < 0.6) {
+			this.sequenceInterval = 3000
+			this.sequenceLength = 3
+			this.scanDistance = 3
+			this.hazardFrequency = 0.35
+			if (this.wave < 6) this.regenerationWanted = true
+			this.wave = 6
+		} else if (percent < 0.7) {
+			this.sequenceInterval = 8000
+			this.sequenceLength = 5
+			this.scanDistance = 3
+			this.hazardFrequency = 0.5
+			if (this.wave < 7) this.regenerationWanted = true
+			this.wave = 7
+		} */
+		if (percent < 0.05) {
+			this.sequenceLength = 2
+			this.scanDistance = 2
+			this.hazardFrequency = 0
+			if (this.wave < 0) this.regenerationWanted = true
+			this.wave = 0
+		} else if (percent < 0.12) {
+			this.sequenceLength = 2
+			this.scanDistance = 2
+			this.hazardFrequency = 0.2
+			if (this.wave < 1) this.regenerationWanted = true
+			this.wave = 1
+		} else if (percent < 0.2) {
+			this.sequenceLength = 3
+			this.scanDistance = 2
+			this.hazardFrequency = 0.25
+			if (this.wave < 2) this.regenerationWanted = true
+			this.wave = 2
+		} else if (percent < 0.3) {
+			this.sequenceLength = 3
+			this.scanDistance = 3
+			this.hazardFrequency = 0.35
+			if (this.wave < 3) this.regenerationWanted = true
+			this.wave = 3
+		} else if (percent < 0.4) {
+			this.sequenceLength = 4
+			this.scanDistance = 2
+			this.hazardFrequency = 0.25
+			if (this.wave < 4) this.regenerationWanted = true
+			this.wave = 4
+		} else if (percent < 0.5) {
+			this.sequenceLength = 3
+			this.scanDistance = 3
+			this.hazardFrequency = 0.5
+			if (this.wave < 5) this.regenerationWanted = true
+			this.wave = 5
+		} else if (percent < 0.6) {
+			this.sequenceLength = 4
+			this.scanDistance = 3
+			this.hazardFrequency = 0.4
+			if (this.wave < 6) this.regenerationWanted = true
+			this.wave = 6
+		} else if (percent < 0.7) {
+			this.sequenceLength = 5
+			this.scanDistance = 2
+			this.hazardFrequency = 0.35
+			if (this.wave < 7) this.regenerationWanted = true
+			this.wave = 7
+		} else if (percent < 0.8) {
+			this.sequenceLength = 5
+			this.scanDistance = 3
+			this.hazardFrequency = 0.5
+			if (this.wave < 8) this.regenerationWanted = true
+			this.wave = 8
+		} else if (percent < 0.9) {
+			this.sequenceLength = 4
+			this.scanDistance = 3
+			this.hazardFrequency = 0.75
+			if (this.wave < 9) this.regenerationWanted = true
+			this.wave = 9
+		} else {
+			this.sequenceLength = 5
+			this.scanDistance = 3
+			this.hazardFrequency = 0.75
+			if (this.wave < 10) this.regenerationWanted = true
+			this.wave = 10
 		}
 	}
 
 	generateSequence() {
 		if (this.game.player.dead) return
-		this.placeHazards()
+		if (this.regenerationWanted) {
+			this.placeHazards()
+			this.regenerationWanted = false
+		}
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
 		this.sequence.push(undefined)
 		this.game.display.clear()
