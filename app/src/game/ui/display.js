@@ -19,9 +19,9 @@ export class Display {
 		this.view.sector = $("#timer-sector")
 	}
 
-	setTimer(time) {
+	setTimer(time, max) {
 		let num = Math.ceil(time)
-		let angle = Math.round((1 - (time / 5)) * 360)
+		let angle = Math.round((1 - (time / Math.ceil(max))) * 360)
 		this.view.number.text(num)
 		this.view.sector.attr("d", this.getTimerPath(angle))
 	}
