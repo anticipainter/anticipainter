@@ -4,11 +4,12 @@ import {Direction, Orientation} from "./util.js"
 
 export class Player extends Entity {
 	game = undefined
+	locked = false
+	painting = false
 	currentMove = undefined
 	upcomingMoves = []
 	lastAttemptedMove = undefined
 	lastPosition = undefined
-	painting = false
 	bonk = false
 	lerp = 0
 
@@ -17,8 +18,16 @@ export class Player extends Entity {
 		this.game = game
 	}
 
+	startSequence() {
+		this.awaitingSequenceStart = true
+	}
+
+	endSequence() {
+		this.awaitingSequenceEnd = true
+	}
+
 	queueMove(move, override = false) {
-		if (!this.upcomingMoves.length || override) this.upcomingMoves.push(move)
+		if ((!this.upcomingMoves.length && !this.locked) || override) this.upcomingMoves.push(move)
 	}
 
 	checkWall(position, direction) {
@@ -31,10 +40,12 @@ export class Player extends Entity {
 			this.upcomingMoves.shift()
 			this.bonk = this.checkWall(this.position, this.currentMove)
 			this.lastAttemptedMove = this.currentMove
+			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			if (!this.bonk) {
 				this.lastPosition = this.position
 				this.position = Vector.add(this.position, Direction.toVector(this.currentMove))
 			}
+			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			this.lerp = 0
 		}
 		if (this.currentMove !== undefined) {
@@ -55,6 +66,16 @@ export class Player extends Entity {
 			this.sprite.x = position.x * 64
 			this.sprite.y = position.y * 64
 			if (this.lerp >= 1) this.currentMove = undefined
+		}
+		if (this.awaitingSequenceStart) {
+			this.locked = true
+			this.painting = true
+			this.awaitingSequenceStart = false
+		}
+		if (!this.upcomingMoves.length && this.awaitingSequenceEnd) {
+			this.locked = false
+			this.painting = false
+			this.awaitingSequenceEnd = false
 		}
 	}
 
