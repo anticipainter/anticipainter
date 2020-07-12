@@ -4,6 +4,10 @@ export class Vector {
 		this.y = y;
 	}
 
+	static zero() {
+		return new Vector(0, 0)
+	}
+
 	static equals(a, b) {
 		return a.x == b.x && a.y == b.y
 	}
@@ -22,6 +26,10 @@ export class Vector {
 
 	static div(a, b) {
 		return (b === 0) ? new Vector(a.x / b, a.y / b) : new Vector();
+	}
+
+	static neg(a) {
+		return new Vector(-a.x, -a.y)
 	}
 
 	static lerp(a, b, t) {
