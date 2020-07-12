@@ -5,8 +5,8 @@
 	height="1040">
 
 	<rect
-		x="500" y="0"
-		width="40" height="1040"
-		fill="#cccccc"/>
+		x="0" y="500"
+		width="1040" height="40"
+		fill="#ff1744"/>
 
 </svg>

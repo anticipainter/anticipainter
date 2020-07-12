@@ -35,6 +35,13 @@ export const Direction = {
 		if (direction === this.UP) return new Vector(0, -1)
 		if (direction === this.DOWN) return new Vector(0, 1)
 	},
+	toOrientation(direction) {
+		if ([this.LEFT, this.RIGHT].includes(direction)) return Orientation.VERTICAL
+		if ([this.UP, this.DOWN].includes(direction)) return Orientation.HORIZONTAL
+	},
+	wallCoordinates(position, direction) {
+		return new Vector(position.x + (direction === Direction.RIGHT ? 1 : 0), position.y + (direction === Direction.DOWN ? 1 : 0))
+	},
 	all() {
 		return [this.LEFT, this.RIGHT, this.UP, this.DOWN]
 	},

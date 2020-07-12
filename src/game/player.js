@@ -5,7 +5,7 @@ import {Direction, Orientation} from "./util.js"
 export class Player extends Entity {
 	game = undefined
 	currentMove = undefined
-	nextMove = undefined
+	upcomingMoves = []
 	lastAttemptedMove = undefined
 	lastPosition = undefined
 	bonk = false
@@ -16,21 +16,18 @@ export class Player extends Entity {
 		this.game = game
 	}
 
-	queueMove(move) {
-		if (this.nextMove === undefined) this.nextMove = move
+	queueMove(move, override = false) {
+		if (!this.upcomingMoves.length || override) this.upcomingMoves.push(move)
 	}
 
 	checkWall(position, direction) {
-		if (direction === Direction.LEFT) return this.game.grid.getWall(position.x, position.y, Orientation.VERTICAL) !== undefined
-		if (direction === Direction.RIGHT) return this.game.grid.getWall(position.x + 1, position.y, Orientation.VERTICAL) !== undefined
-		if (direction === Direction.UP) return this.game.grid.getWall(position.x, position.y, Orientation.HORIZONTAL) !== undefined
-		if (direction === Direction.DOWN) return this.game.grid.getWall(position.x, position.y + 1, Orientation.HORIZONTAL) !== undefined
+		return this.game.grid.getWall(Direction.wallCoordinates(position, direction), Direction.toOrientation(direction)) !== undefined
 	}
 
 	update() {
-		if (this.currentMove === undefined && this.nextMove !== undefined) {
-			this.currentMove = this.nextMove
-			this.nextMove = undefined
+		if (this.currentMove === undefined && this.upcomingMoves.length) {
+			this.currentMove = this.upcomingMoves[0]
+			this.upcomingMoves.shift()
 			this.bonk = this.checkWall(this.position, this.currentMove)
 			this.lastAttemptedMove = this.currentMove
 			if (!this.bonk) {
