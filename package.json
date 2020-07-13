@@ -5,11 +5,12 @@
 	"main": "main.js",
 	"scripts": {
 		"start": "electron main.js",
-		"build": "electron-packager ./ Anticipainter --platform=win32 --arch=x64 --out=out --overwrite --icon=out/raster/icon.ico --asar",
-		"rasterize": "node js/rasterize.js"
+		"rasterize": "node js/rasterize.js",
+		"build": "electron-builder --dir"
 	},
 	"devDependencies": {
 		"electron": "latest",
+		"electron-builder": "latest",
 		"electron-packager": "latest",
 		"node-pandoc": "latest"
 	},
@@ -18,5 +19,12 @@
 	},
 	"dependencies": {
 		"jquery": "^3.5.1"
+	},
+	"build": {
+		"productName": "Anticipainter",
+		"directories": {
+			"output": "out",
+			"buildResources": "out/raster"
+		}
 	}
 }
