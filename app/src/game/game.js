@@ -131,7 +131,7 @@ export class Game {
 		this.app.renderer.resize(this.view.innerWidth(), this.view.innerHeight());
 		let width = this.app.renderer.width
 		let height = this.app.renderer.height
-		let scale = Math.min(width, height) / 1080 * 16 / Game.size.y
+		let scale = Math.min(width, height) / 1080 * 16 / Math.max(Game.size.x, Game.size.y)
 		Game.sprites.pivot.set(64 * (Game.size.x - 1) / 2, 64 * (Game.size.y - 1) / 2)
 		Game.sprites.position.set(width / 2, height / 2)
 		Game.sprites.scale.set(scale, scale)
