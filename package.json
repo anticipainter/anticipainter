@@ -2,12 +2,12 @@
 	"name": "anticipainter",
 	"version": "1.0.0",
 	"description": "Submission to the GMTK game jam 2020",
-	"main": "js/main.js",
+	"main": "main.js",
 	"repository": {
 		"url": "https://github.com/cooper-anderson/anticipainter"
 	},
 	"scripts": {
-		"start": "electron js/main.js",
+		"start": "electron main.js",
 		"rasterize": "node js/rasterize.js",
 		"build": "electron-builder --dir"
 	},

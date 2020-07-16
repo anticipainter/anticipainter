@@ -6,14 +6,14 @@ let mainWindow
 function createMainWindow() {
 	const window = new BrowserWindow({
 		webPreferences: {
-			preload: path.join(app.getAppPath(), "preload.js")
+			preload: path.join(app.getAppPath(), "js/preload.js")
 		},
 		backgroundColor: 0x1b1b1b,
 		autoHideMenuBar: true,
 		show: false
 	})
 
-	window.loadFile("../app/index.html")
+	window.loadFile("app/index.html")
 	window.on("closed", () => { mainWindow = null })
 
 	window.show()
