@@ -6,6 +6,7 @@ html, body {
 	background: #263238;
 	color: #cfd8dc;
 	font-family: Verdana, sans-serif;
+	overflow: hidden;
 }
 
 .no-mouse {
