@@ -2,7 +2,7 @@ let body = $("body")
 
 body.fadeTo("slow", 1, () => { })
 
-$(document).on("ready", function() {
+$(function() {
 	let params = window.location.search.slice(1).split("&")
 	let state = params[0].split("=")[1]
 	if (state === "lose") $("#state").text("You Died...")
