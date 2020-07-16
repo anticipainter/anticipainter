@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg" version="1.1"
+	width="1000" height="1000">
+
+	<g opacity="0.7" fill="#ff1744" transform="translate(500, 500) translate(0, -100)">
+		<rect x="-12.5" y="-50" width="25" height="100" transform="translate(-80) rotate(45)"/>
+		<rect x="-12.5" y="-50" width="25" height="100" transform="translate(80) rotate(-45)"/>
+	</g>
+
+</svg>
