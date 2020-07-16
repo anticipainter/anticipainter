@@ -1,4 +1,3 @@
-let $ = require("jquery")
 let title = $("#title")
 
 title.fadeTo("slow", 1, () => {

@@ -1,4 +1,3 @@
-let $ = require("jquery")
 let body = $("body")
 
 body.fadeTo("slow", 1, () => { })
