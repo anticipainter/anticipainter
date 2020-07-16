@@ -3,6 +3,11 @@
 	"version": "1.0.0",
 	"description": "Submission to the GMTK game jam 2020",
 	"main": "js/main.js",
+	"author": {
+		"name": "Cooper Anderson",
+		"email": "cooper@cooperstuff.ninja",
+		"url": "cooperstuff.ninja"
+	},
 	"repository": {
 		"url": "https://github.com/cooper-anderson/anticipainter"
 	},
