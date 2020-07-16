@@ -31,12 +31,16 @@ $(document).on("keydown", function(event) {
 	}
 })
 
-// $(document).on('swipeleft', (e) => { game.keyPress(65) })
-// $(document).on('swiperight', (e) => { game.keyPress(68) })
-// $(document).on('swipeup', (e) => { game.keyPress(87) })
-// $(document).on('swipedown', (e) => { game.keyPress(83) })
-$(window).on("swipe", (e) => {
-	window.location = "menu.html"
+$(() => {
+	$(document).swipe({
+		swipe: (event, direction, distance, duration, fingerCount, fingerData) => {
+			// window.location = "menu.html"
+			if (direction === "left") game.keyPress(65);
+			else if (direction === "right") game.keyPress(68);
+			else if (direction === "up") game.keyPress(87);
+			else if (direction === "down") game.keyPress(83);
+		}
+	})
 })
 
 
