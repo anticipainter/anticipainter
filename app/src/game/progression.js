@@ -2,6 +2,14 @@ import {Hazard} from "./wall/hazard.js"
 import {Sequence} from "./sequence.js"
 import {Wall} from "./wall/wall.js"
 
+class Event {
+	constructor(func, time) {
+		this.run = func
+		this.time = time
+		this.done = false
+	}
+}
+
 export class Progression {
 	sequenceLength = 2
 	scanDistance = 2
@@ -9,6 +17,7 @@ export class Progression {
 	sequenceTiming = 250
 	hazardFrequency = 0
 	regenerationWanted = false
+	events = []
 
 	constructor(game) {
 		this.sequence = undefined
@@ -19,46 +28,49 @@ export class Progression {
 		this.game = game
 	}
 
-	start() {
-		this.intervalStart = new Date().getTime()
+	generateEvents() {
 		this.currentInterval = this.sequenceInterval
 		this.currentTiming = this.sequenceTiming
 		this.generateSequence()
+		let progression = this
+		this.events.length = 0
+		this.events.push(new Event(function() {
+			progression.game.display.dimSequence()
+		}, this.currentInterval - 200))
+		for (let i = 0; i < this.sequence.length; i++) {
+			this.events.push(new Event(function () {
+				if (i === 0) progression.game.player.startSequence()
+				progression.game.display.fadeDirection(i)
+				progression.game.player.queueMove(progression.sequence[i], true)
+				if (i === progression.sequence.length - 1) progression.game.player.endSequence()
+			}, this.currentInterval + this.currentTiming * i))
+		}
+		this.events.push(new Event(function() {
+			progression.resetTimer(progression.currentInterval + progression.currentTiming * progression.sequence.length)
+		}, this.currentInterval + this.currentTiming * this.sequence.length))
+	}
+
+	start() {
+		this.intervalStart = new Date().getTime()
+		this.generateEvents()
 		this.placeHazards()
+	}
+
+	resetTimer(interval) {
+		this.intervalStart += interval
+		this.generateEvents()
 	}
 
 	update() {
 		let now = new Date().getTime()
-		/* if (now - this.intervalStart >= this.currentInterval + this.currentTiming * (this.sequence.length - 1)) {
-
-		} else */ if (now - this.intervalStart >= this.currentInterval) {
-			let iterations = Math.floor((now - this.intervalStart - this.currentInterval) / this.currentTiming) + 1
-			if (this.index >= this.sequence.length) { // if the sequence is finished
-				this.game.player.endSequence()
-				this.index = 0
-				this.intervalStart += this.currentInterval + this.currentTiming * (this.sequence.length - 1)
-				this.currentInterval = this.sequenceInterval
-				this.currentTiming = this.sequenceTiming
-				this.generateSequence()
-			} else { // if the sequence is starting or ongoing
-				if (this.index === 0) { // if the sequence needs to start
-					this.game.display.dimSequence()
-					this.game.player.startSequence()
-				}
-				while (this.index < iterations) {
-					this.game.display.fadeDirection(this.index)
-					if (this.sequence[this.index] !== undefined) {
-						this.game.player.queueMove(this.sequence[this.index], true)
-						if (this.index === this.sequence.length - 2) this.game.player.endSequence()
-					}
-					this.index++
-				}
-			}
-		} else if (now - this.intervalStart >= this.currentInterval - 200) {
-			this.game.display.dimSequence()
-		}
 		this.updateTimer(now)
 		this.updateTileCount()
+		for (let event of this.events) {
+			if (now - this.intervalStart >= event.time && !event.done) {
+				event.done = true
+				event.run()
+			}
+		}
 	}
 
 	updateTimer(now) {
@@ -231,7 +243,6 @@ export class Progression {
 			this.regenerationWanted = false
 		}
 		this.sequence = Sequence.generate(this.game.grid, this.game.player, this.sequenceLength, this.scanDistance)
-		this.sequence.push(undefined)
 		this.game.display.clear()
 		this.game.display.showSequence(this.sequence)
 	}
