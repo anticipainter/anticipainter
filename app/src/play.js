@@ -31,6 +31,11 @@ $(document).on("keydown", function(event) {
 	}
 })
 
+$(document).on('swipeleft', (e) => { game.keyPress(65) })
+$(document).on('swiperight', (e) => { game.keyPress(68) })
+$(document).on('swipeup', (e) => { game.keyPress(87) })
+$(document).on('swipedown', (e) => { game.keyPress(83) })
+
 $(document).on("keyup", function(event) {
 	keys = keys.filter(key => key !== event.which)
 })
