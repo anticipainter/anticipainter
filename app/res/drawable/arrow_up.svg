@@ -7,16 +7,20 @@
 	viewBox="0 0 1000 1000">
 
 	<symbol id="arrow-up">
-		<g transform="translate(500, 330)">
+		<g transform="translate(500, 200)">
 			<rect
 				x="-25" y="-25"
-				width="500" height="50"
-				transform="rotate(45)"
+				width="350" height="50"
+				transform="rotate(50)"
 				rx="25"/>
 			<rect
 				x="-25" y="-25"
-				width="50" height="500"
-				transform="rotate(45)"
+				width="50" height="350"
+				transform="rotate(40)"
+				rx="25"/>
+			<rect
+				x="-25" y="-25"
+				width="50" height="600"
 				rx="25"/>
 		</g>
 	</symbol>
