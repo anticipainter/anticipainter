@@ -57,6 +57,8 @@ export class Game {
 		Game.sprites.addChild(Game.hazards)
 
 		this.player = new Player(this)
+		this.player.position.x = Math.floor(Math.random() * Game.size.x)
+		this.player.position.y = Math.floor(Math.random() * Game.size.y)
 
 		this.display.start()
 		this.grid.forEachTile(function (tile) { tile.start() })

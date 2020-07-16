@@ -23,6 +23,8 @@ export class Player extends Entity {
 
 	start() {
 		super.start()
+		this.sprite.x = this.position.x * 64
+		this.sprite.y = this.position.y * 64
 		this.eyes = new PIXI.Sprite(Game.resources["player_eyes"].texture)
 		this.eyes.anchor.set(0.5, 0.5)
 		this.eyesLast = Direction.UP
