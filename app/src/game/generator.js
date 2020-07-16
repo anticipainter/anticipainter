@@ -1,7 +1,7 @@
-import {Vector} from "./vector.js"
-import {Direction, Orientation} from "./util.js"
 import {Default} from "./tile/default.js"
+import {Direction, Orientation} from "./util.js"
 import {Tracer} from "./tile/tracer.js"
+import {Vector} from "./vector.js"
 import {Wall} from "./wall/wall.js"
 
 export class Generator {

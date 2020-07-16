@@ -11,6 +11,5 @@ $("#back").on("click", e => {
 $("a").on("click", e => {
 	e.preventDefault()
 	let href = $(e.target).attr("href")
-	// shell.openExternal(href)
 	preload.openExternal(href)
 })

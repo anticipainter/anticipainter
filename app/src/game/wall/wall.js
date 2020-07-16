@@ -1,6 +1,6 @@
 import {Entity} from "../entity.js"
-import {Orientation} from "../util.js"
 import {Game} from "../game.js"
+import {Orientation} from "../util.js"
 
 export class Wall extends Entity {
 	orientation = Orientation.HORIZONTAL

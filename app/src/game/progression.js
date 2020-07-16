@@ -1,5 +1,5 @@
-import {Sequence} from "./sequence.js"
 import {Hazard} from "./wall/hazard.js"
+import {Sequence} from "./sequence.js"
 import {Wall} from "./wall/wall.js"
 
 export class Progression {

@@ -1,6 +1,6 @@
-import {Vector} from "./vector.js"
-import {Direction, Orientation} from "./util.js"
+import {Direction} from "./util.js"
 import {Hazard} from "./wall/hazard.js"
+import {Vector} from "./vector.js"
 
 function scanWall(grid, position, direction) {
 	return grid.getWall(Direction.wallCoordinates(position, direction), Direction.toOrientation(direction))

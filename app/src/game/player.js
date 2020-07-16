@@ -1,8 +1,8 @@
 import {Entity} from "./entity.js"
-import {Vector} from "./vector.js"
-import {Direction, Orientation} from "./util.js"
-import {Hazard} from "./wall/hazard.js";
+import {Direction} from "./util.js"
 import {Game} from "./game.js";
+import {Hazard} from "./wall/hazard.js";
+import {Vector} from "./vector.js"
 
 export class Player extends Entity {
 	game = undefined

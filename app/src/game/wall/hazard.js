@@ -1,6 +1,6 @@
-import {Wall} from "./wall.js"
-import {Orientation} from "../util.js"
 import {Game} from "../game.js";
+import {Orientation} from "../util.js"
+import {Wall} from "./wall.js"
 
 export class Hazard extends Wall {
 	addToGameList() {

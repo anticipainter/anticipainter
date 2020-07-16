@@ -1,14 +1,13 @@
-import {Player} from "./player.js"
-import {Tile} from "./tile/tile.js"
-import {Wall} from "./wall/wall.js"
-import {Hazard} from "./wall/hazard.js"
-import {Grid} from "./grid.js"
+import {Direction} from "./util.js"
+import {Display} from "./ui/display.js"
 import {Generator} from "./generator.js"
-import {Sequence} from "./sequence.js"
+import {Grid} from "./grid.js"
+import {Hazard} from "./wall/hazard.js"
+import {Player} from "./player.js"
 import {Progression} from "./progression.js"
+import {Tile} from "./tile/tile.js"
 import {Vector} from "./vector.js"
-import {Direction, Orientation} from "./util.js"
-import {Display} from "./ui/display.js";
+import {Wall} from "./wall/wall.js"
 
 export class Game {
 	static sprites = new PIXI.Container()
