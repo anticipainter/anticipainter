@@ -25,12 +25,20 @@ export class Player extends Entity {
 		super.start()
 		this.sprite.x = this.position.x * 64
 		this.sprite.y = this.position.y * 64
-		this.eyes = new PIXI.Sprite(Game.resources["player_eyes"].texture)
-		this.eyes.anchor.set(0.5, 0.5)
+		this.eyes = {
+			parent: new PIXI.Container(),
+			norm: new PIXI.Sprite(Game.resources["player_eyes_norm"].texture),
+			exec: new PIXI.Sprite(Game.resources["player_eyes_exec"].texture)
+		}
+		this.eyes.norm.anchor.set(0.5, 0.5)
+		this.eyes.exec.anchor.set(0.5, 0.5)
+		this.eyes.exec.alpha = 0
+		this.eyes.parent.addChild(this.eyes.norm)
+		this.eyes.parent.addChild(this.eyes.exec)
 		this.eyesLast = Direction.UP
 		this.eyesAngle = 0
 		this.eyesSpeed = 10
-		this.sprite.addChild(this.eyes)
+		this.sprite.addChild(this.eyes.parent)
 		this.audio = {
 			move: new Audio("res/sound/move.wav"),
 			hit: new Audio("res/sound/hit.wav"),
@@ -40,10 +48,12 @@ export class Player extends Entity {
 
 	startSequence() {
 		this.awaitingSequenceStart = true
+		this.setEyesExec()
 	}
 
 	endSequence() {
 		this.awaitingSequenceEnd = true
+		this.awaitingEyesOff = true
 	}
 
 	queueMove(move, override = false) {
@@ -81,6 +91,10 @@ export class Player extends Entity {
 			this.painting = true
 			this.awaitingSequenceStart = false
 		}
+		if (!this.upcomingMoves.length && this.awaitingEyesOff) {
+			this.awaitingEyesOff = false
+			this.setEyesNorm()
+		}
 		if (!this.upcomingMoves.length && this.awaitingSequenceEnd) {
 			this.locked = false
 			this.painting = false
@@ -89,7 +103,7 @@ export class Player extends Entity {
 		if (this.currentMove === undefined && this.upcomingMoves.length) {
 			this.currentMove = this.upcomingMoves[0]
 			this.upcomingMoves.shift()
-			this.setEyes()
+			this.setEyesAngle()
 			this.lastAttemptedMove = this.currentMove
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			this.dead = this.checkHazard(this.position, this.currentMove)
@@ -141,18 +155,28 @@ export class Player extends Entity {
 		let position = Vector.lerp(this.lastPosition, this.position, this.lerp)
 		this.sprite.x = position.x * 64
 		this.sprite.y = position.y * 64
-		this.eyes.angle += 15
+		this.eyes.parent.angle += 15
 	}
 
 	areEyesStopped() {
 		return this.eyesLast === this.lastAttemptedMove
 	}
 
-	setEyes() {
+	setEyesAngle() {
 		if (this.lastAttemptedMove === undefined) return
 		this.eyesAngle = Direction.toAngle(this.lastAttemptedMove)
 		this.eyesLast = this.lastAttemptedMove
-		this.eyes.angle = this.eyesAngle
+		this.eyes.parent.angle = this.eyesAngle
+	}
+
+	setEyesNorm() {
+		this.eyes.norm.alpha = 1
+		this.eyes.exec.alpha = 0
+	}
+
+	setEyesExec() {
+		this.eyes.norm.alpha = 0
+		this.eyes.exec.alpha = 1
 	}
 
 	updateEyes() {
@@ -160,8 +184,8 @@ export class Player extends Entity {
 			let loop = this.game.frame % 360
 			if (loop <= 15) {
 				let percent = loop / 15
-				if (percent < 0.5) this.eyes.alpha = 1 - 2 * percent
-				else this.eyes.alpha = 2 * percent - 1
+				if (percent < 0.5) this.eyes.parent.alpha = 1 - 2 * percent
+				else this.eyes.parent.alpha = 2 * percent - 1
 			}
 		}
 		if (this.lastAttemptedMove === undefined) return
@@ -171,7 +195,7 @@ export class Player extends Entity {
 		else if (this.eyesLast === Direction.rightOf(this.lastAttemptedMove)) this.eyesAngle -= this.eyesSpeed
 		else if (this.eyesLast === Direction.leftOf(this.lastAttemptedMove)) this.eyesAngle += this.eyesSpeed
 		this.eyesAngle = (this.eyesAngle + 360) % 360
-		this.eyes.angle = this.eyesAngle
+		this.eyes.parent.angle = this.eyesAngle
 	}
 
 	static getRegistryName() {
@@ -185,7 +209,8 @@ export class Player extends Entity {
 	static getLoadableObject() {
 		return [
 			{name: "player", url: "res/drawable/player.svg"},
-			{name: "player_eyes", url: "res/drawable/player_eyes.svg"}
+			{name: "player_eyes_norm", url: "res/drawable/player_eyes_norm.svg"},
+			{name: "player_eyes_exec", url: "res/drawable/player_eyes_exec.svg"}
 		]
 	}
 }
