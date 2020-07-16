@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg
-	xmlns="http://www.w3.org/2000/svg" version="1.1"
-	width="1000" height="1000">
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	version="1.1"
+	width="1000" height="1000"
+	viewBox="0 0 1000 1000">
 
-	<g transform="translate(500, 670)">
-		<rect
-			x="-25" y="-25"
-			width="500" height="50"
-			transform="rotate(-45)"
-			fill="#cfd8dc"
-			rx="25"/>
-		<rect
-			x="-25" y="-25"
-			width="50" height="500"
-			transform="rotate(135)"
-			fill="#cfd8dc"
-			rx="25"/>
+	<symbol id="arrow-down">
+		<g transform="translate(500, 670)">
+			<rect
+				x="-25" y="-25"
+				width="500" height="50"
+				transform="rotate(-45)"
+				rx="25"/>
+			<rect
+				x="-25" y="-25"
+				width="50" height="500"
+				transform="rotate(135)"
+				rx="25"/>
+		</g>
+	</symbol>
+
+	<g transform="translate(500, 500)">
+		<g transform="scale(1.0)" opacity="0.8">
+			<g transform="translate(-500, -500)">
+				<use xlink:href="#arrow-down" fill="#cfd8dc"/>
+				<use xlink:href="#arrow-down" fill="#ff1744" opacity="0"/>
+			</g>
+		</g>
 	</g>
 
 </svg>

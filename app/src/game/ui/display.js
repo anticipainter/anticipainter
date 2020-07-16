@@ -51,14 +51,14 @@ export class Display {
 	}
 
 	showSequence(sequence) {
+		let i = 0;
 		for (let direction of sequence) {
 			if (direction !== undefined) {
 				let path = this.getResourcePath(direction)
-				this.view.sequence.append(`
-					<div class="item">
-						<img class="arrow" src="${path}" alt="arrow"/>
-					</div>
-				`)
+				let index = i++
+				this.view.sequence.append(`<div id="item-${index}" class="item"></div>`)
+				$(`#item-${index}`).load(path)
+				console.log(path)
 			}
 		}
 	}
