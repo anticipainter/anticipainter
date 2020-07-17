@@ -11,14 +11,30 @@ $(function() {
 	$("#total").text(params[2].split("=")[1])
 })
 
-$("#play").on("click", e => {
+function fadeToPlay() {
 	body.fadeTo("fast", 0, () => {
 		window.location = "play.html"
 	})
-})
+}
 
-$("#menu").on("click", e => {
+function fadeToMenu() {
 	body.fadeTo("fast", 0, () => {
 		window.location = "menu.html"
 	})
+}
+
+$("#play").on("click", e => {
+	fadeToPlay()
+})
+
+$("#menu").on("click", e => {
+	fadeToMenu()
+})
+
+$(document).on("keydown", function(event) {
+	console.log(event)
+})
+$(document).on("keydown", (e) => {
+	if (e.code === "KeyR" || e.code === "Space") fadeToPlay()
+	if (e.code === "Escape") fadeToMenu()
 })

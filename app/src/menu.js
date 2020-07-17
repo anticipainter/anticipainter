@@ -19,3 +19,7 @@ $("#quit").on("click", e => {
 		window.close()
 	})
 })
+
+$(document).on("keydown", (e) => {
+	if (e.code === "Escape") window.close()
+})
