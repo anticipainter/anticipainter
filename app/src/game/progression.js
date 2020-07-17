@@ -102,11 +102,15 @@ export class Progression {
 		let tileCount = this.getTileCount()
 		this.updateWave(tileCount.count / tileCount.total)
 		this.baseTime = new Date().getTime()
+		this.lastTime = this.baseTime
 		this.generateEvents()
 	}
 
 	update() {
 		let now = new Date().getTime()
+		if (this.game.speedUp) this.baseTime -= (now - this.lastTime) * (this.game.speedUpFactor - 1)
+		console.log(this.game.speedUpFactor)
+		this.lastTime = now
 		let tileCount = this.getTileCount()
 		if (tileCount.count === tileCount.total) this.game.gameVictory()
 		this.updateWave(tileCount.count / tileCount.total)
