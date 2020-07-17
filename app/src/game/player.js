@@ -28,13 +28,17 @@ export class Player extends Entity {
 		this.eyes = {
 			parent: new PIXI.Container(),
 			norm: new PIXI.Sprite(Game.resources["player_eyes_norm"].texture),
-			exec: new PIXI.Sprite(Game.resources["player_eyes_exec"].texture)
+			exec: new PIXI.Sprite(Game.resources["player_eyes_exec"].texture),
+			dead: new PIXI.Sprite(Game.resources["player_eyes_dead"].texture)
 		}
 		this.eyes.norm.anchor.set(0.5, 0.5)
 		this.eyes.exec.anchor.set(0.5, 0.5)
+		this.eyes.dead.anchor.set(0.5, 0.5)
 		this.eyes.exec.alpha = 0
+		this.eyes.dead.alpha = 0
 		this.eyes.parent.addChild(this.eyes.norm)
 		this.eyes.parent.addChild(this.eyes.exec)
+		this.eyes.parent.addChild(this.eyes.dead)
 		this.eyesLast = Direction.UP
 		this.eyesAngle = 0
 		this.eyesSpeed = 10
@@ -104,6 +108,7 @@ export class Player extends Entity {
 			if (this.dead) {
 				this.lerp = 0
 				this.audio.die.cloneNode().play()
+				this.setEyesDead()
 				// this.lastAttemptedMove = undefined
 				return
 			}
@@ -164,13 +169,21 @@ export class Player extends Entity {
 	}
 
 	setEyesNorm() {
+		if (this.dead) return
 		this.eyes.norm.alpha = 1
 		this.eyes.exec.alpha = 0
 	}
 
 	setEyesExec() {
+		if (this.dead) return
 		this.eyes.norm.alpha = 0
 		this.eyes.exec.alpha = 1
+	}
+
+	setEyesDead() {
+		this.eyes.norm.alpha = 0
+		this.eyes.exec.alpha = 0
+		this.eyes.dead.alpha = 1
 	}
 
 	updateEyes() {
@@ -204,7 +217,8 @@ export class Player extends Entity {
 		return [
 			{name: "player", url: "res/drawable/player.svg"},
 			{name: "player_eyes_norm", url: "res/drawable/player_eyes_norm.svg"},
-			{name: "player_eyes_exec", url: "res/drawable/player_eyes_exec.svg"}
+			{name: "player_eyes_exec", url: "res/drawable/player_eyes_exec.svg"},
+			{name: "player_eyes_dead", url: "res/drawable/player_eyes_dead.svg"}
 		]
 	}
 }
