@@ -58,7 +58,6 @@ export class Display {
 				let index = i++
 				this.view.sequence.append(`<div id="item-${index}" class="item"></div>`)
 				$(`#item-${index}`).load(path)
-				console.log(path)
 			}
 		}
 	}
