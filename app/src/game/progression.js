@@ -129,6 +129,9 @@ export class Progression {
 		this.events.push(new Event(function() {
 			progression.game.display.dimSequence()
 		}, this.currentInterval - 200))
+		this.events.push(new Event(function() {
+			progression.game.player.setEyesExec()
+		}, this.currentInterval - 50))
 		for (let i = 0; i < this.sequence.length; i++) {
 			this.events.push(new Event(function () {
 				if (i === 0) progression.game.player.startSequence()
@@ -142,6 +145,7 @@ export class Progression {
 				progression.regenerationWanted = false
 				progression.placeHazards()
 			}
+			progression.game.player.setEyesNorm()
 			progression.resetTimer(progression.currentInterval + progression.currentTiming * progression.sequence.length)
 		}, this.currentInterval + this.currentTiming * this.sequence.length))
 	}

@@ -48,12 +48,10 @@ export class Player extends Entity {
 
 	startSequence() {
 		this.awaitingSequenceStart = true
-		this.setEyesExec()
 	}
 
 	endSequence() {
 		this.awaitingSequenceEnd = true
-		this.awaitingEyesOff = true
 	}
 
 	queueMove(move, override = false) {
@@ -90,10 +88,6 @@ export class Player extends Entity {
 			this.locked = true
 			this.painting = true
 			this.awaitingSequenceStart = false
-		}
-		if (!this.upcomingMoves.length && this.awaitingEyesOff) {
-			this.awaitingEyesOff = false
-			this.setEyesNorm()
 		}
 		if (!this.upcomingMoves.length && this.awaitingSequenceEnd) {
 			this.locked = false
