@@ -35,9 +35,10 @@ body {
 	align-items: center;
 }
 
-img {
+#logo > svg {
 	position: absolute;
 	height: 100%;
+	width: 100%;
 }
 
 #title {
