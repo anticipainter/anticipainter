@@ -10,10 +10,21 @@ class Event {
 	}
 }
 
+class Wave {
+	constructor(attributes, tileFactor) {
+		this.sequenceLength = attributes.sequenceLength
+		this.scanDistance = attributes.scanDistance
+		this.sequenceInterval = attributes.sequenceInterval
+		this.sequenceTiming = attributes.sequenceTiming
+		this.hazardFrequency = attributes.hazardFrequency
+		this.tileFactor = tileFactor
+	}
+}
+
 export class Progression {
-	sequenceLength = 2
-	scanDistance = 2
-	sequenceInterval = 5000
+	sequenceLength = 1
+	scanDistance = 0
+	sequenceInterval = 1000
 	sequenceTiming = 250
 	hazardFrequency = 0
 	regenerationWanted = false
@@ -22,10 +33,91 @@ export class Progression {
 	constructor(game) {
 		this.sequence = undefined
 		this.index = 0
-		this.wave = 0
+		this.wave = -1
 		this.scoreCount = 0
 		this.scoreTotal = 0
 		this.game = game
+	}
+
+	start() {
+		this.waves = [
+			new Wave({
+				"sequenceInterval": 5000,
+				"sequenceTiming": 250,
+				"sequenceLength": 2,
+				"scanDistance": 2,
+				"hazardFrequency": 0
+			}, 0),
+			new Wave({
+				"sequenceLength": 2,
+				"scanDistance": 2,
+				"hazardFrequency": 0.2
+			}, 0.05),
+			new Wave({
+				"sequenceLength": 3,
+				"scanDistance": 2,
+				"hazardFrequency": 0.25
+			}, 0.12),
+			new Wave({
+				"sequenceLength": 3,
+				"scanDistance": 3,
+				"hazardFrequency": 0.35
+			}, 0.2),
+			new Wave({
+				"sequenceLength": 4,
+				"scanDistance": 2,
+				"hazardFrequency": 0.25
+			}, 0.3),
+			new Wave({
+				"sequenceLength": 3,
+				"scanDistance": 3,
+				"hazardFrequency": 0.5
+			}, 0.4),
+			new Wave({
+				"sequenceLength": 4,
+				"scanDistance": 3,
+				"hazardFrequency": 0.4
+			}, 0.5),
+			new Wave({
+				"sequenceLength": 5,
+				"scanDistance": 2,
+				"hazardFrequency": 0.35
+			}, 0.6),
+			new Wave({
+				"sequenceLength": 5,
+				"scanDistance": 3,
+				"hazardFrequency": 0.5
+			}, 0.7),
+			new Wave({
+				"sequenceLength": 4,
+				"scanDistance": 3,
+				"hazardFrequency": 0.75
+			}, 0.8),
+			new Wave({
+				"sequenceLength": 5,
+				"scanDistance": 3,
+				"hazardFrequency": 0.75
+			}, 0.9)
+		]
+		let tileCount = this.getTileCount()
+		this.updateWave(tileCount.count / tileCount.total)
+		this.baseTime = new Date().getTime()
+		this.generateEvents()
+	}
+
+	update() {
+		let now = new Date().getTime()
+		let tileCount = this.getTileCount()
+		if (tileCount.count === tileCount.total) this.game.gameVictory()
+		this.updateWave(tileCount.count / tileCount.total)
+		this.updateTileCount(tileCount.count, tileCount.total)
+		this.updateTimer(now)
+		for (let event of this.events) {
+			if (now - this.baseTime >= event.time && !event.done) {
+				event.done = true
+				event.run()
+			}
+		}
 	}
 
 	generateEvents() {
@@ -46,194 +138,59 @@ export class Progression {
 			}, this.currentInterval + this.currentTiming * i))
 		}
 		this.events.push(new Event(function() {
+			if (progression.regenerationWanted) {
+				progression.regenerationWanted = false
+				progression.placeHazards()
+			}
 			progression.resetTimer(progression.currentInterval + progression.currentTiming * progression.sequence.length)
 		}, this.currentInterval + this.currentTiming * this.sequence.length))
 	}
 
-	start() {
-		this.intervalStart = new Date().getTime()
-		this.generateEvents()
-		this.placeHazards()
-	}
-
 	resetTimer(interval) {
-		this.intervalStart += interval
+		this.baseTime += interval
 		this.generateEvents()
 	}
 
-	update() {
-		let now = new Date().getTime()
-		this.updateTimer(now)
-		this.updateTileCount()
-		for (let event of this.events) {
-			if (now - this.intervalStart >= event.time && !event.done) {
-				event.done = true
-				event.run()
-			}
-		}
-	}
-
-	updateTimer(now) {
-		if (this.game.player.dead) return
-		let elapsed = Math.min(now - this.intervalStart, this.currentInterval)
-		this.game.display.setTimer((this.currentInterval - elapsed) / 1000, this.currentInterval / 1000)
-	}
-
-	updateTileCount() {
+	getTileCount() {
 		let count = 0
 		let total = 0
 		this.game.grid.forEachTile(function(tile) {
 			total++
 			if (tile.activated) count++
 		})
+		return {"count": count, "total": total}
+	}
+
+	updateWave(tileFactor) {
+		for (let i = 0; i < this.waves.length; i++) {
+			if (i > this.wave) {
+				let wave = this.waves[i]
+				if (tileFactor >= wave.tileFactor) {
+					if (this.wave < i) {
+						this.wave = i
+						this.regenerationWanted = true
+					}
+					if (wave.sequenceLength !== undefined) this.sequenceLength = wave.sequenceLength
+					if (wave.scanDistance !== undefined) this.scanDistance = wave.scanDistance
+					if (wave.sequenceInterval !== undefined) this.sequenceInterval = wave.sequenceInterval
+					if (wave.sequenceTiming !== undefined) this.sequenceTiming = wave.sequenceTiming
+					if (wave.hazardFrequency !== undefined) this.hazardFrequency = wave.hazardFrequency
+				}
+			}
+		}
+	}
+
+	updateTileCount(count, total) {
 		this.game.display.setScore(count, total)
 		this.scoreCount = count
 		this.scoreTotal = total
 		let percent = count / total
-		if (count === total) {
-			this.game.gameVictory()
-		}
-		/* if (percent < 0.05) {
-			this.sequenceLength = 2
-			this.scanDistance = 2
-			this.hazardFrequency = 0.25
-		} else if (percent < 0.25) {
-			this.sequenceLength = 3
-			this.scanDistance = 3
-			this.hazardFrequency = 0.35
-		} else if (percent < 0.5) {
-			this.sequenceLength = 4
-			this.scanDistance = 4
-			this.hazardFrequency = 0.5
-		} else {
-			this.sequenceLength = 5
-			this.scanDistance = 5
-			this.hazardFrequency = 0.8
-		} */
-		// Progression that includes timing changes
-		/* if (percent < 0.05) {
-			this.sequenceLength = 2
-			this.scanDistance = 2
-			this.hazardFrequency = 0
-			if (this.wave < 0) this.regenerationWanted = true
-			this.wave = 0
-		} else if (percent < 0.1) {
-			this.sequenceInterval = 5000
-			this.sequenceLength = 2
-			this.scanDistance = 2
-			this.hazardFrequency = 0.2
-			if (this.wave < 1) this.regenerationWanted = true
-			this.wave = 1
-		} else if (percent < 0.2) {
-			this.sequenceInterval = 5000
-			this.sequenceLength = 3
-			this.scanDistance = 2
-			this.hazardFrequency = 0.25
-			if (this.wave < 2) this.regenerationWanted = true
-			this.wave = 2
-		} else if (percent < 0.3) {
-			this.sequenceInterval = 5000
-			this.sequenceLength = 3
-			this.scanDistance = 3
-			this.hazardFrequency = 0.35
-			if (this.wave < 3) this.regenerationWanted = true
-			this.wave = 3
-		} else if (percent < 0.4) {
-			this.sequenceInterval = 8000
-			this.sequenceLength = 4
-			this.scanDistance = 3
-			this.hazardFrequency = 0.35
-			if (this.wave < 4) this.regenerationWanted = true
-			this.wave = 4
-		} else if (percent < 0.5) {
-			this.sequenceInterval = 5000
-			this.sequenceLength = 4
-			this.scanDistance = 3
-			this.hazardFrequency = 0.35
-			if (this.wave < 5) this.regenerationWanted = true
-			this.wave = 5
-		} else if (percent < 0.6) {
-			this.sequenceInterval = 3000
-			this.sequenceLength = 3
-			this.scanDistance = 3
-			this.hazardFrequency = 0.35
-			if (this.wave < 6) this.regenerationWanted = true
-			this.wave = 6
-		} else if (percent < 0.7) {
-			this.sequenceInterval = 8000
-			this.sequenceLength = 5
-			this.scanDistance = 3
-			this.hazardFrequency = 0.5
-			if (this.wave < 7) this.regenerationWanted = true
-			this.wave = 7
-		} */
-		if (percent < 0.05) {
-			this.sequenceLength = 2
-			this.scanDistance = 2
-			this.hazardFrequency = 0
-			if (this.wave < 0) this.regenerationWanted = true
-			this.wave = 0
-		} else if (percent < 0.12) {
-			this.sequenceLength = 2
-			this.scanDistance = 2
-			this.hazardFrequency = 0.2
-			if (this.wave < 1) this.regenerationWanted = true
-			this.wave = 1
-		} else if (percent < 0.2) {
-			this.sequenceLength = 3
-			this.scanDistance = 2
-			this.hazardFrequency = 0.25
-			if (this.wave < 2) this.regenerationWanted = true
-			this.wave = 2
-		} else if (percent < 0.3) {
-			this.sequenceLength = 3
-			this.scanDistance = 3
-			this.hazardFrequency = 0.35
-			if (this.wave < 3) this.regenerationWanted = true
-			this.wave = 3
-		} else if (percent < 0.4) {
-			this.sequenceLength = 4
-			this.scanDistance = 2
-			this.hazardFrequency = 0.25
-			if (this.wave < 4) this.regenerationWanted = true
-			this.wave = 4
-		} else if (percent < 0.5) {
-			this.sequenceLength = 3
-			this.scanDistance = 3
-			this.hazardFrequency = 0.5
-			if (this.wave < 5) this.regenerationWanted = true
-			this.wave = 5
-		} else if (percent < 0.6) {
-			this.sequenceLength = 4
-			this.scanDistance = 3
-			this.hazardFrequency = 0.4
-			if (this.wave < 6) this.regenerationWanted = true
-			this.wave = 6
-		} else if (percent < 0.7) {
-			this.sequenceLength = 5
-			this.scanDistance = 2
-			this.hazardFrequency = 0.35
-			if (this.wave < 7) this.regenerationWanted = true
-			this.wave = 7
-		} else if (percent < 0.8) {
-			this.sequenceLength = 5
-			this.scanDistance = 3
-			this.hazardFrequency = 0.5
-			if (this.wave < 8) this.regenerationWanted = true
-			this.wave = 8
-		} else if (percent < 0.9) {
-			this.sequenceLength = 4
-			this.scanDistance = 3
-			this.hazardFrequency = 0.75
-			if (this.wave < 9) this.regenerationWanted = true
-			this.wave = 9
-		} else {
-			this.sequenceLength = 5
-			this.scanDistance = 3
-			this.hazardFrequency = 0.75
-			if (this.wave < 10) this.regenerationWanted = true
-			this.wave = 10
-		}
+	}
+
+	updateTimer(now) {
+		if (this.game.player.dead) return
+		let elapsed = Math.min(now - this.baseTime, this.currentInterval)
+		this.game.display.setTimer((this.currentInterval - elapsed) / 1000, this.currentInterval / 1000)
 	}
 
 	generateSequence() {
@@ -248,6 +205,7 @@ export class Progression {
 	}
 
 	placeHazards() {
+		if (this.game.player.dead) return
 		let grid = this.game.grid
 		let frequency = this.hazardFrequency
 		this.game.grid.forEachWall(function(old) {
