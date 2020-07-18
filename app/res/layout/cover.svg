@@ -100,7 +100,7 @@
 				fill="url(#three_opacity_stops)"/>
 		</g>
 
-		<g transform="translate(1000, 1000)">
+		<g id="player" transform="translate(1000, 1000)">
 			<rect
 				x="250" y="250" rx="150"
 				width="500" height="500"
@@ -109,7 +109,8 @@
 
 			<g opacity="0.7" fill="#ffffff" transform="translate(100, 0)">
 				<circle cx="0" cy="-80" r="50"/>
-				<circle cx="0" cy="80" r="50"/>
+				<circle id="right-eye" cx="0" cy="80" r="50"/>
+				<rect x="-12.5" y="-50" width="25" height="100" transform="translate(0, 80) rotate(30)"/>
 			</g>
 		</g>
 
