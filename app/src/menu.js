@@ -29,7 +29,7 @@ $(document).on("keydown", (e) => {
 let frame = 150
 setInterval(() => {
 	let loop = (frame++) % 300
-	if (loop < 15) {
+	if (loop <= 15) {
 		let percent = loop / 15
 		let opacity = percent < 0.5 ? 1 - 2 * percent : 2 * percent - 1
 		$("#eyes").attr("opacity", opacity)
