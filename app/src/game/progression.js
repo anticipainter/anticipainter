@@ -22,6 +22,8 @@ class Wave {
 }
 
 export class Progression {
+	speedUpFactor = 8
+	inSequence = false
 	sequenceLength = 1
 	scanDistance = 0
 	sequenceInterval = 1000
@@ -36,6 +38,7 @@ export class Progression {
 		this.wave = -1
 		this.scoreCount = 0
 		this.scoreTotal = 0
+		this.speedUp = false
 		this.game = game
 	}
 
@@ -108,8 +111,7 @@ export class Progression {
 
 	update() {
 		let now = new Date().getTime()
-		if (this.game.speedUp) this.baseTime -= (now - this.lastTime) * (this.game.speedUpFactor - 1)
-		console.log(this.game.speedUpFactor)
+		if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
 		this.lastTime = now
 		let tileCount = this.getTileCount()
 		if (tileCount.count === tileCount.total) this.game.gameVictory()
@@ -138,10 +140,17 @@ export class Progression {
 		}, this.currentInterval - 50))
 		for (let i = 0; i < this.sequence.length; i++) {
 			this.events.push(new Event(function () {
-				if (i === 0) progression.game.player.startSequence()
+				if (i === 0) {
+					progression.inSequence = true
+					progression.speedUp = false
+					progression.game.player.startSequence()
+				}
 				progression.game.display.fadeDirection(i)
 				progression.game.player.queueMove(progression.sequence[i], true)
-				if (i === progression.sequence.length - 1) progression.game.player.endSequence()
+				if (i === progression.sequence.length - 1) {
+					progression.inSequence = false
+					progression.game.player.endSequence()
+				}
 			}, this.currentInterval + this.currentTiming * i))
 		}
 		this.events.push(new Event(function() {
