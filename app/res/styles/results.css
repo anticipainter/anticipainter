@@ -1,0 +1,42 @@
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	background: #263238;
+	color: #cfd8dc;
+	font-family: Verdana, sans-serif;
+	pointer-events: none;
+	user-select: none;
+	overflow: hidden;
+}
+
+body {
+	opacity: 0;
+	text-align: center;
+}
+
+.no-mouse {
+	pointer-events: none;
+}
+
+.mouse {
+	pointer-events: all;
+}
+
+.container {
+	position: relative;
+	/*bottom: 16px;*/
+	/*width: 50%;*/
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding: 16px 16px;
+	box-sizing: border-box;
+}
+
+#buttons {
+	position: relative;
+	height: 50%;
+}
