@@ -112,6 +112,8 @@ export class Progression {
 	update() {
 		let now = new Date().getTime()
 		if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
+		if (!this.inSequence && now - this.baseTime > this.currentInterval) this.baseTime = now - this.currentInterval // fix sequence starting too fast when breaking speedup
+		console.log(now - this.baseTime, this.inSequence)
 		this.lastTime = now
 		let tileCount = this.getTileCount()
 		if (tileCount.count === tileCount.total) this.game.gameVictory()
@@ -147,10 +149,7 @@ export class Progression {
 				}
 				progression.game.display.fadeDirection(i)
 				progression.game.player.queueMove(progression.sequence[i], true)
-				if (i === progression.sequence.length - 1) {
-					progression.inSequence = false
-					progression.game.player.endSequence()
-				}
+				if (i === progression.sequence.length - 1) progression.game.player.endSequence()
 			}, this.currentInterval + this.currentTiming * i))
 		}
 		this.events.push(new Event(function() {
@@ -159,6 +158,7 @@ export class Progression {
 				progression.placeHazards()
 			}
 			progression.game.player.setEyesNorm()
+			progression.inSequence = false
 			progression.resetTimer(progression.currentInterval + progression.currentTiming * progression.sequence.length)
 		}, this.currentInterval + this.currentTiming * this.sequence.length))
 	}

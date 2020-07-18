@@ -82,7 +82,6 @@ export class Display {
 				let scale = 1
 				if (now < 0.5) scale += maxScale * (now * 2)
 				else scale += maxScale * 2 * (1 - now)
-				console.log(scale)
 				arrow.attr("transform", `scale(${scale})`)
 		}})
 	}
