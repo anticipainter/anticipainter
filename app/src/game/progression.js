@@ -22,7 +22,7 @@ class Wave {
 }
 
 export class Progression {
-	speedUpFactor = 8
+	speedUpFactor = 6
 	inSequence = false
 	sequenceLength = 1
 	scanDistance = 0
