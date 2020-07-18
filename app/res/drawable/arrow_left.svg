@@ -7,15 +7,15 @@
 	viewBox="0 0 1000 1000">
 
 	<symbol id="arrow-left">
-		<g transform="translate(200, 500)">
+		<g transform="translate(225, 500)">
 			<rect
 				x="-25" y="-25"
-				width="400" height="50"
+				width="350" height="50"
 				transform="rotate(-40)"
 				rx="25"/>
 			<rect
 				x="-25" y="-25"
-				width="50" height="400"
+				width="50" height="350"
 				transform="rotate(-50)"
 				rx="25"/>
 			<rect
