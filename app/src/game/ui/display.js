@@ -70,11 +70,18 @@ export class Display {
 
 	fadeDirection(index) {
 		let child = $(this.view.sequence.children()[index])
-		child.animate({opacity: 1.0}, 100, function() {
-			// child.animate({opacity: 0.25}, 200, function() {
-			//
-			// })
-		})
+		child.animate({opacity: 1.0}, 100, function() { })
+		let arrow = child.find("#scale")
+		let maxScale = 0.4
+		arrow.animate({test: 1}, {
+			duration: 200,
+			step: function(now) {
+				let scale = 1
+				if (now < 0.5) scale += maxScale * (now * 2)
+				else scale += maxScale * 2 * (1 - now)
+				console.log(scale)
+				arrow.attr("transform", `scale(${scale})`)
+		}})
 	}
 
 	getResourcePath(direction) {
