@@ -33,16 +33,17 @@ export class Progression {
 	events = []
 
 	constructor(game) {
+		this.game = game
 		this.sequence = undefined
 		this.index = 0
 		this.wave = -1
 		this.scoreCount = 0
 		this.scoreTotal = 0
+		this.started = false
 		this.speedUp = false
-		this.game = game
 	}
 
-	start() {
+	initialize() {
 		this.waves = [
 			new Wave({
 				"sequenceInterval": 5000,
@@ -109,17 +110,21 @@ export class Progression {
 		this.generateEvents()
 	}
 
+	start() {
+		this.started = true
+	}
+
 	update() {
 		let now = new Date().getTime()
-		if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
+		if (!this.started) this.baseTime = now
+		else if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
 		if (!this.inSequence && now - this.baseTime > this.currentInterval) this.baseTime = now - this.currentInterval // fix sequence starting too fast when breaking speedup
-		console.log(now - this.baseTime, this.inSequence)
 		this.lastTime = now
 		let tileCount = this.getTileCount()
 		if (tileCount.count === tileCount.total) this.game.gameVictory()
 		this.updateWave(tileCount.count / tileCount.total)
 		this.updateTileCount(tileCount.count, tileCount.total)
-		this.updateTimer(now)
+		this.updateTimer(now, this.started)
 		for (let event of this.events) {
 			if (now - this.baseTime >= event.time && !event.done) {
 				event.done = true
@@ -204,10 +209,10 @@ export class Progression {
 		let percent = count / total
 	}
 
-	updateTimer(now) {
+	updateTimer(now, updateRing = true) {
 		if (this.game.player.dead) return
 		let elapsed = Math.min(now - this.baseTime, this.currentInterval)
-		this.game.display.setTimer((this.currentInterval - elapsed) / 1000, this.currentInterval / 1000)
+		this.game.display.setTimer((this.currentInterval - elapsed) / 1000, this.currentInterval / 1000, updateRing)
 	}
 
 	generateSequence() {

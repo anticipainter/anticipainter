@@ -66,7 +66,7 @@ export class Game {
 		})
 		this.grid.forEachWall(function (wall) { wall.start() })
 		this.player.start()
-		this.progression.start()
+		this.progression.initialize()
 
 		this.app.stage.addChild(Game.sprites)
 		let game = this

@@ -2,8 +2,6 @@ import {Game} from "./game/game.js"
 
 let body = $("body")
 
-body.fadeTo("slow", 1, () => { })
-
 const app = new PIXI.Application({
 	antialias: true,
 	backgroundColor: 0x263238
@@ -17,6 +15,10 @@ app.renderer.autoDensity = true
 app.renderer.resize(view.innerWidth(), view.innerHeight())
 
 let game = new Game(app)
+
+body.fadeTo("slow", 1, () => {
+	game.progression.start()
+})
 
 let keys = []
 $(document).on("keydown", function(event) {
