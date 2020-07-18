@@ -2,6 +2,9 @@ import {Direction} from "../util.js";
 import {Vector} from "../vector.js";
 
 export class Display {
+	arrowScale = 1.2
+	arrowBounceDuration = 150
+
 	constructor(game) {
 		this.game = game
 		$("#timer").load("res/drawable/timer.svg")
@@ -71,10 +74,10 @@ export class Display {
 	fadeDirection(index) {
 		let child = $(this.view.sequence.children()[index])
 		child.animate({opacity: 1.0}, 100, function() { })
+		let maxScale = this.arrowScale - 1
 		let arrow = child.find("#scale")
-		let maxScale = 0.4
 		arrow.animate({test: 1}, {
-			duration: 200,
+			duration: this.arrowBounceDuration,
 			step: function(now) {
 				let scale = 1
 				if (now < 0.5) scale += maxScale * (now * 2)
