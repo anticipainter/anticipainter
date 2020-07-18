@@ -8,6 +8,8 @@ function createMainWindow() {
 		webPreferences: {
 			preload: path.join(app.getAppPath(), "js/preload.js")
 		},
+		minWidth: 675,
+		minHeight: 500,
 		backgroundColor: 0x1b1b1b,
 		autoHideMenuBar: true,
 		show: false
