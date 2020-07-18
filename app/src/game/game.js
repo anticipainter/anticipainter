@@ -22,8 +22,6 @@ export class Game {
 	static screenShakeIntensity = 3
 	static screenShakeIntensityBonk = 10
 
-	speedUpFactor = 4
-
 	constructor(app) {
 		this.app = app
 		this.frame = 0
@@ -31,7 +29,6 @@ export class Game {
 		this.display = new Display(this)
 		this.victory = false
 		this.victoryTimer = 180
-		this.speedUp = false
 
 		this.app.loader.onProgress.add(this.loadProgressHandler)
 		this.loadResource(Player)
@@ -146,11 +143,13 @@ export class Game {
 		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
 		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
-		else if (key === 32) this.speedUp = true
+		else if (key === 32) {
+			if (!this.progression.inSequence) this.progression.speedUp = true
+		}
 	}
 
 	keyUp(key) {
-		if (key === 32) this.speedUp = false
+		if (key === 32) this.progression.speedUp = false
 	}
 
 	render() {
