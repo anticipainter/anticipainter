@@ -1,5 +1,6 @@
 const {app, BrowserWindow} = require("electron")
 const path = require("path")
+const isDev = require("electron-is-dev")
 
 let mainWindow
 
@@ -15,6 +16,7 @@ function createMainWindow() {
 		show: false
 	})
 
+	if (!isDev) window.removeMenu()
 	window.loadFile("app/index.html")
 	window.on("closed", () => { mainWindow = null })
 

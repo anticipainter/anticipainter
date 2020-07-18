@@ -16,11 +16,12 @@
 		"rasterize": "node js/rasterize.js",
 		"build": "electron-builder --dir"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"electron-is-dev": "^1.2.0"
+	},
 	"devDependencies": {
-		"electron": "latest",
-		"electron-builder": "latest",
-		"node-pandoc": "latest"
+		"electron": "^9.1.0",
+		"electron-builder": "^22.7.0"
 	},
 	"build": {
 		"productName": "Anticipainter",
