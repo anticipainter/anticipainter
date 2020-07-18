@@ -81,6 +81,7 @@ export class Player extends Entity {
 			if (this.lerp > 1) {
 				this.game.gameOver()
 			} else if (this.lerp >= 0.5) {
+				this.setEyesDead()
 				this.lerp += 0.01
 				this.sprite.alpha = 2 - 2 * this.lerp
 			} else this.lerp += 0.2
@@ -108,7 +109,6 @@ export class Player extends Entity {
 			if (this.dead) {
 				this.lerp = 0
 				this.audio.die.cloneNode().play()
-				this.setEyesDead()
 				// this.lastAttemptedMove = undefined
 				return
 			}
