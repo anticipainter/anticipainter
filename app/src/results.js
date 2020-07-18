@@ -31,9 +31,6 @@ $("#menu").on("click", e => {
 	fadeToMenu()
 })
 
-$(document).on("keydown", function(event) {
-	console.log(event)
-})
 $(document).on("keydown", (e) => {
 	if (e.code === "KeyR" || e.code === "Space") fadeToPlay()
 	if (e.code === "Escape") fadeToMenu()
