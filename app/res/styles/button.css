@@ -1,8 +1,9 @@
 button.button {
 	margin: min(calc(1.2vw * 3/4), 1.2vh);
 	padding: min(calc(2.5vw * 3/4), 2.5vh);
-	color: #263238;
-	background: #808e95;
+	color: #cfd8dc;
+	background: #263238;
+	/*background: rgba(0, 0, 0, 0);*/
 	font-family: Verdana, sans-serif;
 	font-size: min(calc(4vw * 3/4), 4vh);
 	pointer-events: all;
@@ -10,16 +11,18 @@ button.button {
 	border: none;
 	outline: none;
 	text-align: center;
-	opacity: 0.9;
 	display: inline-block;
 	text-decoration: none;
 	cursor: pointer;
+	/*left: 0;*/
+	transition: padding-left 0.5s, color 0.25s, border-radius 0.25s, top 0.25s;
 }
 
 .button:hover {
-	opacity: 1;
+	color: #fa5c5c;
+	padding-left: 3vw;
 }
 
 .button:active {
-	opacity: 0.8;
+	color: #fa5c5c;
 }

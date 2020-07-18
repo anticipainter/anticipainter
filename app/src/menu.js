@@ -27,7 +27,7 @@ $(document).on("keydown", (e) => {
 })
 
 function wink() {
-	let eye = $("#right-open")
+	let eye = $("#right-eye")
 	eye.css("to", 0)
 	eye.stop()
 	eye.animate({to: 1}, {
