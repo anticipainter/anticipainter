@@ -45,6 +45,12 @@ export const Direction = {
 		if (direction === this.UP) return 0
 		if (direction === this.DOWN) return 180
 	},
+	toString(direction) {
+		if (direction === this.LEFT) return "LEFT"
+		if (direction === this.RIGHT) return "RIGHT"
+		if (direction === this.UP) return "UP"
+		if (direction === this.DOWN) return "DOWN"
+	},
 	wallCoordinates(position, direction) {
 		return new Vector(position.x + (direction === Direction.RIGHT ? 1 : 0), position.y + (direction === Direction.DOWN ? 1 : 0))
 	},
