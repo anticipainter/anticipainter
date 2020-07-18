@@ -60,7 +60,10 @@ export class Game {
 		this.player.position.y = Math.floor(Math.random() * Game.size.y)
 
 		this.display.start()
-		this.grid.forEachTile(function (tile) { tile.start() })
+		this.grid.forEachTile(function (tile) {
+			tile.start()
+			tile.fadeIn()
+		})
 		this.grid.forEachWall(function (wall) { wall.start() })
 		this.player.start()
 		this.progression.start()
