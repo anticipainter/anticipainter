@@ -2,7 +2,7 @@ import {Direction} from "../util.js";
 import {Vector} from "../vector.js";
 
 export class Display {
-	arrowScale = 1.2
+	arrowScaleMax = 1.3
 	arrowBounceDuration = 150
 
 	constructor(game) {
@@ -74,7 +74,7 @@ export class Display {
 	fadeDirection(index) {
 		let child = $(this.view.sequence.children()[index])
 		child.animate({opacity: 1.0}, 100, function() { })
-		let maxScale = this.arrowScale - 1
+		let maxScale = this.arrowScaleMax - 1
 		let arrow = child.find("#scale")
 		arrow.animate({test: 1}, {
 			duration: this.arrowBounceDuration,
