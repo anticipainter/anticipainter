@@ -109,6 +109,7 @@ export class Player extends Entity {
 			if (this.dead) {
 				this.lerp = 0
 				this.audio.die.cloneNode().play()
+				this.game.showValidTiles()
 				// this.lastAttemptedMove = undefined
 				return
 			}

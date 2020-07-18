@@ -121,6 +121,11 @@ export class Game {
 		})
 	}
 
+	showValidTiles() {
+		let valid = this.grid.getValidTiles(this.progression.sequence)
+		valid.forEach((pos, index) => { this.grid.getTile(pos).showAsValid() })
+	}
+
 	loadResource(type) {
 		/* if (type instanceof Entity) */ this.app.loader.add(type.getLoadableObject())
 		return this

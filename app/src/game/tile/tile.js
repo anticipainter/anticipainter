@@ -5,6 +5,7 @@ export class Tile extends Entity {
 	image = new Image()
 	offset = 50
 	activated = false
+	valid = false
 
 	start() {
 		super.start();
@@ -19,10 +20,14 @@ export class Tile extends Entity {
 
 	update() {
 		this.frame++
+		super.update();
+		if (this.valid) {
+			let opacity = this.activated ? 0.3 : 1
+			if (this.indicator.alpha < opacity) this.indicator.alpha += opacity / 25
+		}
 		if (this.sprite.alpha < 0.15 && this.frame > this.fadeInOffset) {
 			this.sprite.alpha += 0.01
 		}
-		super.update();
 		if (this.activated && this.sprite.alpha < 0.5) {
 			this.sprite.alpha += 0.05
 		}
@@ -40,11 +45,26 @@ export class Tile extends Entity {
 		this.activated = true
 	}
 
+	showAsValid() {
+		this.valid = true
+		this.indicator = new PIXI.Sprite(Game.resources["valid_indicator"].texture)
+		this.indicator.anchor.set(0.5, 0.5)
+		this.indicator.alpha = 0
+		this.sprite.addChild(this.indicator)
+	}
+
 	static getRegistryName() {
 		return "tile_standard"
 	}
 
 	static getResourcePath() {
 		return "res/drawable/tile.svg"
+	}
+
+	static getLoadableObject() {
+		return [
+			{name: "tile_standard", url: "res/drawable/tile.svg"},
+			{name: "valid_indicator", url: "res/drawable/valid_indicator.svg"}
+		]
 	}
 }

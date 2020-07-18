@@ -1,5 +1,6 @@
-import {Orientation} from "./util.js"
+import {Direction, Orientation} from "./util.js"
 import {Default} from "./tile/default.js"
+import {Hazard} from "./wall/hazard.js";
 import {Tracer} from "./tile/tracer.js"
 import {Vector} from "./vector.js"
 
@@ -155,5 +156,34 @@ export class Grid {
 				}
 			}
 		}
+	}
+
+	getWallFrom(position, direction) {
+		if (position.x < 0 || position.x >= this.size.x) return
+		if (position.y < 0 || position.y >= this.size.y) return
+		if (direction === Direction.LEFT) return this.getWall(position.x, position.y, Orientation.VERTICAL)
+		else if (direction === Direction.RIGHT) return this.getWall(position.x + 1, position.y, Orientation.VERTICAL)
+		else if (direction === Direction.UP) return this.getWall(position.x, position.y, Orientation.HORIZONTAL)
+		else if (direction === Direction.DOWN) return this.getWall(position.x, position.y + 1, Orientation.HORIZONTAL)
+	}
+
+	isValidTile(sequence, position) {
+		let pos = position
+		let length = sequence.length
+		for (let i = 0; i < length; i++) {
+			let dir = sequence[i]
+			let wall = this.getWallFrom(pos, dir)
+			if (wall instanceof Hazard) return false
+			else if (wall === undefined) pos = Vector.add(pos, Direction.toVector(dir))
+		}
+		return true
+	}
+
+	getValidTiles(sequence) {
+		let tiles = []
+		this.forEachTile(tile => {
+			if (this.isValidTile(sequence, tile.position)) tiles.push(tile.position)
+		})
+		return tiles
 	}
 }
