@@ -7,6 +7,7 @@ let mainWindow
 function createMainWindow() {
 	const window = new BrowserWindow({
 		webPreferences: {
+			enableRemoteModule: true,
 			preload: path.join(app.getAppPath(), "js/preload.js")
 		},
 		minWidth: 675,
