@@ -118,7 +118,7 @@ export class Progression {
 		let now = new Date().getTime()
 		if (!this.started) this.baseTime = now
 		else if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
-		if (!this.inSequence && now - this.baseTime > this.currentInterval) this.baseTime = now - this.currentInterval // fix sequence starting too fast when breaking speedup
+		if (this.speedUp && !this.inSequence && now - this.baseTime > this.currentInterval) this.baseTime = now - this.currentInterval // fix sequence starting too fast when breaking speedup
 		this.lastTime = now
 		let tileCount = this.getTileCount()
 		if (tileCount.count === tileCount.total) this.game.gameVictory()
@@ -137,35 +137,34 @@ export class Progression {
 		this.currentInterval = this.sequenceInterval
 		this.currentTiming = this.sequenceTiming
 		this.generateSequence()
-		let progression = this
 		this.events.length = 0
 		this.events.push(new Event(function() {
-			progression.game.display.dimSequence()
-		}, this.currentInterval - 200))
+			this.game.display.dimSequence()
+		}.bind(this), this.currentInterval - 200))
 		this.events.push(new Event(function() {
-			progression.game.player.setEyesExec()
-		}, this.currentInterval - 50))
+			this.game.player.setEyesExec()
+		}.bind(this), this.currentInterval - 50))
 		for (let i = 0; i < this.sequence.length; i++) {
 			this.events.push(new Event(function () {
-				if (i === 0) {
-					progression.inSequence = true
-					progression.speedUp = false
-					progression.game.player.startSequence()
+				if (!i) {
+					this.inSequence = true
+					this.speedUp = false
+					this.game.player.startSequence()
 				}
-				progression.game.display.fadeDirection(i)
-				progression.game.player.queueMove(progression.sequence[i], true)
-				if (i === progression.sequence.length - 1) progression.game.player.endSequence()
-			}, this.currentInterval + this.currentTiming * i))
+				this.game.display.fadeDirection(i)
+				this.game.player.queueMove(this.sequence[i], true)
+				if (i === this.sequence.length - 1) this.game.player.endSequence()
+			}.bind(this), this.currentInterval + this.currentTiming * i))
 		}
 		this.events.push(new Event(function() {
-			if (progression.regenerationWanted) {
-				progression.regenerationWanted = false
-				progression.placeHazards()
+			if (this.regenerationWanted) {
+				this.regenerationWanted = false
+				this.placeHazards()
 			}
-			progression.game.player.setEyesNorm()
-			progression.inSequence = false
-			progression.resetTimer(progression.currentInterval + progression.currentTiming * progression.sequence.length)
-		}, this.currentInterval + this.currentTiming * this.sequence.length))
+			this.game.player.setEyesNorm()
+			this.inSequence = false
+			this.resetTimer(this.currentInterval + this.currentTiming * this.sequence.length)
+		}.bind(this), this.currentInterval + this.currentTiming * this.sequence.length))
 	}
 
 	resetTimer(interval) {
