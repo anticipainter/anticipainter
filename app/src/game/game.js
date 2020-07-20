@@ -116,9 +116,11 @@ export class Game {
 	}
 
 	gameOver() {
-		$("body").fadeTo("slow", 0, () => {
-			window.location = "results.html?state=lose&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
-		})
+		setTimeout(function() {
+			$("body").fadeTo("slow", 0, () => {
+				window.location = "results.html?state=lose&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
+			})
+		}.bind(this), 500)
 	}
 
 	showValidTiles() {
