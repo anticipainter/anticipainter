@@ -122,12 +122,16 @@ export class Player extends Entity {
 				return
 			}
 			this.bonk = this.checkWall(this.position, this.currentMove.direction)
-			if (this.bonk) {
-				if (this.currentMove.system) this.audio.hitSystem.cloneNode().play()
-				else this.audio.hit.cloneNode().play()
+			if (this.currentMove.system) {
+				if (this.bonk) this.audio.hitSystem.cloneNode().play()
+				else this.audio.moveSystem.cloneNode().play()
 			} else {
-				if (this.currentMove.system) this.audio.moveSystem.cloneNode().play()
-				else this.audio.move.cloneNode().play()
+				let pitchShiftFactor = this.bonk ? 20 : 80
+				let audio = (this.bonk ? this.audio.hit : this.audio.move).cloneNode()
+				audio.playbackRate = 1 + (Math.random() - 0.5) / pitchShiftFactor
+				audio.play()
+			}
+			if (!this.bonk) {
 				this.lastPosition = this.position
 				this.position = Vector.add(this.position, Direction.toVector(this.currentMove.direction))
 			}
