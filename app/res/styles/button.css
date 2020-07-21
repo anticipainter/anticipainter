@@ -3,7 +3,6 @@ button.button {
 	padding: min(calc(2.5vw * 3/4), 2.5vh);
 	color: #cfd8dc;
 	background: #263238;
-	/*background: rgba(0, 0, 0, 0);*/
 	font-family: Verdana, sans-serif;
 	font-size: min(calc(4vw * 3/4), 4vh);
 	pointer-events: all;
@@ -14,8 +13,7 @@ button.button {
 	display: inline-block;
 	text-decoration: none;
 	cursor: pointer;
-	/*left: 0;*/
-	transition: padding-left 0.5s, color 0.25s, border-radius 0.25s;
+	transition: padding-left 0.5s, color 0.25s
 }
 
 .button:hover {
@@ -23,6 +21,16 @@ button.button {
 	padding-left: 3vw;
 }
 
-.button:active {
-	color: #fa5c5c;
+.button>.chevron {
+	position: absolute;
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+	height: 5vmin;
+	transform: translate(-7vh, 0);
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.button:hover>.chevron {
+	opacity: 1;
 }
