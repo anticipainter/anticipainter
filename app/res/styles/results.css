@@ -40,3 +40,12 @@ body {
 	position: relative;
 	height: 50%;
 }
+
+.button {
+	position: relative;
+	width: 50%
+}
+
+.button>.chevron {
+	transform: translate(-12vh, 0) !important;
+}
