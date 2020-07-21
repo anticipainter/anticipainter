@@ -25,7 +25,7 @@ body {
 
 .container {
 	position: absolute;
-	bottom: 16px;
+	bottom: 12px;
 	width: 50%;
 	height: 50%;
 	display: flex;
