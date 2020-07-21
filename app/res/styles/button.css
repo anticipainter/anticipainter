@@ -22,15 +22,19 @@ button.button {
 }
 
 .button>.chevron {
-	position: absolute;
-	margin: auto;
-	top: 0; left: 0; bottom: 0; right: 0;
-	height: 5vmin;
-	transform: translate(-7vh, 0);
+	color: #cfd8dc;
 	opacity: 0;
-	transition: opacity 0.5s;
+	transition: opacity 0.5s, color 0.15s;
 }
 
-.button:hover>.chevron {
+.button:hover>.chevron.left {
+	color: #cfd8dc;
 	opacity: 1;
 }
+
+.button:active>.chevron.left {
+	color: #fa5c5c;
+}
+
+.button>.chevron.left:before { content: ">"; }
+.button>.chevron.right:after { content: "<"; }
