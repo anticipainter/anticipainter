@@ -4,6 +4,13 @@ import {Game} from "./game.js";
 import {Hazard} from "./wall/hazard.js";
 import {Vector} from "./vector.js"
 
+class Move {
+	constructor(direction, system) {
+		this.direction = direction
+		this.system = Boolean(system)
+	}
+}
+
 export class Player extends Entity {
 	game = undefined
 	locked = false
@@ -58,9 +65,9 @@ export class Player extends Entity {
 		this.awaitingSequenceEnd = true
 	}
 
-	queueMove(move, override = false) {
+	queueMove(direction, system = false) {
 		if (this.dead) return
-		if ((!this.upcomingMoves.length && !this.locked) || override) this.upcomingMoves.push(move)
+		if ((!this.upcomingMoves.length && !this.locked) || system) this.upcomingMoves.push(new Move(direction, system))
 	}
 
 	checkWall(position, direction) {
@@ -76,7 +83,7 @@ export class Player extends Entity {
 	update() {
 		if (this.dead) {
 			this.updateEyes()
-			let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove), 0.25))
+			let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
 			let position = Vector.lerp(this.position, deadPosition, this.lerp / 0.25)
 			if (this.lerp > 1) {
 				this.game.gameOver()
@@ -105,7 +112,7 @@ export class Player extends Entity {
 			this.setEyesAngle()
 			this.lastAttemptedMove = this.currentMove
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
-			this.dead = this.checkHazard(this.position, this.currentMove)
+			this.dead = this.checkHazard(this.position, this.currentMove.direction)
 			if (this.dead) {
 				this.lerp = 0
 				this.audio.die.cloneNode().play()
@@ -113,11 +120,11 @@ export class Player extends Entity {
 				// this.lastAttemptedMove = undefined
 				return
 			}
-			this.bonk = this.checkWall(this.position, this.currentMove)
+			this.bonk = this.checkWall(this.position, this.currentMove.direction)
 			if (!this.bonk) {
 				this.audio.move.cloneNode().play()
 				this.lastPosition = this.position
-				this.position = Vector.add(this.position, Direction.toVector(this.currentMove))
+				this.position = Vector.add(this.position, Direction.toVector(this.currentMove.direction))
 			} else this.audio.hit.cloneNode().play()
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			if (!this.dead) this.lerp = 0
@@ -126,13 +133,13 @@ export class Player extends Entity {
 			this.lerp += 0.2
 			let position
 			if (this.dead) {
-				// let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove), 0.25))
+				// let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
 				// position = Vector.lerp(this.position, deadPosition, this.lerp / 0.25)
 				// if (this.lerp >= 0.5 && this.lerp <= 2) {
 				// 	this.sprite.alpha = 2 - this.lerp
 				// }
 			} else if (this.bonk) {
-				let bonkPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove), 0.25))
+				let bonkPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
 				if (this.lerp < 0.25) {
 					position = Vector.lerp(this.position, bonkPosition, this.lerp / 0.25)
 				} else if (this.lerp < 0.75) {
@@ -159,13 +166,13 @@ export class Player extends Entity {
 	}
 
 	areEyesStopped() {
-		return this.eyesLast === this.lastAttemptedMove
+		return this.eyesLast === this.lastAttemptedMove.direction
 	}
 
 	setEyesAngle() {
 		if (this.lastAttemptedMove === undefined) return
-		this.eyesAngle = Direction.toAngle(this.lastAttemptedMove)
-		this.eyesLast = this.lastAttemptedMove
+		this.eyesAngle = Direction.toAngle(this.lastAttemptedMove.direction)
+		this.eyesLast = this.lastAttemptedMove.direction
 		this.eyes.parent.angle = this.eyesAngle
 	}
 
@@ -198,10 +205,10 @@ export class Player extends Entity {
 		}
 		if (this.lastAttemptedMove === undefined) return
 		if (this.areEyesStopped()) return
-		if (this.eyesAngle === Direction.toAngle(this.lastAttemptedMove)) this.eyesLast = this.lastAttemptedMove
-		else if (this.eyesLast === Direction.inverse(this.lastAttemptedMove)) this.eyesAngle += this.eyesSpeed * 2
-		else if (this.eyesLast === Direction.rightOf(this.lastAttemptedMove)) this.eyesAngle -= this.eyesSpeed
-		else if (this.eyesLast === Direction.leftOf(this.lastAttemptedMove)) this.eyesAngle += this.eyesSpeed
+		if (this.eyesAngle === Direction.toAngle(this.lastAttemptedMove.direction)) this.eyesLast = this.lastAttemptedMove
+		else if (this.eyesLast === Direction.inverse(this.lastAttemptedMove.direction)) this.eyesAngle += this.eyesSpeed * 2
+		else if (this.eyesLast === Direction.rightOf(this.lastAttemptedMove.direction)) this.eyesAngle -= this.eyesSpeed
+		else if (this.eyesLast === Direction.leftOf(this.lastAttemptedMove.direction)) this.eyesAngle += this.eyesSpeed
 		this.eyesAngle = (this.eyesAngle + 360) % 360
 		this.eyes.parent.angle = this.eyesAngle
 	}

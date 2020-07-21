@@ -95,7 +95,7 @@ export class Game {
 
 		let pos = new Vector()
 		if (this.player.lerp <= 1 && this.player.lastAttemptedMove !== undefined) {
-			let direction = this.player.lastAttemptedMove
+			let direction = this.player.lastAttemptedMove.direction
 			let lerp = (this.player.lerp < 0.5) ? this.player.lerp : 1 - this.player.lerp
 			if (!this.player.bonk) pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(direction), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensity)
 			else pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(Direction.inverse(direction)), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensityBonk)
