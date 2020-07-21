@@ -22,6 +22,7 @@ export class Player extends Entity {
 	bonk = false
 	dead = false
 	lerp = 0
+	awaitingDeathAudio = false
 
 	constructor(game) {
 		super()
@@ -84,6 +85,10 @@ export class Player extends Entity {
 
 	update() {
 		if (this.dead) {
+			if (this.awaitingDeathAudio) {
+				this.audio.die.cloneNode().play()
+				this.awaitingDeathAudio = false
+			}
 			this.updateEyes()
 			let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
 			let position = Vector.lerp(this.position, deadPosition, this.lerp / 0.25)
@@ -116,7 +121,7 @@ export class Player extends Entity {
 			this.dead = this.checkHazard(this.position, this.currentMove.direction)
 			if (this.dead) {
 				this.lerp = 0
-				this.audio.die.cloneNode().play()
+				this.awaitingDeathAudio = true
 				this.game.showValidTiles()
 				// this.lastAttemptedMove = undefined
 				return
@@ -140,37 +145,33 @@ export class Player extends Entity {
 		}
 		if (this.currentMove !== undefined) {
 			this.lerp += 0.2
-			let position
-			if (this.dead) {
-				// let deadPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
-				// position = Vector.lerp(this.position, deadPosition, this.lerp / 0.25)
-				// if (this.lerp >= 0.5 && this.lerp <= 2) {
-				// 	this.sprite.alpha = 2 - this.lerp
-				// }
-			} else if (this.bonk) {
-				let bonkPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
-				if (this.lerp < 0.25) {
-					position = Vector.lerp(this.position, bonkPosition, this.lerp / 0.25)
-				} else if (this.lerp < 0.75) {
-					position = bonkPosition
-				} else {
-					position = Vector.lerp(bonkPosition, this.position, (this.lerp - 0.75) / 0.25)
-				}
-			} else {
-				position = Vector.lerp(this.lastPosition, this.position, this.lerp)
-			}
-			this.sprite.x = position.x * 64
-			this.sprite.y = position.y * 64
+			this.updateSpritePosition()
 			if (this.lerp >= 1) this.currentMove = undefined
 		}
 		this.updateEyes()
 	}
 
-	updateVictory() {
-		this.lerp = Math.min(this.lerp + 0.2, 1)
-		let position = Vector.lerp(this.lastPosition, this.position, this.lerp)
+	updateSpritePosition() {
+		let position
+		if (this.bonk) {
+			let bonkPosition = Vector.add(this.position, Vector.mul(Direction.toVector(this.currentMove.direction), 0.25))
+			if (this.lerp < 0.25) {
+				position = Vector.lerp(this.position, bonkPosition, this.lerp / 0.25)
+			} else if (this.lerp < 0.75) {
+				position = bonkPosition
+			} else {
+				position = Vector.lerp(bonkPosition, this.position, (this.lerp - 0.75) / 0.25)
+			}
+		} else {
+			position = Vector.lerp(this.lastPosition, this.position, this.lerp)
+		}
 		this.sprite.x = position.x * 64
 		this.sprite.y = position.y * 64
+	}
+
+	updateVictory() {
+		this.lerp = Math.min(this.lerp + 0.2, 1)
+		if (!this.dead) this.updateSpritePosition()
 		this.eyes.parent.angle += 15
 	}
 
