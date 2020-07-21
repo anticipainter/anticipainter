@@ -63,7 +63,7 @@ export class Sequence {
 				if (!(scanWall(grid, position, directions[j]) instanceof Hazard)) valid.push(directions[j])
 			}
 			let direction = valid[Math.floor(Math.random() * valid.length)]
-			position = Vector.add(position, Direction.toVector(direction))
+			if (scanWall(grid, position, direction) === undefined) position = Vector.add(position, Direction.toVector(direction))
 			sequence.push(direction)
 		}
 		return sequence
