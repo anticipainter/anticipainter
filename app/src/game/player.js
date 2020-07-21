@@ -126,7 +126,7 @@ export class Player extends Entity {
 				if (this.bonk) this.audio.hitSystem.cloneNode().play()
 				else this.audio.moveSystem.cloneNode().play()
 			} else {
-				let pitchShiftFactor = this.bonk ? 20 : 80
+				let pitchShiftFactor = this.bonk ? 40 : 80
 				let audio = (this.bonk ? this.audio.hit : this.audio.move).cloneNode()
 				audio.playbackRate = 1 + (Math.random() - 0.5) / pitchShiftFactor
 				audio.play()
