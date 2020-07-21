@@ -87,6 +87,7 @@ export class Player extends Entity {
 		if (this.dead) {
 			if (this.awaitingDeathAudio) {
 				this.audio.die.cloneNode().play()
+				this.game.showValidTiles()
 				this.awaitingDeathAudio = false
 			}
 			this.updateEyes()
@@ -122,7 +123,6 @@ export class Player extends Entity {
 			if (this.dead) {
 				this.lerp = 0
 				this.awaitingDeathAudio = true
-				this.game.showValidTiles()
 				// this.lastAttemptedMove = undefined
 				return
 			}
