@@ -52,7 +52,9 @@ export class Player extends Entity {
 		this.sprite.addChild(this.eyes.parent)
 		this.audio = {
 			move: new Audio("res/sound/move.wav"),
+			moveSystem: new Audio("res/sound/move_system.wav"),
 			hit: new Audio("res/sound/hit.wav"),
+			hitSystem: new Audio("res/sound/hit_system.wav"),
 			die: new Audio("res/sound/die.wav")
 		}
 	}
@@ -120,11 +122,15 @@ export class Player extends Entity {
 				return
 			}
 			this.bonk = this.checkWall(this.position, this.currentMove.direction)
-			if (!this.bonk) {
-				this.audio.move.cloneNode().play()
+			if (this.bonk) {
+				if (this.currentMove.system) this.audio.hitSystem.cloneNode().play()
+				else this.audio.hit.cloneNode().play()
+			} else {
+				if (this.currentMove.system) this.audio.moveSystem.cloneNode().play()
+				else this.audio.move.cloneNode().play()
 				this.lastPosition = this.position
 				this.position = Vector.add(this.position, Direction.toVector(this.currentMove.direction))
-			} else this.audio.hit.cloneNode().play()
+			}
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			if (!this.dead) this.lerp = 0
 		}
