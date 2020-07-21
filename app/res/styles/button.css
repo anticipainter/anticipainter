@@ -1,6 +1,4 @@
 button.button {
-	margin: min(calc(1.2vw * 3/4), 1.2vh);
-	padding: min(calc(2.5vw * 3/4), 2.5vh);
 	color: #cfd8dc;
 	background: #263238;
 	font-family: Verdana, sans-serif;

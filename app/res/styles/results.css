@@ -38,14 +38,15 @@ body {
 
 #buttons {
 	position: relative;
-	height: 50%;
+	height: 25%;
+	display: flex;
+}
+
+#buttons>div {
+	flex: 1;
 }
 
 .button {
-	position: relative;
-	width: 50%
-}
-
-.button>.chevron {
-	transform: translate(-12vh, 0) !important;
+	width: 50%;
+	height: 100%;
 }
