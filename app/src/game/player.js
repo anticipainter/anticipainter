@@ -98,17 +98,16 @@ export class Player extends Entity {
 		}
 		if (this.awaitingSequenceStart) {
 			this.locked = true
-			this.painting = true
 			this.awaitingSequenceStart = false
 		}
 		if (!this.upcomingMoves.length && this.awaitingSequenceEnd) {
 			this.locked = false
-			this.painting = false
 			this.awaitingSequenceEnd = false
 		}
 		if (this.currentMove === undefined && this.upcomingMoves.length) {
 			this.currentMove = this.upcomingMoves[0]
 			this.upcomingMoves.shift()
+			this.painting = this.currentMove.system
 			this.setEyesAngle()
 			this.lastAttemptedMove = this.currentMove
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
