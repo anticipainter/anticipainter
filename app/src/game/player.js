@@ -59,6 +59,9 @@ export class Player extends Entity {
 			die: new Audio("res/sound/die.wav")
 		}
 		this.usePitchBend = this.game.preferences.get("audio.pitch-bend")
+		let volumeMaster = this.game.preferences.get("audio.volume-master")
+		let volumeSound = this.game.preferences.get("audio.volume-sound")
+		this.volume = volumeMaster * volumeSound / 100
 	}
 
 	startSequence() {
@@ -87,7 +90,9 @@ export class Player extends Entity {
 	update() {
 		if (this.dead) {
 			if (this.awaitingDeathAudio) {
-				this.audio.die.cloneNode().play()
+				let audio = this.audio.die.cloneNode()
+				audio.volume = this.volume
+				audio.play()
 				this.game.showValidTiles()
 				this.awaitingDeathAudio = false
 			}
@@ -129,12 +134,14 @@ export class Player extends Entity {
 			}
 			this.bonk = this.checkWall(this.position, this.currentMove.direction)
 			if (this.currentMove.system) {
-				if (this.bonk) this.audio.hitSystem.cloneNode().play()
-				else this.audio.moveSystem.cloneNode().play()
+				let audio = (this.bonk) ? this.audio.hitSystem.cloneNode() : this.audio.moveSystem.cloneNode()
+				audio.volume = this.volume
+				audio.play()
 			} else {
 				let pitchShiftFactor = this.bonk ? 40 : 80
 				let audio = (this.bonk ? this.audio.hit : this.audio.move).cloneNode()
 				if (this.usePitchBend) audio.playbackRate = 1 + (Math.random() - 0.5) / pitchShiftFactor
+				audio.volume = this.volume
 				audio.play()
 			}
 			if (!this.bonk) {
