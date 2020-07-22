@@ -10,6 +10,10 @@ $("#play").on("click", e => {
 	})
 })
 
+$("#settings").on("click", e => {
+	showModal("modal-settings")
+})
+
 $("#about").on("click", e => {
 	body.fadeTo("fast", 0, () => {
 		window.location = "about.html"

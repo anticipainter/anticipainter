@@ -9,8 +9,13 @@
 	<script src="lib/pixi-5.3.0.js"></script>
 	<link rel="stylesheet" href="res/styles/menu.css"/>
 	<link rel="stylesheet" href="res/styles/button.css"/>
+	<link rel="stylesheet" href="res/styles/modal.css"/>
 </head>
 <body>
+	<div id="modals">
+		<div class="modal" id="modal-play"></div>
+		<div class="modal" id="modal-settings"></div>
+	</div>
 	<div id="logo" class="no-mouse"></div>
 	<div id="buttons" class="container tilted">
 		<div><button id="play" class="button">
@@ -18,7 +23,7 @@
 			<span>Play</span>
 			<span class="chevron right"></span>
 		</button></div>
-		<div><button id="Settings" class="button">
+		<div><button id="settings" class="button">
 			<span class="chevron left"></span>
 			<span>Settings</span>
 			<span class="chevron right"></span>
@@ -34,6 +39,7 @@
 			<span class="chevron right"></span>
 		</button></div>
 	</div>
+	<script src="src/modal.js"></script>
 	<script src="src/menu.js"></script>
 </body>
 </html>

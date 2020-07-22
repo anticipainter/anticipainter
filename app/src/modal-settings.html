@@ -1,0 +1,101 @@
+<style>
+	.modal.buttons {
+		width: 50%;
+		float: right;
+		display: flex;
+		/*justify-content: center;*/
+	}
+	.buttons > .button {
+		/*width: 50%;*/
+		flex: 1;
+		margin: 0 4px;
+		transition: opacity 0.25s, inherit;
+	}
+	.buttons > .button:hover {
+		padding-left: 6px;
+		opacity: 0.9;
+	}
+
+	#labels {
+		display: flex;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.item {
+		flex: 1
+	}
+
+	.list {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		/*justify-content: space-between;*/
+	}
+
+	.list > * {
+		padding: 4px 0;
+	}
+
+	.setting-wide > * {
+		width: 100%;
+	}
+
+	.setting-center {
+		/*padding: 0 20px;*/
+		text-align: center;
+	}
+	/*#audio {*/
+	/*	flex: 1*/
+	/*}*/
+</style>
+<div class="modal">
+	<div class="modal header">
+		<h1>Settings</h1>
+	</div>
+	<div class="modal content">
+		<div class="container column">
+			<div id="labels">
+				<h2 class="item">Video</h2>
+				<h2 class="item">Audio</h2>
+			</div>
+			<div class="item container">
+				<div class="item list" id="video">
+					<div class="setting-center">
+						<input type="checkbox" id="screen-shake">
+						<label for="screen-shake">Screen shake</label>
+					</div>
+					<div class="setting-center">
+						<input type="checkbox" id="use-chevrons">
+						<label for="use-chevrons">Use Chevrons</label>
+					</div>
+				</div>
+				<div class="item list" id="audio">
+					<div class="setting-wide">
+						<label for="volume-master">Master volume</label>
+						<input type="range" min="0" max="10" value="5" id="volume-master">
+					</div>
+					<div class="setting-wide">
+						<label for="volume-music">Music volume</label>
+						<input type="range" min="0" max="10" value="5" id="volume-music">
+					</div>
+					<div class="setting-wide">
+						<label for="volume-sound">Sound volume</label>
+						<input type="range" min="0" max="10" value="5" id="volume-sound">
+					</div>
+					<div class="setting-center">
+						<input type="checkbox" id="pitch-bend">
+						<label for="pitch-bend">Pitch bend</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal footer">
+		<div class="modal buttons">
+			<button class="button" id="cancel">Cancel</button>
+			<button class="button" id="save">Save</button>
+		</div>
+	</div>
+	<script src="src/game/modal-settings.js"></script>
+</div>
