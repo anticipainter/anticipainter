@@ -87,9 +87,13 @@ export class Display {
 	}
 
 	getResourcePath(direction) {
-		if (direction === Direction.LEFT) return "res/drawable/arrow_left.svg"
-		if (direction === Direction.RIGHT) return "res/drawable/arrow_right.svg"
-		if (direction === Direction.UP) return "res/drawable/arrow_up.svg"
-		if (direction === Direction.DOWN) return "res/drawable/arrow_down.svg"
+		let typeName, directionName
+		if (this.game.preferences.get("video.use-chevrons")) typeName = "chevron"
+		else typeName = "arrow"
+		if (direction === Direction.LEFT) directionName = "left"
+		else if (direction === Direction.RIGHT) directionName = "right"
+		else if (direction === Direction.UP) directionName = "up"
+		else if (direction === Direction.DOWN) directionName = "down"
+		return "res/drawable/" + typeName + "_" + directionName + ".svg"
 	}
 }
