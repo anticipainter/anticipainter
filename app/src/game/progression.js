@@ -115,6 +115,7 @@ export class Progression {
 	}
 
 	update() {
+		if (this.game.player.dead) return
 		let now = new Date().getTime()
 		if (!this.started) this.baseTime = now
 		else if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
@@ -209,13 +210,11 @@ export class Progression {
 	}
 
 	updateTimer(now, updateRing = true) {
-		if (this.game.player.dead) return
 		let elapsed = Math.min(now - this.baseTime, this.currentInterval)
 		this.game.display.setTimer((this.currentInterval - elapsed) / 1000, this.currentInterval / 1000, updateRing)
 	}
 
 	generateSequence() {
-		if (this.game.player.dead) return
 		if (this.regenerationWanted) {
 			this.placeHazards()
 			this.regenerationWanted = false
@@ -226,7 +225,6 @@ export class Progression {
 	}
 
 	placeHazards() {
-		if (this.game.player.dead) return
 		let grid = this.game.grid
 		let frequency = this.hazardFrequency
 		this.game.grid.forEachWall(function(old) {
