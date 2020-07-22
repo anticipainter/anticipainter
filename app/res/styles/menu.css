@@ -52,8 +52,8 @@ body {
 	padding: 1vh 0;
 }
 
-.container>div:first-child { padding-top: 0; }
-.container>div:last-child { padding-bottom: 0; }
+#buttons>div:first-child { padding-top: 0; }
+#buttons>div:last-child { padding-bottom: 0; }
 
 .tilted {
 	/*transform: rotate(-15deg);*/
