@@ -31,14 +31,14 @@ body {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	padding: 16px 16px;
+	padding: 2vh;
 	box-sizing: border-box;
 }
 
 .container > div {
 	flex: 1;
 	box-sizing: border-box;
-	padding: 8px 0;
+	padding: 1vh 0;
 }
 
 .container>div:first-child { padding-top: 0; }
