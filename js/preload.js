@@ -9,19 +9,32 @@ Preferences = class {
 		this.data = parseDataFile(this.path, opts.defaults)
 	}
 
+	getParsed(keys) {
+		let data = this.data
+		while (keys.length > 1) data = data[keys.pop()]
+		return data
+	}
+
 	get(key) {
-		return this.data[key]
+		let keys = key.split('.').reverse()
+		return this.getParsed(keys)[keys.pop()]
 	}
 
 	set(key, value) {
-		this.data[key] = value
+		let keys = key.split('.').reverse()
+		this.getParsed(keys)[keys.pop()] = value
+	}
+
+	write() {
 		fs.writeFileSync(this.path, JSON.stringify(this.data))
 	}
 }
 
 function parseDataFile(filePath, defaults) {
 	try {
-		return JSON.parse(fs.readFileSync(filePath))
+		let prefs = JSON.parse(fs.readFileSync(filePath))
+		$.extend(true, defaults, prefs)
+		return defaults
 	} catch(error) {
 		return defaults
 	}
