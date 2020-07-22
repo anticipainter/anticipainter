@@ -15,6 +15,7 @@ export class Display {
 			numerator: $("#score-numerator"),
 			denominator: $("#score-denominator")
 		}
+		this.useChevrons = this.game.preferences.get("video.use-chevrons")
 	}
 
 	start() {
@@ -88,7 +89,7 @@ export class Display {
 
 	getResourcePath(direction) {
 		let typeName, directionName
-		if (this.game.preferences.get("video.use-chevrons")) typeName = "chevron"
+		if (this.useChevrons) typeName = "chevron"
 		else typeName = "arrow"
 		if (direction === Direction.LEFT) directionName = "left"
 		else if (direction === Direction.RIGHT) directionName = "right"
