@@ -58,6 +58,7 @@ export class Player extends Entity {
 			hitSystem: new Audio("res/sound/hit_system.wav"),
 			die: new Audio("res/sound/die.wav")
 		}
+		this.usePitchBend = this.game.preferences.get("audio.pitch-bend")
 	}
 
 	startSequence() {
@@ -133,7 +134,7 @@ export class Player extends Entity {
 			} else {
 				let pitchShiftFactor = this.bonk ? 40 : 80
 				let audio = (this.bonk ? this.audio.hit : this.audio.move).cloneNode()
-				audio.playbackRate = 1 + (Math.random() - 0.5) / pitchShiftFactor
+				if (this.usePitchBend) audio.playbackRate = 1 + (Math.random() - 0.5) / pitchShiftFactor
 				audio.play()
 			}
 			if (!this.bonk) {
