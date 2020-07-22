@@ -45,6 +45,7 @@ export class Game {
 		this.display = new Display(this)
 		this.victory = false
 		this.victoryTimer = 180
+		this.screenShake = this.preferences.get("video.screen-shake")
 
 		this.app.loader.onProgress.add(this.loadProgressHandler)
 		this.loadResource(Player)
@@ -110,7 +111,7 @@ export class Game {
 		// if (this.player.painting) this.grid.getTile(this.player.position.getRounded()).activate()
 
 		let pos = new Vector()
-		if (this.player.lerp <= 1 && this.player.lastAttemptedMove !== undefined) {
+		if (this.screenShake && this.player.lerp <= 1 && this.player.lastAttemptedMove !== undefined) {
 			let direction = this.player.lastAttemptedMove.direction
 			let lerp = (this.player.lerp < 0.5) ? this.player.lerp : 1 - this.player.lerp
 			if (!this.player.bonk) pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(direction), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensity)
