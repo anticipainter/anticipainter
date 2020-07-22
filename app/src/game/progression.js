@@ -22,7 +22,7 @@ class Wave {
 }
 
 export class Progression {
-	speedUpFactor = 6
+	speedUpDuration = 750
 	inSequence = false
 	sequenceLength = 1
 	scanDistance = 0
@@ -118,7 +118,7 @@ export class Progression {
 		if (this.game.player.dead) return
 		let now = new Date().getTime()
 		if (!this.started) this.baseTime = now
-		else if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.speedUpFactor - 1)
+		else if (this.speedUp) this.baseTime -= (now - this.lastTime) * (this.currentInterval / this.speedUpDuration - 1)
 		if (this.speedUp && !this.inSequence && now - this.baseTime > this.currentInterval) this.baseTime = now - this.currentInterval // fix sequence starting too fast when breaking speedup
 		this.lastTime = now
 		let tileCount = this.getTileCount()
