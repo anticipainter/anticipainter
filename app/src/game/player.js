@@ -21,7 +21,7 @@ export class Player extends Entity {
 	lastPosition = undefined
 	bonk = false
 	dead = false
-	lerp = 0
+	lerp = 1
 	awaitingDeathAudio = false
 
 	constructor(game) {
