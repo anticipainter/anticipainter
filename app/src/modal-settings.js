@@ -12,8 +12,6 @@ $(() => {
 })
 
 function setCheckbox(id, value) {
-	console.log(id)
-	console.log(value)
 	$(id).prop("checked", value)
 	$(id).parent().find("#cutout").attr("opacity", value ? 1 : 0)
 }
