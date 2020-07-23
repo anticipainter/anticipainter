@@ -25,7 +25,10 @@ $("#quit").on("click", e => {
 })
 
 $(document).on("keydown", (e) => {
-	if (e.code === "Escape") window.close()
+	if (e.code === "Escape") {
+		if (isModalActive("modal-settings") || isModalActive("modal-about")) hideBackground(hideAll)
+		else window.close()
+	}
 })
 
 function wink() {
