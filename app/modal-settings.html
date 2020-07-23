@@ -44,13 +44,28 @@
 	}
 
 	.setting-center {
-		/*padding: 0 20px;*/
+		padding: 12px 0;
 		text-align: center;
 	}
 
-	/*#audio {*/
-	/*	flex: 1*/
-	/*}*/
+	.checkbox {
+		padding: 16px 0 16px 36px;
+	}
+
+	.checkbox > span {
+		position: absolute;
+		width: 32px;
+		height: 32px;
+	}
+
+	.checkbox > span > svg {
+		position: relative;
+		top: -6px;
+		left: -40px;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
 
 	input[type=checkbox] {
 		width: 30px;
@@ -102,12 +117,18 @@
 			<div class="item container">
 				<div class="item list" id="video">
 					<div class="setting-center">
-						<input type="checkbox" id="screen-shake">
-						<label for="screen-shake">Screen shake</label>
+						<label class="checkbox">
+							<span></span>
+							<input id="screen-shake" type="checkbox" hidden>
+							<label for="screen-shake">Screen shake</label>
+						</label>
 					</div>
 					<div class="setting-center">
-						<input type="checkbox" id="chevrons">
-						<label for="chevrons">Use chevrons</label>
+						<label class="checkbox">
+							<span></span>
+							<input id="chevrons" type="checkbox" hidden>
+							<label for="chevrons">Use chevrons</label>
+						</label>
 					</div>
 				</div>
 				<div class="item list" id="audio">
@@ -124,8 +145,11 @@
 						<input type="range" min="0" max="10" value="5" id="volume-sound">
 					</div>
 					<div class="setting-center">
-						<input type="checkbox" id="pitch-shift">
-						<label for="pitch-shift">Pitch shift</label>
+						<label class="checkbox">
+							<span></span>
+							<input id="pitch-shift" type="checkbox" hidden>
+							<label for="pitch-shift">Pitch shift</label>
+						</label>
 					</div>
 				</div>
 			</div>
