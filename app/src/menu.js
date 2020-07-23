@@ -1,4 +1,9 @@
 let body = $("body")
+let preferences = new Preferences({configName: "user-preferences", defaults: Preferences.defaults})
+let audio = {
+	hover: new Audio("res/sound/button_hover.wav"),
+	click: new Audio("res/sound/button_click.wav")
+}
 
 body.fadeTo("slow", 1, () => { })
 
@@ -29,6 +34,16 @@ $(document).on("keydown", (e) => {
 		if (isModalActive("modal-settings") || isModalActive("modal-about")) hideBackground(hideAll)
 		else window.close()
 	}
+})
+
+$(".button").on("mouseenter", e => {
+	let sound = audio.hover.cloneNode()
+	sound.volume = preferences.get("audio.volume-master") * preferences.get("audio.volume-sound") / 100
+	sound.play()
+}).on("click", e => {
+	let sound = audio.click.cloneNode()
+	sound.volume = preferences.get("audio.volume-master") * preferences.get("audio.volume-sound") / 100
+	sound.play()
 })
 
 function wink() {
