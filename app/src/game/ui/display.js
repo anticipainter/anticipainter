@@ -15,7 +15,7 @@ export class Display {
 			numerator: $("#score-numerator"),
 			denominator: $("#score-denominator")
 		}
-		this.useChevrons = this.game.preferences.get("video.use-chevrons")
+		this.useChevrons = this.game.preferences.get("video.chevrons")
 	}
 
 	start() {

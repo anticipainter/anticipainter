@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const shell = require("electron").shell
-const userDataPath = require("electron").remote.app.getPath("userData");
+const userDataPath = require("electron").remote.app.getPath("userData")
 
 Preferences = class {
 	constructor(opts) {
@@ -33,13 +33,13 @@ Preferences = class {
 Preferences.defaults =  {
 	video: {
 		"screen-shake": true,
-		"use-chevrons": false
+		"chevrons": false
 	},
 	audio: {
 		"volume-master": 5,
 		"volume-music": 5,
 		"volume-sound": 5,
-		"pitch-bend": true
+		"pitch-shift": true
 	}
 }
 

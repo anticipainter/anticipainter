@@ -58,7 +58,7 @@ export class Player extends Entity {
 			hitSystem: new Audio("res/sound/hit_system.wav"),
 			die: new Audio("res/sound/die.wav")
 		}
-		this.usePitchBend = this.game.preferences.get("audio.pitch-bend")
+		this.usePitchBend = this.game.preferences.get("audio.pitch-shift")
 		let volumeMaster = this.game.preferences.get("audio.volume-master")
 		let volumeSound = this.game.preferences.get("audio.volume-sound")
 		this.volume = volumeMaster * volumeSound / 100

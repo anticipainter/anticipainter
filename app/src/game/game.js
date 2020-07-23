@@ -23,21 +23,7 @@ export class Game {
 	static screenShakeIntensityBonk = 10
 
 	constructor(app) {
-		this.preferences = new Preferences({
-			configName: "user-preferences",
-			defaults: {
-				video: {
-					"screen-shake": true,
-					"use-chevrons": false
-				},
-				audio: {
-					"volume-master": 5,
-					"volume-music": 5,
-					"volume-sound": 5,
-					"pitch-bend": true
-				}
-			}
-		})
+		this.preferences = new Preferences({configName: "user-preferences", defaults: Preferences.defaults})
 
 		this.app = app
 		this.frame = 0
