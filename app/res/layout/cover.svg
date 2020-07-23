@@ -149,51 +149,99 @@
 			</g>
 
 			<g fill="#607d8b" transform="translate(-480, -480)">
+				<rect x="1000" y="1000" width="960" height="960" fill="#546e7a"/>
 				<rect x="0" y="1000" width="960" height="960"/>
 				<rect x="0" y="2000" width="960" height="960"/>
 				<rect x="-1000" y="2000" width="960" height="960"/>
+				<rect x="-1000" y="3000" width="960" height="960"/>
 				<rect x="0" y="-2000" width="960" height="960"/>
 				<rect x="1000" y="-2000" width="960" height="960"/>
-				<rect x="1000" y="1000" width="960" height="960" fill="#546e7a"/>
+				<rect x="1000" y="-3000" width="960" height="960"/>
+				<rect x="1000" y="-4000" width="960" height="960"/>
+				<rect x="-2000" y="-4000" width="960" height="960"/>
+				<rect x="-3000" y="-4000" width="960" height="960"/>
+				<rect x="-2000" y="0" width="960" height="960"/>
 				<rect x="-3000" y="0" width="960" height="960"/>
 				<rect x="-3000" y="1000" width="960" height="960"/>
-				<rect x="-2000" y="0" width="960" height="960"/>
+				<rect x="-4000" y="1000" width="960" height="960"/>
 				<rect x="3000" y="0" width="960" height="960"/>
+				<rect x="4000" y="0" width="960" height="960"/>
+				<rect x="4000" y="1000" width="960" height="960"/>
+				<rect x="4000" y="2000" width="960" height="960"/>
 			</g>
 		</g>
 
 		<g fill="#cfd8dc">
 			<g transform="translate(-520, -20)">
-				<rect x="0" y="500" width="1040" height="40"/>
+				<rect x="-2000" y="-3500" width="1040" height="40"/>
+				<rect x="0" y="-3500" width="1040" height="40"/>
+				<rect x="-1000" y="-2500" width="1040" height="40"/>
+				<rect x="3000" y="-2500" width="1040" height="40"/>
+				<rect x="-2000" y="-1500" width="1040" height="40"/>
+				<rect x="1000" y="-1500" width="1040" height="40"/>
+				<rect x="2000" y="-1500" width="1040" height="40"/>
+				<rect x="-3000" y="-500" width="1040" height="40"/>
 				<rect x="-1000" y="-500" width="1040" height="40"/>
 				<rect x="1000" y="-500" width="1040" height="40"/>
 				<rect x="2000" y="-500" width="1040" height="40"/>
-				<rect x="1000" y="-1500" width="1040" height="40"/>
-				<rect x="2000" y="-1500" width="1040" height="40"/>
+				<rect x="4000" y="-500" width="1040" height="40"/>
 				<rect x="-2000" y="500" width="1040" height="40"/>
+				<rect x="0" y="500" width="1040" height="40"/>
+				<rect x="3000" y="500" width="1040" height="40"/>
+				<rect x="-3000" y="1500" width="1040" height="40"/>
 				<rect x="2000" y="1500" width="1040" height="40"/>
-				<rect x="-2000" y="-1500" width="1040" height="40"/>
+				<rect x="3000" y="2500" width="1040" height="40"/>
+				<rect x="4000" y="2500" width="1040" height="40"/>
+				<rect x="-2000" y="3500" width="1040" height="40"/>
+				<rect x="2000" y="3500" width="1040" height="40"/>
 			</g>
 			<g transform="translate(-20, -520)">
+				<rect x="-500" y="-4000" width="40" height="1040"/>
+				<rect x="1500" y="-4000" width="40" height="1040"/>
+				<rect x="1500" y="-3000" width="40" height="1040"/>
+				<rect x="-500" y="-2000" width="40" height="1040"/>
+				<rect x="3500" y="-2000" width="40" height="1040"/>
+				<rect x="-3500" y="-1000" width="40" height="1040"/>
+				<rect x="-3500" y="0" width="40" height="1040"/>
 				<rect x="-500" y="0" width="40" height="1040"/>
 				<rect x="500" y="2000" width="40" height="1040"/>
-				<rect x="-500" y="-2000" width="40" height="1040"/>
+				<rect x="-2500" y="3000" width="40" height="1040"/>
+				<rect x="-500" y="3000" width="40" height="1040"/>
+				<rect x="1500" y="3000" width="40" height="1040"/>
+				<rect x="-1500" y="4000" width="40" height="1040"/>
+				<rect x="500" y="4000" width="40" height="1040"/>
 			</g>
 		</g>
 		<g fill="#ff1744">
 			<g transform="translate(-520, -20)">
+				<rect x="-4000" y="-2500" width="1040" height="40"/>
+				<rect x="-3000" y="-2500" width="1040" height="40"/>
+				<rect x="-4000" y="-500" width="1040" height="40"/>
 				<rect x="0" y="-500" width="1040" height="40"/>
+				<rect x="-3000" y="500" width="1040" height="40"/>
 				<rect x="1000" y="500" width="1040" height="40"/>
 				<rect x="-2000" y="1500" width="1040" height="40"/>
-				<rect x="-3000" y="500" width="1040" height="40"/>
+				<rect x="-4000" y="2500" width="1040" height="40"/>
+				<rect x="-1000" y="3500" width="1040" height="40"/>
 			</g>
 			<g transform="translate(-20, -520)">
-				<rect x="-500" y="1000" width="40" height="1040"/>
+				<rect x="2500" y="-4000" width="40" height="1040"/>
+				<rect x="-1500" y="-3000" width="40" height="1040"/>
+				<rect x="500" y="-3000" width="40" height="1040"/>
+				<rect x="2500" y="-3000" width="40" height="1040"/>
+				<rect x="-2500" y="-2000" width="40" height="1040"/>
 				<rect x="-1500" y="-2000" width="40" height="1040"/>
-				<rect x="2500" y="0" width="40" height="1040"/>
 				<rect x="1500" y="-2000" width="40" height="1040"/>
+				<rect x="3500" y="-1000" width="40" height="1040"/>
+				<rect x="2500" y="0" width="40" height="1040"/>
+				<rect x="-500" y="1000" width="40" height="1040"/>
+				<rect x="3500" y="1000" width="40" height="1040"/>
+				<rect x="-3500" y="2000" width="40" height="1040"/>
 				<rect x="-1500" y="2000" width="40" height="1040"/>
 				<rect x="1500" y="2000" width="40" height="1040"/>
+				<rect x="3500" y="2000" width="40" height="1040"/>
+				<rect x="500" y="3000" width="40" height="1040"/>
+				<rect x="2500" y="3000" width="40" height="1040"/>
 			</g>
 		</g>
 
