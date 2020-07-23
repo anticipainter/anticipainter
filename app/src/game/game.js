@@ -117,7 +117,7 @@ export class Game {
 	}
 
 	gameOver() {
-		setTimeout(this.showResults.bind(this), 1000)
+		setTimeout(this.showResults.bind(this), 500)
 	}
 
 	showResults() {
