@@ -38,7 +38,7 @@ $(document).on("keydown", (e) => {
 
 $(".button").on("mouseenter", e => {
 	let sound = audio.hover.cloneNode()
-	sound.volume = preferences.get("audio.volume-master") * preferences.get("audio.volume-sound") / 100
+	sound.volume = preferences.get("audio.volume-master") * preferences.get("audio.volume-sound") / 200
 	sound.play()
 }).on("click", e => {
 	let sound = audio.click.cloneNode()
