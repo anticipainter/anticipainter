@@ -1,18 +1,5 @@
-preferences = new Preferences({
-	configName: "user-preferences",
-	defaults: {
-		video: {
-			"screen-shake": true,
-			"use-chevrons": false
-		},
-		audio: {
-			"volume-master": 5,
-			"volume-music": 5,
-			"volume-sound": 5,
-			"pitch-bend": true
-		}
-	}
-})
+preferences = new Preferences({configName: "user-preferences", defaults: Preferences.defaults})
+console.log(Preferences.defaults)
 
 $(() => {
 	$("#screen-shake").prop("checked", preferences.get("video.screen-shake"))

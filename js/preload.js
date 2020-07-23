@@ -30,6 +30,19 @@ Preferences = class {
 	}
 }
 
+Preferences.defaults =  {
+	video: {
+		"screen-shake": true,
+		"use-chevrons": false
+	},
+	audio: {
+		"volume-master": 5,
+		"volume-music": 5,
+		"volume-sound": 5,
+		"pitch-bend": true
+	}
+}
+
 function parseDataFile(filePath, defaults) {
 	try {
 		let prefs = JSON.parse(fs.readFileSync(filePath))

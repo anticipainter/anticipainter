@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+	width="1000" height="1000" viewBox="0 0 1000 1000">
+
+	<style>
+		.tile { transition: fill 0.5s; }
+		.off { fill: #4b636e; }
+		.on { fill: #607d8b; }
+
+		.wall { fill: #cfd8dc }
+		.hazard { fill: #ff1744 }
+	</style>
+
+	<defs>
+		<symbol id="tile">
+			<rect x="0.025" y="0.025"
+			      width="0.95" height="0.95"/>
+		</symbol>
+
+		<symbol id="wall-h">
+			<rect x="-0.02625" y="0.475" width="1.05" height="0.05"/>
+		</symbol>
+
+		<symbol id="wall-v">
+			<rect x="0.475" y="-0.02625" width="0.05" height="1.05"/>
+		</symbol>
+
+		<symbol id="player">
+			<g transform="translate(0.5, 0.5)">
+				<rect x="0.25" y="0.25" rx="0.15"
+					  width="0.5" height="0.5"
+					  fill="#a7c0cd"
+					  transform="translate(-0.5, -0.5)"/>
+
+				<g id="eyes">
+					<g opacity="1.0" fill="#ffffff" transform="translate(0.100, 0)">
+						<circle cx="0" cy="-0.08" r="0.05"/>
+						<circle id="right-eye" cx="0" cy="0.08" r="0.05"/>
+						<rect x="-0.0125" y="-0.05" width="0.025" height="0.1" transform="translate(0, 0.08) rotate(30)"/>
+					</g>
+				</g>
+			</g>
+		</symbol>
+	</defs>
+
+	<rect width="100%" height="100%" fill="#263238"/>
+
+	<g transform="scale(500) translate(0.5, 0.5)">
+		<g id="everything">
+			<use id="tile-0" xlink:href="#tile" x="-2" y="0" class="tile on"/>
+			<use id="tile-1" xlink:href="#tile" x="-1" y="0" class="tile off"/>
+			<use id="tile-2" xlink:href="#tile" x="0" y="0" class="tile off"/>
+			<use id="tile-3" xlink:href="#tile" x="1" y="0" class="tile off"/>
+			<use id="tile-4" xlink:href="#tile" x="2" y="0" class="tile off"/>
+
+			<g class="wall">
+				<use xlink:href="#wall-h" x="0" y="0.5"/>
+				<use xlink:href="#wall-h" x="-1" y="0.5"/>
+				<use xlink:href="#wall-h" x="-1" y="-0.5"/>
+				<use xlink:href="#wall-h" x="1" y="-0.5"/>
+				<use xlink:href="#wall-h" x="2" y="-0.5"/>
+			</g>
+			<g class="hazard">
+				<use xlink:href="#wall-h" x="0" y="-0.5"/>
+				<use xlink:href="#wall-h" x="1" y="0.5"/>
+				<use xlink:href="#wall-h" x="-2" y="-0.5"/>
+				<use xlink:href="#wall-h" x="-2" y="0.5"/>
+				<use xlink:href="#wall-h" x="2" y="0.5"/>
+			</g>
+
+			<use id="goggles" xlink:href="#player" x="-2"/>
+		</g>
+	</g>
+</svg>
