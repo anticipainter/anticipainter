@@ -103,6 +103,12 @@
 		background: #fa5c5c;
 		cursor: pointer;
 	}
+
+	input[type=range]:disabled::-webkit-slider-thumb {
+		cursor: default;
+		background: #808e95;
+		opacity: 0.5;
+	}
 </style>
 <div class="modal">
 	<div class="modal header">
@@ -138,7 +144,7 @@
 					</div>
 					<div class="setting-wide">
 						<label for="volume-music">Music volume</label>
-						<input type="range" min="0" max="10" value="5" id="volume-music">
+						<input type="range" min="0" max="10" value="5" id="volume-music" disabled>
 					</div>
 					<div class="setting-wide">
 						<label for="volume-sound">Sound volume</label>
