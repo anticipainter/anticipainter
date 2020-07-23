@@ -123,6 +123,7 @@ export class Game {
 	showResults() {
 		if (this.shownModal) return
 		this.shownModal = true
+		if (isModalActive("modal-results")) return
 		showModal("modal-results")
 		let m = $("#modals")
 		m.css("now", 0)
