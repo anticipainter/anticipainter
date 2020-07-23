@@ -40,7 +40,6 @@ $(() => {
 	})
 })
 
-
 $(document).on("keyup", function(event) {
 	if (keys.includes(event.which)) game.keyUp(event.which)
 	keys = keys.filter(key => key !== event.which)
@@ -48,4 +47,8 @@ $(document).on("keyup", function(event) {
 
 $(document).on("blur", function() {
 	keys.length = 0
+})
+
+$(document).on("click", function() {
+	game.click()
 })

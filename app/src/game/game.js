@@ -162,6 +162,13 @@ export class Game {
 		Game.sprites.scale.set(scale, scale)
 	}
 
+	click() {
+		if (this.shownModal) {
+			this.shownModal = false
+			this.showResults()
+		}
+	}
+
 	keyDown(key) {
 		if (key === 27) {
 			$("body").fadeTo("slow", 0, () => {
