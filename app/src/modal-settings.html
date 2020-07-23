@@ -5,12 +5,14 @@
 		display: flex;
 		/*justify-content: center;*/
 	}
+
 	.buttons > .button {
 		/*width: 50%;*/
 		flex: 1;
 		margin: 0 4px;
 		transition: opacity 0.25s, inherit;
 	}
+
 	.buttons > .button:hover {
 		padding-left: 6px;
 		opacity: 0.9;
@@ -45,9 +47,40 @@
 		/*padding: 0 20px;*/
 		text-align: center;
 	}
+
 	/*#audio {*/
 	/*	flex: 1*/
 	/*}*/
+
+	input[type=range] {
+		-webkit-appearance: none;
+		background: transparent;
+	}
+
+	input[type=range]:focus {
+		outline: none;
+	}
+
+	input[type=range]::-webkit-slider-runnable-track {
+		-webkit-appearance: none;
+		width: 100%;
+		margin-top: 14px;
+		margin-bottom: 4px;
+		border-radius: 4px;
+		background: #263238;
+	}
+
+	input[type=range]::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		width: 36px;
+		height: 36px;
+		margin-top: -8px;
+		margin-bottom: -8px;
+		border: none;
+		border-radius: 6px;
+		background: #fa5c5c;
+		cursor: pointer;
+	}
 </style>
 <div class="modal">
 	<div class="modal header">
