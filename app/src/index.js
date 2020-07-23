@@ -31,7 +31,6 @@ function play(sound) {
 
 function activateTile(id) {
 	let tile = $("#tile-" + id)
-	console.log(tile)
 	tile.removeClass("off")
 	tile.addClass("on")
 }

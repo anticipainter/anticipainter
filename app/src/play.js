@@ -22,11 +22,6 @@ body.fadeTo("slow", 1, () => {
 
 let keys = []
 $(document).on("keydown", function(event) {
-	if (event.which === 27) {
-		body.fadeTo("slow", 0, () => {
-			window.location = "menu.html"
-		})
-	}
 	if (!keys.includes(event.which)) {
 		keys.push(event.which)
 		game.keyDown(event.which)

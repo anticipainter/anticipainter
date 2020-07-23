@@ -9,8 +9,13 @@
 	<script src="lib/touchswipe.js"></script>
 	<script src="lib/pixi-5.3.0.js"></script>
 	<link rel="stylesheet" href="res/styles/play.css"/>
+	<link rel="stylesheet" href="res/styles/button.css"/>
+	<link rel="stylesheet" href="res/styles/modal.css"/>
 </head>
 <body>
+	<div id="modals">
+		<div class="modal" id="modal-results"></div>
+	</div>
 	<div id="hud">
 		<div id="info">
 			<div id="score-wrapper">
@@ -23,6 +28,7 @@
 		<div id="sequence"></div>
 	</div>
 	<div id="game"></div>
+	<script src="src/modal.js"></script>
 	<script type="module" src="src/play.js"></script>
 </body>
 </html>

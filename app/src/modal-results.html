@@ -1,0 +1,66 @@
+<style>
+	.modal.all {
+		opacity: 0.9;
+	}
+
+	.modal.buttons {
+		width: 75%;
+		float: right;
+		display: flex;
+		/*justify-content: center;*/
+	}
+	.buttons > .button {
+		/*width: 50%;*/
+		flex: 1;
+		margin: 0 4px;
+		transition: opacity 0.25s, inherit;
+	}
+	.buttons > .button:hover {
+		padding-left: 6px;
+		opacity: 0.9;
+	}
+
+	.container {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.item {
+		flex: 1;
+		align-items: center;
+	}
+
+	#state {
+		margin: 16px 0;
+	}
+</style>
+<div class="modal all">
+	<div class="modal header">
+		<h1 id="state">You Win!</h1>
+	</div>
+	<div class="modal content">
+		<div class="container column">
+			<div id="scoring" class="item">
+				<h2>
+					<span>Your Score:</span>
+					<span id="score"></span>
+					<span class="dim">
+						<span>/</span>
+						<span id="total"></span>
+					</span>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="modal footer">
+		<div class="modal buttons">
+			<button class="button" id="hide">Hide</button>
+			<button class="button" id="menu">Menu</button>
+			<button class="button" id="restart">Restart</button>
+		</div>
+	</div>
+	<script src="src/game/modal-results.js"></script>
+</div>

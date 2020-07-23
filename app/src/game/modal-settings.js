@@ -1,5 +1,4 @@
 preferences = new Preferences({configName: "user-preferences", defaults: Preferences.defaults})
-console.log(Preferences.defaults)
 
 $(() => {
 	$("#screen-shake").prop("checked", preferences.get("video.screen-shake"))

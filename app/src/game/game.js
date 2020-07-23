@@ -83,9 +83,7 @@ export class Game {
 			this.player.updateVictory()
 			this.grid.forEachTile(tile => tile.update())
 			if (this.victoryTimer === 0) {
-				$("body").fadeTo("slow", 0, () => {
-					window.location = "results.html?state=win&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
-				})
+				this.showResults()
 			}
 			return
 		}
@@ -119,11 +117,23 @@ export class Game {
 	}
 
 	gameOver() {
-		setTimeout(function() {
-			$("body").fadeTo("slow", 0, () => {
-				window.location = "results.html?state=lose&score=" + this.progression.scoreCount + "&total=" + this.progression.scoreTotal
-			})
-		}.bind(this), 500)
+		this.showResults()
+	}
+
+	showResults() {
+		if (this.shownModal) return
+		this.shownModal = true
+		showModal("modal-results")
+		let m = $("#modals")
+		m.css("now", 0)
+		m.animate({now: 1}, {
+			duration: 1000,
+			step: now => {
+				$("#state").text(this.victory ? "You Won!" : "You Died...")
+				$("#total").text(this.progression.scoreTotal)
+				$("#score").text(Math.round(now * this.progression.scoreCount))
+			}
+		})
 	}
 
 	showValidTiles() {
@@ -158,6 +168,16 @@ export class Game {
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
 		else if (key === 32) {
 			if (!this.progression.inSequence) this.progression.speedUp = true
+		}
+		else if (key == 27) {
+			if (this.shownModal) {
+				this.shownModal = false
+				this.showResults()
+				return
+			}
+			$("body").fadeTo("slow", 0, () => {
+				window.location = "menu.html"
+			})
 		}
 	}
 
