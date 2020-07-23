@@ -30,7 +30,7 @@ export class Game {
 		this.view = $("#game")
 		this.display = new Display(this)
 		this.victory = false
-		this.victoryTimer = 180
+		this.victoryTimer = 100
 		this.screenShake = this.preferences.get("video.screen-shake")
 
 		this.app.loader.onProgress.add(this.loadProgressHandler)
@@ -117,7 +117,7 @@ export class Game {
 	}
 
 	gameOver() {
-		this.showResults()
+		setTimeout(this.showResults.bind(this), 1000)
 	}
 
 	showResults() {
