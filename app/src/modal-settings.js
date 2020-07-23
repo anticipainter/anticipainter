@@ -20,7 +20,7 @@ $("input[type=range]").on("mouseup", (event) => {
 })
 
 $("#done, #cancel").on("click", () => {
-	hideBackground()
+	hideBackground(hideAll)
 })
 
 $("#save").on("click", () => {

@@ -1,0 +1,64 @@
+<style>
+	.modal.buttons {
+		width: 100%;
+		float: right;
+		display: flex;
+	}
+	.buttons > .button {
+		width: 100%;
+		flex: 1;
+		margin: 0 4px;
+		transition: opacity 0.25s, inherit;
+	}
+	.buttons > .button:hover {
+		padding-left: 6px;
+		opacity: 0.9;
+	}
+
+	.list {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.item {
+		flex: 1;
+		align-items: center;
+	}
+
+	#title {
+		margin: 16px 0;
+	}
+
+	a {
+		color: #fa5c5c;
+	}
+</style>
+<div class="modal">
+	<div class="modal header">
+		<h1 id="title">About</h1>
+	</div>
+	<div class="modal content">
+		<div class="list">
+			<div class="list">
+				<div><h3>Objective</h3></div>
+				<div>Paint the maze without hitting any red walls</div>
+				<div>while the game tries to take control!</div>
+				<div id="controls">Controls: WASD or Arrow keys, Escape</div>
+			</div>
+			<div class="list">
+				<div><h3>Programming and Design</h3></div>
+				<div><span>Cooper Anderson (<a href="https://cooper-anderson.itch.io/">@cooper-anderson</a>)</span></div>
+				<div><span>Grady Shoemaker (<a href="https://grady404.itch.io/">@grady404</a>)</span></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal footer">
+		<div class="modal buttons">
+			<button class="button" id="close">Close</button>
+		</div>
+	</div>
+	<script src="src/modal-about.js"></script>
+</div>

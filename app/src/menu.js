@@ -15,9 +15,7 @@ $("#settings").on("click", e => {
 })
 
 $("#about").on("click", e => {
-	body.fadeTo("fast", 0, () => {
-		window.location = "about.html"
-	})
+	showModal("modal-about")
 })
 
 $("#quit").on("click", e => {
