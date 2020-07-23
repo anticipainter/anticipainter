@@ -125,13 +125,10 @@ export class Player extends Entity {
 			this.setEyesAngle()
 			this.lastAttemptedMove = this.currentMove
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
+			let tileCount = this.game.progression.getTileCount()
+			if (tileCount.count === tileCount.total) return
 			this.dead = this.checkHazard(this.position, this.currentMove.direction)
 			if (this.dead) {
-				let tileCount = this.game.progression.getTileCount()
-				if (tileCount.count === tileCount.total) {
-					this.dead = false
-					return
-				}
 				this.lerp = 0
 				this.awaitingDeathAudio = true
 				// this.lastAttemptedMove = undefined
