@@ -19,7 +19,7 @@ function hideBackground(complete) {
 
 function showModal(name) {
 	let modal = modals[name]
-	modal.load("src/" + name + ".html")
+	modal.load(name + ".html")
 	modal.css("display", "block")
 	view.css("display", "block")
 }
