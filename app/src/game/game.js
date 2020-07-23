@@ -162,14 +162,15 @@ export class Game {
 	}
 
 	keyDown(key) {
+		console.log(key)
 		if ([65, 37].includes(key)) this.player.queueMove(Direction.LEFT)
 		else if ([68, 39].includes(key)) this.player.queueMove(Direction.RIGHT)
 		else if ([87, 38].includes(key)) this.player.queueMove(Direction.UP)
 		else if ([83, 40].includes(key)) this.player.queueMove(Direction.DOWN)
-		else if (key === 32) {
+		else if ([32, 13].includes(key)) {
 			if (!this.progression.inSequence) this.progression.speedUp = true
 		}
-		else if (key == 27) {
+		else if (key === 27) {
 			if (this.shownModal) {
 				this.shownModal = false
 				this.showResults()
@@ -182,7 +183,7 @@ export class Game {
 	}
 
 	keyUp(key) {
-		if (key === 32) this.progression.speedUp = false
+		if ([32, 13].includes(key)) this.progression.speedUp = false
 	}
 
 	render() {
