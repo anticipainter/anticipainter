@@ -19,11 +19,11 @@
 		</symbol>
 
 		<symbol id="wall-h">
-			<rect x="-0.02625" y="0.475" width="1.05" height="0.05"/>
+			<rect y="0.5" width="1.05" height="0.05"/>
 		</symbol>
 
 		<symbol id="wall-v">
-			<rect x="0.475" y="-0.02625" width="0.05" height="1.05"/>
+			<rect x="0.5" width="0.05" height="1.05"/>
 		</symbol>
 
 		<symbol id="player">
@@ -54,19 +54,23 @@
 			<use id="tile-3" xlink:href="#tile" x="1" y="0" class="tile off"/>
 			<use id="tile-4" xlink:href="#tile" x="2" y="0" class="tile off"/>
 
-			<g class="wall">
-				<use xlink:href="#wall-h" x="0" y="0.5"/>
-				<use xlink:href="#wall-h" x="-1" y="0.5"/>
-				<use xlink:href="#wall-h" x="-1" y="-0.5"/>
-				<use xlink:href="#wall-h" x="1" y="-0.5"/>
-				<use xlink:href="#wall-h" x="2" y="-0.5"/>
-			</g>
-			<g class="hazard">
-				<use xlink:href="#wall-h" x="0" y="-0.5"/>
-				<use xlink:href="#wall-h" x="1" y="0.5"/>
-				<use xlink:href="#wall-h" x="-2" y="-0.5"/>
-				<use xlink:href="#wall-h" x="-2" y="0.5"/>
-				<use xlink:href="#wall-h" x="2" y="0.5"/>
+			<g transform="translate(-0.025, -0.025)">
+				<g class="walls wall">
+					<use xlink:href="#wall-h" x="0" y="0.5"/>
+					<use xlink:href="#wall-h" x="-1" y="0.5"/>
+					<use xlink:href="#wall-h" x="-1" y="-0.5"/>
+					<use xlink:href="#wall-h" x="1" y="-0.5"/>
+					<use xlink:href="#wall-h" x="2" y="-0.5"/>
+					<use xlink:href="#wall-v" x="-2.5" y="0"/>
+				</g>
+				<g class="walls hazard">
+					<use xlink:href="#wall-h" x="0" y="-0.5"/>
+					<use xlink:href="#wall-h" x="1" y="0.5"/>
+					<use xlink:href="#wall-h" x="-2" y="-0.5"/>
+					<use xlink:href="#wall-h" x="-2" y="0.5"/>
+					<use xlink:href="#wall-h" x="2" y="0.5"/>
+					<use xlink:href="#wall-v" x="2.5" y="0"/>
+				</g>
 			</g>
 
 			<use id="goggles" xlink:href="#player" x="-2"/>

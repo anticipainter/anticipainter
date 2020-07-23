@@ -70,7 +70,10 @@ function startAnimation() {
 		player.attr("x", now + 1)
 	}, () => { play(audio.move); activateTile(4) })
 
-	setTimeout(() => { play(audio.die) }, 3200)
+	animate(3200, 500, now => {
+		player.attr("x", now + 2)
+		player.attr("opacity", 1 - now)
+	}, () => { play(audio.die) })
 
 	setTimeout(() => {
 		title.fadeTo("slow", 0, () => {
