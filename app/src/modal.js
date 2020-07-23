@@ -6,7 +6,10 @@ view.children().each((index, item) => {
 })
 
 function hideAll() {
-	for (let name in modals) modals[name].css("display", "none")
+	for (let name in modals) {
+		modals[name].html("")
+		modals[name].css("display", "none")
+	}
 }
 
 function hideBackground(complete) {
