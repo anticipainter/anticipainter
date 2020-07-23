@@ -10,7 +10,17 @@ $(() => {
 	$("#pitch-bend").prop("checked", preferences.get("audio.pitch-bend"))
 })
 
-$("#cancel").on("click", () => {
+$("input[type=checkbox]").on("input", (event) => {
+	preferences.set($(event.target).parent().parent().attr("id") + "." + $(event.target).attr("id"), $(event.target).prop("checked"))
+	preferences.write()
+})
+
+$("input[type=range]").on("mouseup", (event) => {
+	preferences.set($(event.target).parent().parent().attr("id") + "." + $(event.target).attr("id"), $(event.target).val())
+	preferences.write()
+})
+
+$("#done, #cancel").on("click", () => {
 	hideBackground()
 })
 
