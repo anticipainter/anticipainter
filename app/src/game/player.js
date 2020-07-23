@@ -173,7 +173,8 @@ export class Player extends Entity {
 				position = Vector.lerp(bonkPosition, this.position, (this.lerp - 0.75) / 0.25)
 			}
 		} else {
-			position = Vector.lerp(this.lastPosition, this.position, this.lerp)
+			let lastPosition = this.lastPosition || new Vector()
+			position = Vector.lerp(lastPosition, this.position, this.lerp)
 		}
 		this.sprite.x = position.x * 64
 		this.sprite.y = position.y * 64
