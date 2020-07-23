@@ -1,6 +1,6 @@
 {
 	"name": "anticipainter",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Submission to the GMTK game jam 2020",
 	"main": "js/main.js",
 	"author": {

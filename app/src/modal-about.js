@@ -7,3 +7,5 @@ $("#modal-about").find("a").on("click", e => {
 	let href = $(e.target).attr("href")
 	preload.openExternal(href)
 })
+
+$("#version").html('v' + preload.version)

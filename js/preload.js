@@ -2,6 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const shell = require("electron").shell
 const userDataPath = require("electron").remote.app.getPath("userData")
+const version = require("../package.json").version
 
 Preferences = class {
 	constructor(opts) {
@@ -54,6 +55,7 @@ function parseDataFile(filePath, defaults) {
 }
 
 preload = {
+	version: version,
 	openExternal: function(url) {
 		shell.openExternal(url)
 	}
