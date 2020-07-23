@@ -35,6 +35,12 @@ function activateTile(id) {
 	tile.addClass("on")
 }
 
+function fadeToMenu() {
+	title.fadeTo("slow", 0, () => {
+		window.location = "menu.html"
+	})
+}
+
 function startAnimation() {
 	animate(100, 200, now => {
 		player.attr("x", now - 2)
@@ -74,11 +80,7 @@ function startAnimation() {
 		player.attr("opacity", 1 - now)
 	}, () => { play(audio.die) })
 
-	setTimeout(() => {
-		title.fadeTo("slow", 0, () => {
-			window.location = "menu.html"
-		})
-	}, 3500)
+	setTimeout(fadeToMenu, 3500)
 }
 
 let interval = setInterval(() => {
@@ -90,3 +92,5 @@ let interval = setInterval(() => {
 		setTimeout(startAnimation, 500)
 	}
 }, 1)
+
+$(document).on("keydown", e => { fadeToMenu() })
