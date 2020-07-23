@@ -127,6 +127,11 @@ export class Player extends Entity {
 			if (this.painting) this.game.grid.getTile(this.position.getRounded()).activate()
 			this.dead = this.checkHazard(this.position, this.currentMove.direction)
 			if (this.dead) {
+				let tileCount = this.game.progression.getTileCount()
+				if (tileCount.count === tileCount.total) {
+					this.dead = false
+					return
+				}
 				this.lerp = 0
 				this.awaitingDeathAudio = true
 				// this.lastAttemptedMove = undefined
@@ -178,9 +183,11 @@ export class Player extends Entity {
 	}
 
 	updateVictory() {
+		this.eyes.parent.alpha = 1
+		this.setEyesNorm()
 		this.lerp = Math.min(this.lerp + 0.2, 1)
 		if (!this.dead) this.updateSpritePosition()
-		this.eyes.parent.angle += 15
+		this.eyes.parent.angle += 10
 	}
 
 	areEyesStopped() {
