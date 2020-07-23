@@ -97,3 +97,19 @@ let interval = setInterval(() => {
 		player.attr("onclick", "wink()")
 	}
 }, 1)
+
+setTimeout(function() {
+	$("#play").attr("disabled", false)
+}, 750)
+
+setTimeout(function() {
+	$("#settings").attr("disabled", false)
+}, 1000)
+
+setTimeout(function() {
+	$("#about").attr("disabled", false)
+}, 1250)
+
+setTimeout(function() {
+	$("#quit").attr("disabled", false)
+}, 1500)
