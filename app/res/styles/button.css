@@ -1,6 +1,7 @@
 button.button {
 	color: #cfd8dc;
 	background: #263238;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	font-family: Verdana, sans-serif;
 	font-size: min(calc(4vw * 3/4), 4vh);
 	pointer-events: all;
