@@ -15,6 +15,10 @@ button.button {
 	transition: padding-left 0.5s, color 0.25s
 }
 
+.button:disabled {
+	cursor: default;
+}
+
 .button:hover {
 	color: #fa5c5c;
 	padding-left: 3vw;
