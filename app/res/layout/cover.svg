@@ -4,9 +4,20 @@
 	width="1260" height="1000"
 	viewBox="0 0 1260 1000">
 
+	<defs>
+		<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+			<stop offset="0%" style="stop-color:rgb(255,255,255);" />
+			<stop offset="50%" style="stop-color:rgb(255,255,255);"/>
+			<stop offset="100%" style="stop-color:rgb(0,0,0);" />
+		</radialGradient>
+		<mask id="mask_gradient">
+			<circle cx="0" cy="0" r="4500" fill="url(#grad1)"/>
+		</mask>
+	</defs>
+
 	<rect width="1260" height="1000" fill="#263238"/>
 
-	<g transform="translate(630, 500) scale(0.25, 0.25) rotate(-15)">
+	<g mask="url(#mask_gradient)" transform="translate(630, 500) scale(0.25, 0.25) rotate(-15)">
 
 		<g opacity="0.95">
 			<g fill="#4b636e" transform="translate(-480, -480)" opacity="0.6">
@@ -32,6 +43,108 @@
 				<rect x="1000" y="2000" width="960" height="960"/>
 				<rect x="3000" y="-1000" width="960" height="960"/>
 <!--				<rect x="-2000" y="2000" width="960" height="960"/>-->
+
+				<g>
+					<g transform="translate(0, 0)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, 1000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, 2000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, 3000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, 4000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, -1000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, -2000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, -3000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+					<g transform="translate(0, -4000)">
+						<rect x="0" y="0" width="960" height="960"/>
+						<rect x="1000" width="960" height="960"/>
+						<rect x="2000" width="960" height="960"/>
+						<rect x="3000" width="960" height="960"/>
+						<rect x="4000" width="960" height="960"/>
+						<rect x="-1000" width="960" height="960"/>
+						<rect x="-2000" width="960" height="960"/>
+						<rect x="-3000" width="960" height="960"/>
+						<rect x="-4000" width="960" height="960"/>
+					</g>
+				</g>
 
 			</g>
 
