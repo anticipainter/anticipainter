@@ -11,7 +11,7 @@ function createMainWindow() {
 			preload: path.join(app.getAppPath(), "js/preload.js")
 		},
 		minWidth: 675,
-		minHeight: 500,
+		minHeight: 525,
 		backgroundColor: 0x1b1b1b,
 		autoHideMenuBar: true,
 		show: false
