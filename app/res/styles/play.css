@@ -5,6 +5,7 @@ html, body {
 	margin: 0;
 	background: #263238;
 	overscroll-behavior: none;
+	user-select: none;
 }
 
 body {
