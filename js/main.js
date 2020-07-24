@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require("electron")
+const {app, BrowserWindow, Menu} = require("electron")
 const path = require("path")
 const isDev = require("electron-is-dev")
 
@@ -17,7 +17,20 @@ function createMainWindow() {
 		show: false
 	})
 
-	if (!isDev) window.removeMenu()
+	if (!isDev) {
+		// window.removeMenu()
+		Menu.setApplicationMenu(Menu.buildFromTemplate([
+			{
+				label: "Window",
+				submenu: [
+					{role: "minimize"},
+					{role: "close"},
+					{type: "separator"},
+					{role: "togglefullscreen"}
+				]
+			}
+		]))
+	}
 	window.loadFile("app/index.html")
 	window.on("closed", () => { mainWindow = null })
 
