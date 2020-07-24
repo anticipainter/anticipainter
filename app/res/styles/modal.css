@@ -62,6 +62,10 @@ h1, h2 {
 	font-size: 3vh;
 }
 
+.modal.footer button {
+	border-radius: 2vh;
+}
+
 @keyframes animatetop {
 	from {top: -300px; opacity: 0}
 	to {top: 0; opacity: 1}
