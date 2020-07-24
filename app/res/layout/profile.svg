@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg
+	xmlns="http://www.w3.org/2000/svg" version="1.1"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="1000" height="1000">
+
+	<style>
+		.off { fill: #4b636e; }
+		.on { fill: #607d8b; }
+
+		.wall { fill: #cfd8dc }
+		.hazard { fill: #ff1744 }
+	</style>
+
+	<defs>
+		<linearGradient id="gradient_trail">
+			<stop offset="0%" style="stop-color: #819ca9; stop-opacity: 0.1"/>
+			<stop offset="50%" style="stop-color: #a7c0cd; stop-opacity: 0.3"/>
+			<stop offset="100%" style="stop-color: #819ca9; stop-opacity: 1.0"/>
+		</linearGradient>
+
+		<symbol id="tile">
+			<rect x="0.025" y="0.025"
+				  width="0.95" height="0.95"
+				  transform="translate(-0.5, -0.5)"/>
+		</symbol>
+
+		<symbol id="player">
+			<rect x="0.25" y="0.25" rx="0.15"
+			      width="0.5" height="0.5"
+			      fill="#a7c0cd"
+			      transform="translate(-0.5, -0.5)"/>
+
+			<g opacity="1.0" fill="#ffffff" transform="translate(0.100, 0)">
+				<circle cx="0" cy="-0.08" r="0.05"/>
+				<!--				<circle id="right-eye" cx="0" cy="0.08" r="0.05"/>-->
+				<rect x="-0.0125" y="-0.05" width="0.025" height="0.1" transform="translate(0, 0.08) rotate(30)"/>
+			</g>
+		</symbol>
+	</defs>
+
+	<rect width="100%" height="100%" fill="#263238"/>
+
+	<g transform="translate(500, 500) scale(1000, 1000) rotate(-15)">
+		<use xlink:href="#tile" x="0" y="0" class="on" transform="scale(2)"/>
+
+		<g transform="scale(1.4)">
+			<rect x="-1.25" y="-0.25" rx=".15"
+			      width="1.5" height=".5"
+			      fill="url(#gradient_trail)"/>
+
+			<use xlink:href="#player"/>
+		</g>
+	</g>
+</svg>
