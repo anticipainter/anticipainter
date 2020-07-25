@@ -1,11 +1,28 @@
+/**
+ * @callback VectorCallback
+ * @param {Vector} vector
+ */
+
 export class Vector {
 	constructor(x=0, y=0) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * Iterate over the vector at each integer
+	 * @param {VectorCallback} callback
+	 */
+	iterate(callback) {
+		Vector.iterate(new Vector(), this, callback)
+	}
+
 	static zero() {
 		return new Vector(0, 0)
+	}
+
+	static one() {
+		return new Vector(1, 1)
 	}
 
 	getRounded() {
@@ -45,6 +62,32 @@ export class Vector {
 		rotated.x = Math.round(vector.x * Math.cos(degrees * 0.0174533) - vector.y * Math.sin(degrees * 0.0174533));
 		rotated.y = Math.round(vector.x * Math.sin(degrees * 0.0174533) + vector.y * Math.cos(degrees * 0.0174533));
 		return rotated;
+	}
+
+	static min(a, b) {
+		if (a === undefined) return b
+		if (b === undefined) return a
+		return new Vector(Math.min(a.x, b.x), Math.min(a.y, b.y))
+	}
+
+	static max(a, b) {
+		if (a === undefined) return b
+		if (b === undefined) return a
+		return new Vector(Math.max(a.x, b.x), Math.max(a.y, b.y))
+	}
+
+	/**
+	 * Iterate over two vectors stopping at each integer
+	 * @param {Vector} a
+	 * @param {Vector} b
+	 * @param {VectorCallback} callback
+	 */
+	static iterate(a, b, callback) {
+		for (let y = a.y; y < b.y; y++) {
+			for (let x = a.x; x < b.x; x++) {
+				callback(new Vector(x, y))
+			}
+		}
 	}
 
 	static fromList(list) {
