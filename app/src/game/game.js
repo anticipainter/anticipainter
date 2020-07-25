@@ -32,6 +32,7 @@ export class Game {
 		this.victory = false
 		this.victoryTimer = 100
 		this.screenShake = this.preferences.get("video.screen-shake")
+		this.wrapper = new PIXI.Container()
 
 		this.app.loader.onProgress.add(this.loadProgressHandler)
 		this.loadResource(Player)
@@ -71,7 +72,8 @@ export class Game {
 		this.player.start()
 		this.progression.initialize()
 
-		this.app.stage.addChild(Game.sprites)
+		this.wrapper.addChild(Game.sprites)
+		this.app.stage.addChild(this.wrapper)
 		let game = this
 		this.app.ticker.add(() => {game.update()})
 	}
@@ -101,7 +103,7 @@ export class Game {
 			if (!this.player.bonk) pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(direction), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensity)
 			else pos = Vector.mul(Vector.lerp(new Vector(), Direction.toVector(Direction.inverse(direction)), 1 - Math.pow(lerp - 1, 2)), Game.screenShakeIntensityBonk)
 		}
-		this.app.stage.pivot.set(pos.x, pos.y)
+		Game.sprites.pivot.set(pos.x, pos.y)
 
 		if (this.frame % Game.resizeRate === 0) this.onResize()
 
@@ -157,9 +159,9 @@ export class Game {
 		let width = this.app.renderer.width
 		let height = this.app.renderer.height
 		let scale = Math.min(width, height) / 1080 * 16 / Math.max(Game.size.x, Game.size.y)
-		Game.sprites.pivot.set(64 * (Game.size.x - 1) / 2, 64 * (Game.size.y - 1) / 2)
-		Game.sprites.position.set(width / 2, height / 2)
-		Game.sprites.scale.set(scale, scale)
+		this.wrapper.pivot.set(64 * (Game.size.x - 1) / 2, 64 * (Game.size.y - 1) / 2)
+		this.wrapper.position.set(width / 2, height / 2)
+		this.wrapper.scale.set(scale, scale)
 	}
 
 	click() {
