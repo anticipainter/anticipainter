@@ -28,7 +28,7 @@ body {
 	height: 100%;
 	text-align: center;
 	pointer-events: none;
-	padding: 16px 0;
+	padding: 1.5vmin 0;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -56,7 +56,7 @@ body {
 }
 
 #score-wrapper > span {
-	padding: 0 6px;
+	padding: 0 0.6vmin;
 }
 
 #score-numerator {
