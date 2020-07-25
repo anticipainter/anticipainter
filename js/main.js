@@ -12,7 +12,7 @@ function createMainWindow() {
 		},
 		minWidth: 675,
 		minHeight: 525,
-		backgroundColor: 0x1b1b1b,
+		backgroundColor: "#263238",
 		autoHideMenuBar: true,
 		show: false
 	})
@@ -34,7 +34,7 @@ function createMainWindow() {
 	window.loadFile("app/index.html")
 	window.on("closed", () => { mainWindow = null })
 
-	window.show()
+	window.on("ready-to-show", window.show)
 	return window
 }
 
