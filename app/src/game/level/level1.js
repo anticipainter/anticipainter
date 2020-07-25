@@ -1,6 +1,6 @@
-import Level from "./level.js";
-import {Vector} from "../vector.js";
-import {Tile} from "../tile/tile.js";
+import Level from "./level.js"
+import {Vector} from "../vector.js"
+import {Tile} from "../tile/tile.js"
 
 export default class Level1 extends Level {
 	constructor() {

@@ -1,5 +1,5 @@
-import Stage, {StageBuilder} from "./stage.js";
-import {Vector} from "../vector.js";
+import Stage, {StageBuilder} from "./stage.js"
+import {Vector} from "../vector.js"
 
 /**
  * Abstract level class for creating levels
