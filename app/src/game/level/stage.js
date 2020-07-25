@@ -18,22 +18,28 @@ export default class Stage {
 	 */
 	size
 	/**
-	 * The grid storing the tiles and walls
-	 * @property grid
-	 * @type {{
-	 *  tiles: Tile[][],
-	 *  wallsHorizontal: Wall[][],
-	 *  wallsVertical: Wall[][]
-	 * }}
+	 * 2d array of tiles on the grid
+	 * @property tiles
+	 * @type {Tile[][]}
 	 */
-	grid
+	tiles
+	/**
+	 * 2d array of horizontal walls on the grid
+	 * @property wallsHorizontal
+	 * @type {Wall[][]}
+	 */
+	wallsHorizontal
+	/**
+	 * 2d array of vertical walls on the grid
+	 * @property wallsVertical
+	 * @type {Wall[][]}
+	 */
+	wallsVertical
 
 	constructor() {
-		this.grid = {
-			tiles: [],
-			wallsHorizontal: [],
-			wallsVertical: []
-		}
+		this.tiles = []
+		this.wallsHorizontal = []
+		this.wallsVertical = []
 	}
 
 	/**
@@ -43,9 +49,9 @@ export default class Stage {
 	 */
 	generateEmptyGrid(size) {
 		this.size = size
-		this.grid.tiles.length = 0
-		this.grid.wallsHorizontal.length = 0
-		this.grid.wallsVertical.length = 0
+		this.tiles.length = 0
+		this.wallsHorizontal.length = 0
+		this.wallsVertical.length = 0
 		for (let y = 0; y <= this.size.y; y++) {
 			let tiles = [], wallsHorizontal = [], wallsVertical = []
 			for (let x = 0; x <= this.size.x; x++) {
@@ -53,9 +59,9 @@ export default class Stage {
 				if (x) wallsHorizontal.push(undefined)
 				wallsVertical.push(undefined)
 			}
-			if (y) this.grid.tiles.push(tiles)
-			this.grid.wallsHorizontal.push(wallsHorizontal)
-			if (y) this.grid.wallsVertical.push(wallsVertical)
+			if (y) this.tiles.push(tiles)
+			this.wallsHorizontal.push(wallsHorizontal)
+			if (y) this.wallsVertical.push(wallsVertical)
 		}
 	}
 
@@ -68,7 +74,7 @@ export default class Stage {
 	getTile(position) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
 		if (position.y < 0 || position.y >= this.size.y) return undefined
-		return this.grid.tiles[position.y][position.x]
+		return this.tiles[position.y][position.x]
 	}
 
 	/**
@@ -87,7 +93,7 @@ export default class Stage {
 			tile.position = position
 		}
 		let old = this.getTile(position)
-		this.grid.tiles[position.y][position.x] = tile
+		this.tiles[position.y][position.x] = tile
 		return old
 	}
 
@@ -114,7 +120,7 @@ export default class Stage {
 	getWallHorizontal(position) {
 		if (position.x < 0 || position.x >= this.size.x + 1) return undefined
 		if (position.y < 0 || position.y >= this.size.y) return undefined
-		return this.grid.wallsHorizontal[position.y][position.x]
+		return this.wallsHorizontal[position.y][position.x]
 	}
 
 	/**
@@ -126,7 +132,7 @@ export default class Stage {
 	getWallVertical(position) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
 		if (position.y < 0 || position.y >= this.size.y + 1) return undefined
-		return this.grid.wallsVertical[position.y][position.x]
+		return this.wallsVertical[position.y][position.x]
 	}
 
 	/**

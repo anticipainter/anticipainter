@@ -17,10 +17,10 @@ export default class Level1 extends Level {
 
 	print() {
 		let s = ""
-		for (let y = 0; y <= this.stage.size.y; y++) {
-			for (let x = 0; x <= this.stage.size.x; x++) {
-				if (this.stage.getTile(new Vector(x, y)) !== undefined) s += 'T'
-				else s += ' '
+		for (let y = 0; y < this.stage.size.y; y++) {
+			for (let x = 0; x < this.stage.size.x; x++) {
+				if (this.stage.getTile(new Vector(x, y)) !== undefined) s += "[]"
+				else s += "  "
 			}
 			s += '\n'
 		}
