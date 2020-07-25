@@ -41,21 +41,18 @@
 	flex-direction: column;
 }
 
-#modals > .modal > .modal > .modal { padding: 8px; }
-#modals > .modal > .modal > .modal.header { padding: 0 2vh; }
+#modals > .modal > .modal > .modal { padding: 1vh; }
+#modals > .modal > .modal > .modal.header { padding: 0 1vh; }
 #modals > .modal > .modal > .modal.content { flex: 1; }
-
-h1, h2 {
-	margin: 4px 0;
-}
 
 .modal.header h1 {
 	font-size: 5vh;
-	margin-top: 1vh;
+	margin: 1vh;
 }
 
 .modal.content h2 {
 	font-size: 4vh;
+	margin: 0.5vh;
 }
 
 .modal.content h3 {
