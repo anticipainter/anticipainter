@@ -1,12 +1,12 @@
 button.button {
 	color: #cfd8dc;
 	background: #263238;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 0.5vmin 1vmin 0 rgba(0, 0, 0, 0.2), 0 0.75vmin 2.5vmin 0 rgba(0, 0, 0, 0.19);
 	font-family: Verdana, sans-serif;
 	// font-size: min(calc(4vw * 3/4), 4vh);
 	font-size: 4vmin;
 	pointer-events: all;
-	border-radius: 15px;
+	border-radius: 2vmin;
 	border: none;
 	outline: none;
 	text-align: center;
