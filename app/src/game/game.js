@@ -121,9 +121,8 @@ export class Game {
 	}
 
 	showResults() {
-		if (this.shownModal) return
-		this.shownModal = true
 		if (isModalActive("modal-results")) return
+		this.shownModal = true
 		showModal("modal-results")
 		let m = $("#modals")
 		m.css("now", 0)
@@ -164,7 +163,6 @@ export class Game {
 
 	click() {
 		if (this.shownModal) {
-			this.shownModal = false
 			this.showResults()
 		}
 	}
@@ -177,7 +175,6 @@ export class Game {
 			return
 		}
 		if (this.shownModal) {
-			this.shownModal = false
 			this.showResults()
 			return
 		}

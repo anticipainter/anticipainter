@@ -21,6 +21,7 @@ export class Player extends Entity {
 	lastPosition = undefined
 	bonk = false
 	dead = false
+	finishedDeath = false
 	lerp = 1
 	awaitingDeathAudio = false
 
@@ -88,6 +89,7 @@ export class Player extends Entity {
 	}
 
 	update() {
+		if (this.finishedDeath) return
 		if (this.dead) {
 			if (this.awaitingDeathAudio) {
 				let audio = this.audio.die.cloneNode()
@@ -101,6 +103,7 @@ export class Player extends Entity {
 			let position = Vector.lerp(this.position, deadPosition, this.lerp / 0.25)
 			if (this.lerp > 1) {
 				this.game.gameOver()
+				this.finishedDeath = true
 			} else if (this.lerp >= 0.5) {
 				this.setEyesDead()
 				this.lerp += 0.01
