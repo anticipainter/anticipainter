@@ -123,14 +123,15 @@ export class Game {
 	showResults() {
 		if (isModalActive("modal-results")) return
 		this.shownModal = true
-		showModal("modal-results")
+		showModal("modal-results", function() {
+			$("#state").text(this.victory ? "You Won!" : "You Died...")
+			$("#total").text(this.progression.scoreTotal)
+		}.bind(this))
 		let m = $("#modals")
 		m.css("now", 0)
 		m.animate({now: 1}, {
 			duration: 1000,
 			step: now => {
-				$("#state").text(this.victory ? "You Won!" : "You Died...")
-				$("#total").text(this.progression.scoreTotal)
 				$("#score").text(Math.round(now * this.progression.scoreCount))
 			}
 		})
@@ -162,9 +163,7 @@ export class Game {
 	}
 
 	click() {
-		if (this.shownModal) {
-			this.showResults()
-		}
+		if (this.shownModal) this.showResults()
 	}
 
 	keyDown(key) {
