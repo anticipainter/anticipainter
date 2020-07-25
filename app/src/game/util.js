@@ -1,8 +1,19 @@
 import {Vector} from "./vector.js"
 
+export function range(start, end) {
+	return [...Array(end - start).keys()].map(x => x + start)
+}
+
 export function clamp(value, minimum, maximum) {
 	return Math.min(Math.max(value, minimum), maximum)
 }
+
+export const standardKeys = [8, 9, 13, 27, 32]
+	.concat(range(37, 41))
+	.concat(range(48, 58))
+	.concat(range(65, 91))
+	.concat(range(186, 193))
+	.concat(range(219, 223))
 
 let i = 0
 

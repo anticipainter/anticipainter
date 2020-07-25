@@ -1,3 +1,5 @@
+import {standardKeys} from "./game/util.js"
+
 let title = $("#title")
 let player = undefined, eyes = undefined, everything = undefined
 let preferences = new Preferences({configName: "user-preferences", defaults: Preferences.defaults})
@@ -93,4 +95,6 @@ let interval = setInterval(() => {
 	}
 }, 1)
 
-$(document).on("keydown", e => { fadeToMenu() })
+$(document).on("keydown", event => {
+	if (standardKeys.includes(event.which)) fadeToMenu()
+})

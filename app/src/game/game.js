@@ -1,4 +1,4 @@
-import {Direction} from "./util.js"
+import {Direction, standardKeys} from "./util.js"
 import {Display} from "./ui/display.js"
 import {Generator} from "./generator.js"
 import {Grid} from "./grid.js"
@@ -173,7 +173,7 @@ export class Game {
 			})
 			return
 		}
-		if (this.shownModal) {
+		if (standardKeys.includes(key) && this.shownModal) {
 			this.showResults()
 			return
 		}
