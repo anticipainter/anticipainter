@@ -46,6 +46,10 @@ body {
 	box-sizing: border-box;
 }
 
+#buttons button.button {
+	font-size: calc(min(50vh, max(40vw, 325px)) * 0.09);
+}
+
 #buttons > div {
 	flex: 1;
 	box-sizing: border-box;
