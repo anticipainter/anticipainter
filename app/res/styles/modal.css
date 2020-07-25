@@ -59,8 +59,24 @@
 	font-size: 3vh;
 }
 
-.modal.footer button {
+.modal.buttons {
+	width: 100%;
+	float: right;
+	display: flex;
+	/*justify-content: center;*/
+}
+
+.modal.buttons > .button {
+	/*width: 50%;*/
+	flex: 1;
+	margin: 0 4px;
+	transition: opacity 0.25s, inherit;
 	border-radius: 2vh;
+}
+
+.modal.buttons > .button:hover {
+	padding-left: 6px;
+	opacity: 0.9;
 }
 
 @keyframes animatetop {
