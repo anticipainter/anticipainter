@@ -44,6 +44,7 @@
 #modals > .modal > .modal > .modal { padding: 1vh; }
 #modals > .modal > .modal > .modal.header { padding: 0 1vh; }
 #modals > .modal > .modal > .modal.content { flex: 1; }
+#modals > .modal > .modal > .modal.footer { padding: 0.5vh; }
 
 .modal.header h1 {
 	font-size: 5vh;
@@ -69,9 +70,10 @@
 .modal.buttons > .button {
 	/*width: 50%;*/
 	flex: 1;
-	margin: 0 4px;
-	transition: opacity 0.25s, inherit;
+	margin: 0.5vh;
+	padding: 0.5vh;
 	border-radius: 2vh;
+	transition: opacity 0.25s, inherit;
 }
 
 .modal.buttons > .button:hover {
