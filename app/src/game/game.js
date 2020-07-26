@@ -120,7 +120,7 @@ export class Game {
 	}
 
 	gameOver() {
-		setTimeout(this.showResults.bind(this), 500)
+		setTimeout(this.showResults.bind(this), 650)
 	}
 
 	showResults() {
