@@ -1,9 +1,6 @@
+import {bindAudio} from "./button.js"
+
 let body = $("body")
-let preferences = new Preferences({configName: "user-preferences", defaults: Preferences.defaults})
-let audio = {
-	hover: new Audio("res/sound/button_hover.wav"),
-	click: new Audio("res/sound/button_click.wav")
-}
 
 body.fadeTo("slow", 1, () => { })
 
@@ -16,11 +13,11 @@ $("#play").on("click", e => {
 })
 
 $("#settings").on("click", e => {
-	showModal("modal-settings")
+	showModal("modal-settings", () => { bindAudio($(".modal .button")) })
 })
 
 $("#about").on("click", e => {
-	showModal("modal-about")
+	showModal("modal-about", () => { bindAudio($(".modal .button")) })
 })
 
 $("#quit").on("click", e => {
@@ -29,21 +26,13 @@ $("#quit").on("click", e => {
 	})
 })
 
+bindAudio($(".button"))
+
 $(document).on("keydown", (e) => {
 	if (e.code === "Escape") {
 		if (isModalActive("modal-settings") || isModalActive("modal-about")) hideBackground(hideAll)
 		else window.close()
 	}
-})
-
-$(".button").on("mouseenter", e => {
-	let sound = audio.hover.cloneNode()
-	sound.volume = preferences.get("audio.volume-master") * preferences.get("audio.volume-sound") / 200
-	sound.play()
-}).on("click", e => {
-	let sound = audio.click.cloneNode()
-	sound.volume = preferences.get("audio.volume-master") * preferences.get("audio.volume-sound") / 100
-	sound.play()
 })
 
 function wink() {

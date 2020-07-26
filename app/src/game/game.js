@@ -8,6 +8,7 @@ import {Progression} from "./progression.js"
 import {Tile} from "./tile/tile.js"
 import {Vector} from "./vector.js"
 import {Wall} from "./wall/wall.js"
+import {bindAudio} from "../button.js"
 
 export class Game {
 	static sprites = new PIXI.Container()
@@ -128,6 +129,7 @@ export class Game {
 		showModal("modal-results", function() {
 			$("#state").text(this.victory ? "You Won!" : "You Died...")
 			$("#total").text(this.progression.scoreTotal)
+			bindAudio($(".modal .button"))
 		}.bind(this))
 		let m = $("#modals")
 		m.css("now", 0)
