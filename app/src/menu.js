@@ -83,7 +83,7 @@ let interval = setInterval(() => {
 		text.attr("opacity", 0)
 		let player = $("#player")
 		player.addClass("mouse")
-		player.attr("onclick", "wink()")
+		player.on("click", wink)
 	}
 }, 1)
 
