@@ -22,7 +22,7 @@
 	</symbol>
 
 	<g transform="translate(500, 500)">
-		<g transform="scale(1.0)" opacity="0.8">
+		<g id="scale" transform="scale(1.0)" opacity="0.8">
 			<g transform="translate(-500, -500)">
 				<use xlink:href="#arrow-up" fill="#cfd8dc"/>
 				<use xlink:href="#arrow-up" fill="#ff1744" opacity="0"/>
