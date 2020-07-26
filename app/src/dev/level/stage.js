@@ -1,5 +1,5 @@
-import {Orientation} from "../util.js";
-import {Vector} from "../vector.js";
+import {Orientation} from "../../game/util.js";
+import Vector from "../util/vector.js"
 
 /**
  * @callback TileCallback
@@ -238,7 +238,7 @@ export class StageBuilder {
 	/**
 	 * Queues a rectangle using the given tile type
 	 * @method drawRect
-	 * @param {Class<TileOld>} TileType - The type of tile to use
+	 * @param {Class<Tile>} TileType - The type of tile to use
 	 * @param {Vector} a - The first corner
 	 * @param {Vector} b - The cater corner
 	 */
@@ -265,7 +265,7 @@ export class StageBuilder {
 	 * @method draw
 	 */
 	draw() {
-		this.stage.generateEmptyGrid(Vector.add(Vector.sub(this.bottomRight, this.topLeft), Vector.one()))
+		this.stage.generateEmptyGrid(Vector.add(Vector.sub(this.bottomRight, this.topLeft), Vector.one))
 		for (let shape of this.queue) {
 			shape.draw(this.stage, this.topLeft)
 		}

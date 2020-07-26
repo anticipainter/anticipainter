@@ -1,5 +1,7 @@
+import GameMode from "../util/game-mode.js"
 import Stage, {StageBuilder} from "./stage.js"
-import {Vector} from "../vector.js"
+import Player from "../entity/player.js"
+import Vector from "../util/vector.js"
 
 /**
  * Abstract level class for creating levels
@@ -8,30 +10,43 @@ import {Vector} from "../vector.js"
  */
 export default class Level {
 	/**
-	 * The name of the {@link Level}
-	 * @property name
-	 * @type {string}
+	 * The current {@link GameMode}
+	 * @property gameMode
+	 * @type {GameMode}
 	 */
-	name
+	gameMode
 	/**
 	 * Contains the [tiles]{@link Tile} and [walls]{@link Wall}
 	 * @property stage
 	 * @type {Stage}
 	 */
 	stage
+	/**
+	 * The {@link Player} instance
+	 * @property player
+	 * @type {Player}
+	 */
+	player
 
 	/**
 	 * @constructor Level
-	 * @param {string} name - The name of the level
+	 * @param {Anticipainter} game - Reference to the game instance
 	 */
-	constructor(name) {
-		this.name = name
+	constructor(game) {
+		this.gameMode = GameMode.WAITING
 		this.stage = new Stage()
 
 		let builder = new StageBuilder(this.stage)
 		this.generateStage(builder)
 		builder.draw()
 	}
+
+	/**
+	 * The name of the {@link Level}
+	 * @abstract
+	 * @returns {string}
+	 */
+	get name() {}
 
 	/**
 	 * Draws the [tiles]{@link Tile} to the {@link Stage} using a [builder]{@link StageBuilder}
@@ -54,6 +69,14 @@ export default class Level {
 			)
 			if (this.stage.getTile(position) !== undefined) return position
 		}
+	}
+
+	/**
+	 * Spawns the player into the {@link Level}
+	 */
+	spawnPlayer() {
+		this.player = new Player(this)
+		this.player.position = this.getStartPosition()
 	}
 
 	/**
@@ -85,6 +108,6 @@ export default class Level {
 			}
 			s += '\n'
 		}
-		console.log(s)
+		console.info(s)
 	}
 }
