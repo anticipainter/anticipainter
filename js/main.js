@@ -10,8 +10,8 @@ function createMainWindow() {
 			enableRemoteModule: true,
 			preload: path.join(app.getAppPath(), "js/preload.js")
 		},
-		minWidth: 675,
-		minHeight: 525,
+		minWidth: 480,
+		minHeight: 360,
 		backgroundColor: "#263238",
 		autoHideMenuBar: true,
 		show: false
