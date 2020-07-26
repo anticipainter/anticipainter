@@ -8,13 +8,13 @@ import {Vector} from "../vector.js"
  */
 export default class Level {
 	/**
-	 * The name of the level
+	 * The name of the {@link Level}
 	 * @property name
 	 * @type {string}
 	 */
 	name
 	/**
-	 * The stage containing the grid
+	 * Contains the [tiles]{@link Tile} and [walls]{@link Wall}
 	 * @property stage
 	 * @type {Stage}
 	 */
@@ -34,7 +34,7 @@ export default class Level {
 	}
 
 	/**
-	 * Draws the tiles on the grid
+	 * Draws the [tiles]{@link Tile} to the {@link Stage} using a [builder]{@link StageBuilder}
 	 * @method generateTiles
 	 * @abstract
 	 * @param {StageBuilder} builder - A grid builder to draw shapes
@@ -42,11 +42,11 @@ export default class Level {
 	generateStage(builder) {}
 
 	/**
-	 * Decides the starting position for the player
+	 * Decides the starting [position]{@link Vector} for the {@link Player}
 	 * @method
 	 * @returns {Vector}
 	 */
-	getStartLocation() {
+	getStartPosition() {
 		while (true) {
 			let position = new Vector(
 				Math.floor(Math.random() * this.stage.size.x),
@@ -57,7 +57,7 @@ export default class Level {
 	}
 
 	/**
-	 * Runs once the level is loaded
+	 * Runs once the {@link Level} is loaded
 	 * @method start
 	 */
 	start() {}
@@ -69,10 +69,22 @@ export default class Level {
 	update() {}
 
 	/**
-	 * The size of the stage
+	 * The size of the {@link Stage}
 	 * @returns {Vector}
 	 */
 	get size() {
 		return this.stage.size
+	}
+
+	debug() {
+		let s = ""
+		for (let y = 0; y < this.stage.size.y; y++) {
+			for (let x = 0; x < this.stage.size.x; x++) {
+				if (this.stage.getTile(new Vector(x, y)) !== undefined) s += "[]"
+				else s += "  "
+			}
+			s += '\n'
+		}
+		console.log(s)
 	}
 }
