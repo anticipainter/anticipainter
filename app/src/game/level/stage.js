@@ -10,6 +10,9 @@ import {Vector} from "../vector.js";
  * @param {Wall} wall
  */
 
+/**
+ * The tiles and walls on a level
+ */
 export default class Stage {
 	/**
 	 * The size of the stage
@@ -18,19 +21,19 @@ export default class Stage {
 	 */
 	size
 	/**
-	 * 2d array of tiles on the grid
+	 * 2d array of [tiles]{@link Tile} on the [stage]{@link Stage}
 	 * @property tiles
 	 * @type {Tile[][]}
 	 */
 	tiles
 	/**
-	 * 2d array of horizontal walls on the grid
+	 * 2d array of horizontal [walls]{@link Wall} on the [stage]{@link Stage}
 	 * @property wallsHorizontal
 	 * @type {Wall[][]}
 	 */
 	wallsHorizontal
 	/**
-	 * 2d array of vertical walls on the grid
+	 * 2d array of vertical [walls]{@link Wall} on the [stage]{@link Stage}
 	 * @property wallsVertical
 	 * @type {Wall[][]}
 	 */
@@ -66,7 +69,7 @@ export default class Stage {
 	}
 
 	/**
-	 * Gets the tile at a specific position
+	 * Gets the {@link Tile} at a specific [position]{@link Vector}
 	 * @method getTile
 	 * @param {Vector} position - The desired position
 	 * @returns {Tile|undefined} The tile at position, or undefined
@@ -78,7 +81,7 @@ export default class Stage {
 	}
 
 	/**
-	 * Sets the tile at a specific position
+	 * Sets the {@link Tile} at a specific [position]{@link Vector}
 	 * @method getTile
 	 * @param {Vector} position - The desired position
 	 * @param {Class<Tile>} TileType - The TileType
@@ -98,7 +101,7 @@ export default class Stage {
 	}
 
 	/**
-	 * Gets the wall at a specific position and orientation
+	 * Gets the {@link Wall} at a specific [position]{@link Vector} and [orientation]{@link Orientation}
 	 * @method getWall
 	 * @param {Vector} position - the desired position
 	 * @param {Orientation} orientation - the desired orientation
@@ -112,7 +115,7 @@ export default class Stage {
 	}
 
 	/**
-	 * Gets the horizontal wall at a specific position
+	 * Gets the horizontal {@link Wall} at a specific [position]{@link Vector}
 	 * @method getWallHorizontal
 	 * @param {Vector} position - The desired position
 	 * @returns {Wall|undefined} The wall at position, or undefined
@@ -124,7 +127,7 @@ export default class Stage {
 	}
 
 	/**
-	 * Gets the vertical wall at a specific position
+	 * Gets the vertical {@link Wall} at a specific [position]{@link Vector}
 	 * @method getWallHorizontal
 	 * @param {Vector} position - The desired position
 	 * @returns {Wall|undefined} The wall at position, or undefined
@@ -136,21 +139,19 @@ export default class Stage {
 	}
 
 	/**
-	 * Runs a function over each tile
+	 * Runs a [function]{@link TileCallback} over each {@link Tile}
 	 * @method forEachTile
 	 * @param {TileCallback} callback
 	 */
 	forEachTile(callback) {
-		for (let y = 0; y < this.size.y; y++) {
-			for (let x = 0; x < this.size.x; x++) {
-				let tile = this.getTile(new Vector(x, y))
-				if (tile !== undefined) callback(tile)
-			}
-		}
+		this.size.iterate(vector => {
+			let tile = this.getTile(vector)
+			if (tile !== undefined) callback(tile)
+		})
 	}
 
 	/**
-	 * Runs a function over each wall
+	 * Runs a [function]{@link WallCallback} over each {@link Wall}
 	 * @method forEachWall
 	 * @param {WallCallback} callback
 	 */
@@ -160,36 +161,32 @@ export default class Stage {
 	}
 
 	/**
-	 * Runs a function over each horizontal wall
+	 * Runs a [function]{@link WallCallback} over each horizontal {@link Wall}
 	 * @method forEachWallHorizontal
 	 * @param {WallCallback} callback
 	 */
 	forEachWallHorizontal(callback) {
-		for (let y = 0; y <= this.size.y; y++) {
-			for (let x = 0; x < this.size.x; x++) {
-				let wall = this.getWallHorizontal(new Vector(x, y))
-				if (wall !== undefined) callback(wall)
-			}
-		}
+		this.size.iterate(vector => {
+			let wall = this.getWallHorizontal(vector)
+			if (wall !== undefined) callback(wall)
+		})
 	}
 
 	/**
-	 * Runs a function over each vertical wall
+	 * Runs a [function]{@link WallCallback} over each vertical {@link Wall}
 	 * @method forEachWallVertical
 	 * @param {WallCallback} callback
 	 */
 	forEachWallVertical(callback) {
-		for (let y = 0; y < this.size.y; y++) {
-			for (let x = 0; x <= this.size.x; x++) {
-				let wall = this.getWallVertical(new Vector(x, y))
-				if (wall !== undefined) callback(wall)
-			}
-		}
+		this.size.iterate(vector => {
+			let wall = this.getWallVertical(vector)
+			if (wall !== undefined) callback(wall)
+		})
 	}
 }
 
 /**
- * Helper class for drawing tiles to the grid
+ * Helper class for drawing [tiles]{@link Tile} to the {@link Stage}
  * @class StageBuilder
  */
 export class StageBuilder {
@@ -241,7 +238,7 @@ export class StageBuilder {
 	/**
 	 * Queues a rectangle using the given tile type
 	 * @method drawRect
-	 * @param {Class<Tile>} TileType - The type of tile to use
+	 * @param {Class<TileOld>} TileType - The type of tile to use
 	 * @param {Vector} a - The first corner
 	 * @param {Vector} b - The cater corner
 	 */
@@ -276,7 +273,7 @@ export class StageBuilder {
 }
 
 /**
- * Abstract shape class used to draw tiles to the grid
+ * Abstract shape class used to draw [tiles]{@link Tile} to the {@link Stage}
  * @class Shape
  * @abstract
  */
