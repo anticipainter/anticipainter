@@ -80,7 +80,7 @@ export default class Entity {
 	 * @param {string} label - name of the animation
 	 * @param {number} duration - length of the animation
 	 * @param {function} step - Called at each frame of the animation
-	 * @param {function} complete - Called at the end of the animation
+	 * @param {function} [complete] - Called at the end of the animation
 	 */
 	animate(label, duration, step, complete) {
 		let tag = `entity-${this.id}-${label}`
