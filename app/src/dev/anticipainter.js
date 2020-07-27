@@ -2,7 +2,6 @@ import EventBus from "./event/eventbus.js"
 import Graphics from "./graphics/graphics.js"
 import Level0 from "./level/levels/level0.js"
 import Level1 from "./level/levels/level1.js"
-import Vector from "./util/vector.js"
 
 const levels = [Level0, Level1]
 
@@ -63,6 +62,11 @@ export default class Anticipainter {
 			this.entities.add(tile)
 			tile.createSprite()
 			Graphics.addSprite(tile)
+		})
+		this.level.stage.forEachWall(wall => {
+			this.entities.add(wall)
+			wall.createSprite()
+			Graphics.addSprite(wall)
 		})
 	}
 }

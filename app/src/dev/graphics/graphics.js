@@ -69,7 +69,11 @@ export default class Graphics extends GameModule {
 			.loadResource(WallHazard)
 
 		this.game.app.loader.load(this.loadFinishHandler.bind(this))
-		window.onresize = this.onResize.bind(this)
+		window.onresize = () => {
+			// Twice is necessary to fix problems with maximization
+			this.onResize()
+			this.onResize()
+		}
 	}
 
 	/**

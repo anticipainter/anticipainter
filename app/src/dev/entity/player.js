@@ -26,9 +26,7 @@ export default class Player extends Entity {
 		return this.level.gameMode
 	}
 
-	static getRenderLayer() {
-		return RenderLayer.PLAYER
-	}
+	// region Registry methods
 
 	static getRegistryName() {
 		return "player"
@@ -45,5 +43,11 @@ export default class Player extends Entity {
 			{name: "player_eyes_exec", url: "../../res/drawable/player_eyes_exec.svg"},
 			{name: "player_eyes_dead", url: "../../res/drawable/player_eyes_dead.svg"}
 		]
+	}
+
+	// endregion
+
+	static getRenderLayer() {
+		return RenderLayer.PLAYER
 	}
 }

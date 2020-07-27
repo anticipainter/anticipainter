@@ -1,7 +1,10 @@
 import GameMode from "../util/game-mode.js"
-import Stage, {StageBuilder} from "./stage.js"
+import Stage from "./stage.js"
+import StageBuilder from "./builder/builder-stage.js"
 import Player from "../entity/player.js"
 import Vector from "../util/vector.js"
+import MazeBuilder from "./builder/builder-maze.js"
+import WallStandard from "../wall/wall-standard.js"
 
 /**
  * Abstract level class for creating levels
@@ -36,9 +39,15 @@ export default class Level {
 		this.gameMode = GameMode.WAITING
 		this.stage = new Stage()
 
-		let builder = new StageBuilder(this.stage)
-		this.generateStage(builder)
-		builder.draw()
+		let stageBuilder = new StageBuilder(this.stage)
+		this.generateStage(stageBuilder)
+		stageBuilder.draw()
+		let mazeBuilder = new MazeBuilder(this.stage, stageBuilder.getOrigin())
+		this.generateMaze(mazeBuilder)
+		mazeBuilder.draw()
+		console.log(this)
+
+		this.spawnPlayer()
 	}
 
 	/**
@@ -55,6 +64,11 @@ export default class Level {
 	 * @param {StageBuilder} builder - A grid builder to draw shapes
 	 */
 	generateStage(builder) {}
+
+	generateMaze(builder) {
+		// builder.queueMaze()
+		builder.queueBorder(WallStandard)
+	}
 
 	/**
 	 * Decides the starting [position]{@link Vector} for the {@link Player}

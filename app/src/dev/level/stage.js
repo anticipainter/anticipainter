@@ -1,5 +1,6 @@
-import {Orientation} from "../../game/util.js";
 import Vector from "../util/vector.js"
+import Direction from "../util/direction.js"
+import Orientation from "../util/orientation.js"
 
 /**
  * @callback TileCallback
@@ -101,17 +102,61 @@ export default class Stage {
 	}
 
 	/**
-	 * Gets the {@link Wall} at a specific [position]{@link Vector} and [orientation]{@link Orientation}
+	 * Gets the {@link Wall} relative to a [position]{@link Vector}
+	 * @param {Vector} position - the desired position
+	 * @param {Direction} direction - the desired direction
+	 * @returns {Vector} - relative [position]{@link Vector}
+	 */
+	getWallPosFromDir(position, direction) {
+		let orientation = Direction.toOrientation(direction)
+		let pos = position
+		if (Direction.equal(direction, Direction.RIGHT) || Direction.equal(direction, Direction.DOWN)) {
+			pos = Vector.add(pos, Direction.toVector(direction))
+		}
+		return pos
+	}
+
+	/**
+	 * Gets the {@link Wall} at a specific [position]{@link Vector} and {@link Direction}
 	 * @method getWall
 	 * @param {Vector} position - the desired position
-	 * @param {Orientation} orientation - the desired orientation
+	 * @param {Direction} direction - the desired direction
 	 * @returns {Wall|undefined} The wall at position, or undefined
 	 */
-	getWall(position, orientation) {
-		if (position.x < 0 || position.x >= this.size.x + (orientation === Orientation.VERTICAL ? 1 : 0)) return
-		if (position.y < 0 || position.y >= this.size.y + (orientation === Orientation.HORIZONTAL ? 1 : 0)) return
-		if (orientation === Orientation.VERTICAL) return this.getWallVertical(position)
-		else if (orientation === Orientation.HORIZONTAL) return this.getWallVertical(position)
+	getWall(position, direction) {
+		if (position.x < 0 || position.x >= this.size.x) return undefined
+		if (position.y < 0 || position.y >= this.size.y) return undefined
+		let orientation = Direction.toOrientation(direction)
+		let pos = this.getWallPosFromDir(position, direction)
+		if (Orientation.equal(orientation, Orientation.HORIZONTAL)) {
+			return this.getWallHorizontal(pos)
+		}
+		if (Orientation.equal(orientation, Orientation.VERTICAL)) return this.getWallVertical(pos)
+	}
+
+	/**
+	 * Sets the {@link Wall} from a {@link Direction} at a specific [position]{@link Vector}
+	 * @method getTile
+	 * @param {Vector} position - The desired position
+	 * @param {Direction} direction - The desired direction
+	 * @param {Class<Wall>} WallType - The WallType
+	 * @returns {Wall|undefined} The previous wall at position, or undefined
+	 */
+	setWall(position, direction, WallType) {
+		if (position.x < 0 || position.x >= this.size.x) return undefined
+		if (position.y < 0 || position.y >= this.size.y) return undefined
+		let orientation = Direction.toOrientation(direction)
+		let pos = this.getWallPosFromDir(position, direction)
+		let wall
+		if (WallType !== undefined) {
+			wall = new WallType()
+			wall.setOrientation(orientation)
+			wall.position = pos
+		}
+		let old = this.getWall(position, direction)
+		if (Orientation.equal(orientation, Orientation.HORIZONTAL)) this.wallsHorizontal[pos.y][pos.x] = wall
+		if (Orientation.equal(orientation, Orientation.VERTICAL)) this.wallsVertical[pos.y][pos.x] = wall
+		return old
 	}
 
 	/**
@@ -121,8 +166,8 @@ export default class Stage {
 	 * @returns {Wall|undefined} The wall at position, or undefined
 	 */
 	getWallHorizontal(position) {
-		if (position.x < 0 || position.x >= this.size.x + 1) return undefined
-		if (position.y < 0 || position.y >= this.size.y) return undefined
+		if (position.x < 0 || position.x >= this.size.x) return undefined
+		if (position.y < 0 || position.y >= this.size.y + 1) return undefined
 		return this.wallsHorizontal[position.y][position.x]
 	}
 
@@ -133,8 +178,8 @@ export default class Stage {
 	 * @returns {Wall|undefined} The wall at position, or undefined
 	 */
 	getWallVertical(position) {
-		if (position.x < 0 || position.x >= this.size.x) return undefined
-		if (position.y < 0 || position.y >= this.size.y + 1) return undefined
+		if (position.x < 0 || position.x >= this.size.x + 1) return undefined
+		if (position.y < 0 || position.y >= this.size.y) return undefined
 		return this.wallsVertical[position.y][position.x]
 	}
 
@@ -166,7 +211,7 @@ export default class Stage {
 	 * @param {WallCallback} callback
 	 */
 	forEachWallHorizontal(callback) {
-		this.size.iterate(vector => {
+		Vector.add(this.size, new Vector(1, 1)).iterate(vector => {
 			let wall = this.getWallHorizontal(vector)
 			if (wall !== undefined) callback(wall)
 		})
@@ -178,156 +223,9 @@ export default class Stage {
 	 * @param {WallCallback} callback
 	 */
 	forEachWallVertical(callback) {
-		this.size.iterate(vector => {
+		Vector.add(this.size, new Vector(1, 1)).iterate(vector => {
 			let wall = this.getWallVertical(vector)
 			if (wall !== undefined) callback(wall)
 		})
-	}
-}
-
-/**
- * Helper class for drawing [tiles]{@link Tile} to the {@link Stage}
- * @class StageBuilder
- */
-export class StageBuilder {
-	/**
-	 * Reference to the stage
-	 * @property stage
-	 * @type {Stage}
-	 */
-	stage
-	/**
-	 * Queue of shapes to draw
-	 * @property queue
-	 * @type {Shape[]}
-	 */
-	queue
-	/**
-	 * Position of top left corner
-	 * @property topLeft
-	 * @type {Vector}
-	 */
-	topLeft
-	/**
-	 * Position of bottom right corner
-	 * @property bottomRight
-	 * @type {Vector}
-	 */
-	bottomRight
-
-	/**
-	 * @constructor Helper
-	 * @param {Stage} stage
-	 */
-	constructor(stage) {
-		this.stage = stage
-		this.queue = []
-	}
-
-	/**
-	 * Updates the bounds of the grid
-	 * @method updateBounds
-	 * @param {Vector} min
-	 * @param {Vector} max
-	 */
-	updateBounds(min, max) {
-		this.topLeft = Vector.min(this.topLeft, min)
-		this.bottomRight = Vector.max(this.bottomRight, max)
-	}
-
-	/**
-	 * Queues a rectangle using the given tile type
-	 * @method drawRect
-	 * @param {Class<Tile>} TileType - The type of tile to use
-	 * @param {Vector} a - The first corner
-	 * @param {Vector} b - The cater corner
-	 */
-	queueRect(TileType, a, b) {
-		let min = Vector.min(a, b), max = Vector.max(a, b)
-		this.updateBounds(min, max)
-		this.queue.push(new Rect(TileType, min, max))
-	}
-
-	/**
-	 * Clears a rectangle from the grid
-	 * @method drawRect
-	 * @param {Vector} a - The first corner
-	 * @param {Vector} b - The cater corner
-	 */
-	clearRect(a, b) {
-		let min = Vector.min(a, b), max = Vector.max(a, b)
-		this.updateBounds(min, max)
-		this.queue.push(new ClearRect(min, max))
-	}
-
-	/**
-	 * Draw all of the queued shapes to the grid
-	 * @method draw
-	 */
-	draw() {
-		this.stage.generateEmptyGrid(Vector.add(Vector.sub(this.bottomRight, this.topLeft), Vector.one))
-		for (let shape of this.queue) {
-			shape.draw(this.stage, this.topLeft)
-		}
-	}
-}
-
-/**
- * Abstract shape class used to draw [tiles]{@link Tile} to the {@link Stage}
- * @class Shape
- * @abstract
- */
-class Shape {
-	/**
-	 * Draws the shape to the grid
-	 * @method draw
-	 * @abstract
-	 * @param {Stage} stage
-	 * @param {Vector} origin
-	 */
-	draw(stage, origin) {}
-}
-class Rect extends Shape {
-	/**
-	 * @constructor Rect
-	 * @param {Class<Tile>} TileType - The type of tile to use
-	 * @param {Vector} a - The top left corner
-	 * @param {Vector} b - The bottom right corner
-	 */
-	constructor(TileType, a, b) {
-		super();
-		this.TileType = TileType
-		this.a = a
-		this.b = b
-	}
-
-	draw(stage, origin) {
-		let min = Vector.sub(this.a, origin), max = Vector.sub(this.b, origin)
-		for (let y = min.y; y <= max.y; y++) {
-			for (let x = min.x; x <= max.x; x++) {
-				let pos = new Vector(x, y)
-				if (stage.getTile(pos) === undefined) stage.setTile(pos, this.TileType)
-			}
-		}
-	}
-}
-class ClearRect extends Rect {
-	/**
-	 * @constructor ClearRect
-	 * @param {Vector} a - The top left corner
-	 * @param {Vector} b - The bottom right corner
-	 */
-	constructor(a, b) {
-		super(undefined, a, b);
-	}
-
-	draw(stage, origin) {
-		let min = Vector.sub(this.a, origin), max = Vector.sub(this.b, origin)
-		for (let y = min.y; y <= max.y; y++) {
-			for (let x = min.x; x <= max.x; x++) {
-				let pos = new Vector(x, y)
-				stage.setTile(pos, undefined)
-			}
-		}
 	}
 }
