@@ -14,11 +14,24 @@ import EventInputKeyUp from "../event/input/event-input-keyup.js"
  */
 
 /**
+ * Universal ID count for keeping track of [Entities]{@link Entity}
+ * @type {number}
+ */
+let ID_COUNT = 0
+
+/**
  * Abstract Entity class for creating game entities
  * @class Entity
  * @abstract
  */
 export default class Entity {
+	/**
+	 * The ID of this {@link Entity}
+	 * @property id
+	 * @type {number}
+	 * @private
+	 */
+	_id
 	/**
 	 * The position of the entity
 	 * @type {Vector}
@@ -31,6 +44,7 @@ export default class Entity {
 	sprite
 
 	constructor() {
+		this._id = ID_COUNT++
 		this.position = new Vector()
 
 		if (this.onUpdate !== Entity.prototype.onUpdate) EventBus.subscribe(EventUpdate, this.onUpdate.bind(this))
@@ -44,8 +58,8 @@ export default class Entity {
 	createSprite() {
 		if (this.sprite !== undefined) return
 		this.sprite = new PIXI.Sprite(Graphics.getTexture(this))
-		this.sprite.width *= 60 / 1000
-		this.sprite.height *= 60 / 1000
+		this.sprite.width *= 64 / 1000
+		this.sprite.height *= 64 / 1000
 		this.sprite.anchor.set(0.5, 0.5)
 		this.updateSprite()
 	}
@@ -58,6 +72,27 @@ export default class Entity {
 		this.sprite.x = this.position.x * 64
 		this.sprite.y = this.position.y * 64
 	}
+
+	/**
+	 * Starts an animation for this {@link Entity}
+	 * @param {string} label - name of the animation
+	 * @param {number} duration - length of the animation
+	 * @param {function} step - Called at each frame of the animation
+	 * @param {function} complete - Called at the end of the animation
+	 */
+	animate(label, duration, step, complete) {
+		let tag = `entity-${this.id}-${label}`
+		let start = {}, end = {}
+		start[tag] = 0
+		end[tag] = 1
+		$(start).animate(end, {
+			duration: duration,
+			step: now => {step(now)},
+			complete: complete
+		})
+	}
+
+	// region Event listeners
 
 	/**
 	 * Called once every frame
@@ -79,6 +114,9 @@ export default class Entity {
 	 * @param {EventInputKeyUp} event
 	 */
 	onInputKeyUp(event) { }
+
+	// endregion
+	// region Registry methods
 
 	/**
 	 * Gets the local registry name of this {@link Entity}
@@ -112,8 +150,18 @@ export default class Entity {
 		}
 	}
 
+	// endregion
+
 	/**
 	 * Gets the {@link RenderLayer} of this {@link Entity}
 	 */
-	static getRenderLayer() { }
+	static getRenderLayer() {}
+
+	/**
+	 * The ID of this {@link Entity}
+	 * @returns {number}
+	 */
+	get id() {
+		return this._id
+	}
 }
