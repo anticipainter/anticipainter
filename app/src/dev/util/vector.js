@@ -9,6 +9,7 @@
  * @property {number} y - The y component
  */
 export default class Vector {
+	// region Properties
 	/**
 	 * The x component of the {@link Vector}
 	 * @type {number}
@@ -19,6 +20,7 @@ export default class Vector {
 	 * @type {number}
 	 */
 	y
+	// endregion
 
 	constructor(x=0, y=0) {
 		this.x = x;

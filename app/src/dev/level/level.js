@@ -12,6 +12,7 @@ import WallStandard from "../wall/wall-standard.js"
  * @abstract
  */
 export default class Level {
+	// region Properties
 	/**
 	 * The current {@link GameMode}
 	 * @property gameMode
@@ -30,6 +31,7 @@ export default class Level {
 	 * @type {Player}
 	 */
 	player
+	// endregion
 
 	/**
 	 * @constructor Level

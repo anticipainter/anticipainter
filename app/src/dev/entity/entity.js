@@ -25,6 +25,7 @@ let ID_COUNT = 0
  * @abstract
  */
 export default class Entity {
+	// region Properties
 	/**
 	 * The ID of this {@link Entity}
 	 * @property id
@@ -42,6 +43,7 @@ export default class Entity {
 	 * @type {PIXI.Sprite}
 	 */
 	sprite
+	// endregion
 
 	constructor() {
 		this._id = ID_COUNT++

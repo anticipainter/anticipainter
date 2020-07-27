@@ -18,6 +18,7 @@ export default class Graphics extends GameModule {
 	 */
 	static instance
 
+	// region Properties
 	/**
 	 * Reference to the {@link Display} module
 	 * @property display
@@ -44,6 +45,7 @@ export default class Graphics extends GameModule {
 	layers
 	view = $("#game")
 	resources
+	// endregion
 
 	constructor(game) {
 		if (Graphics.instance !== undefined) return

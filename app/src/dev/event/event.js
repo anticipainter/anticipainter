@@ -13,6 +13,7 @@ import Enum from "../util/enum.js"
  * @abstract
  */
 export default class BaseEvent {
+	// region Properties
 	/**
 	 * Current cancel state of the event
 	 * @property _canceled
@@ -34,6 +35,7 @@ export default class BaseEvent {
 	 * @private
 	 */
 	callbacks = []
+	// endregion
 
 	/**
 	 * Determine if this event is cancelable

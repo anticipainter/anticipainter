@@ -4,12 +4,14 @@
  * @abstract
  */
 export class GameModule {
+	// region Properties
 	/**
 	 * Reference to the [game]{@link Anticipainter} instance
 	 * @property game
 	 * @type {Anticipainter}
 	 */
 	game
+	// endregion
 
 	/**
 	 * @constructor

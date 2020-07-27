@@ -7,11 +7,13 @@ import Orientation from "../util/orientation.js"
  * @abstract
  */
 export default class Wall extends Entity {
+	// region Properties
 	/**
 	 * The {@link Orientation} of the {@link Wall}
 	 * @type {Orientation}
 	 */
 	orientation
+	// endregion
 
 	setOrientation(orientation) {
 		this.orientation = orientation

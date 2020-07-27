@@ -6,6 +6,7 @@ import Shape from "./shape.js"
  * @class StageBuilder
  */
 export default class StageBuilder {
+	// region Properties
 	/**
 	 * Reference to the stage
 	 * @property stage
@@ -30,6 +31,7 @@ export default class StageBuilder {
 	 * @type {Vector}
 	 */
 	bottomRight
+	// endregion
 
 	/**
 	 * @constructor StageBuilder

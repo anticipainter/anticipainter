@@ -15,6 +15,7 @@ import Orientation from "../util/orientation.js"
  * The tiles and walls on a level
  */
 export default class Stage {
+	// region Properties
 	/**
 	 * The size of the stage
 	 * @property size
@@ -39,6 +40,7 @@ export default class Stage {
 	 * @type {Wall[][]}
 	 */
 	wallsVertical
+	// endregion
 
 	constructor() {
 		this.tiles = []

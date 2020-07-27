@@ -7,6 +7,7 @@ import Shape from "./shape.js"
  * @class MazeBuilder
  */
 export default class MazeBuilder {
+	// region Properties
 	/**
 	 * Reference to the stage
 	 * @property stage
@@ -25,6 +26,7 @@ export default class MazeBuilder {
 	 * @type {Shape[]}
 	 */
 	queue
+	// endregion
 
 	/**
 	 * @constructor MazeBuilder

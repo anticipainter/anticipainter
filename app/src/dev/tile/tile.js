@@ -7,6 +7,7 @@ import RenderLayer from "../util/render-layer.js"
  * @abstract
  */
 export default class Tile extends Entity {
+	// region Properties
 	/**
 	 * If this tile is currently activated
 	 * @property activated
@@ -14,6 +15,7 @@ export default class Tile extends Entity {
 	 * @private
 	 */
 	activated = false
+	// endregion
 
 	/**
 	 * Get the activation state of this {@link Tile}

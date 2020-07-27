@@ -10,6 +10,7 @@ const levels = [Level0, Level1]
  * @class
  */
 export default class Anticipainter {
+	// region Properties
 	/**
 	 * Reference to the {@link PIXI.Application} instance
 	 * @property app
@@ -46,6 +47,7 @@ export default class Anticipainter {
 	 * @type {Set<Entity>}
 	 */
 	entities
+	// endregion
 
 	constructor(app, levelIndex) {
 		this.app = app

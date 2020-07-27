@@ -20,6 +20,7 @@ export default class EventBus extends GameModule {
 	 */
 	static instance
 
+	// region Properties
 	/**
 	 * A map from [Events]{@link BaseEvent} to an array of [EventListeners]{@link EventListener}
 	 * @property events
@@ -27,6 +28,7 @@ export default class EventBus extends GameModule {
 	 * @private
 	 */
 	events
+	// endregion
 
 	constructor(game) {
 		if (EventBus.instance !== undefined) return

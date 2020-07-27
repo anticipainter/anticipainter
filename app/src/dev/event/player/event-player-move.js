@@ -5,12 +5,14 @@ import Direction from "../../util/direction.js"
  * @event EventPlayerMove - Called when the {@link Player} moves anywhere
  */
 export default class EventPlayerMove extends EventPlayer {
+	// region Properties
 	/**
 	 * Desired {@link Direction} of the movement
 	 * @property direction
 	 * @type {Direction}
 	 */
 	direction
+	// endregion
 
 	/**
 	 * @constructor

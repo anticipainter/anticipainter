@@ -2,12 +2,14 @@ import Entity from "./entity.js"
 import RenderLayer from "../util/render-layer.js"
 
 export default class Player extends Entity {
+	// region Properties
 	/**
 	 * Reference to the {@link Level} instance
 	 * @property leve
 	 * @type {Level}
 	 */
 	level
+	// endregion
 
 	/**
 	 * @constructor

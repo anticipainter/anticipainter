@@ -1,12 +1,14 @@
 import EventStage from "../stage/event-stage.js"
 
 export default class EventPlayer extends EventStage {
+	// region Properties
 	/**
 	 * Reference to the {@link Player} instance
 	 * @property player
 	 * @type {Player}
 	 */
 	player
+	// endregion
 
 	/**
 	 * @constructor
