@@ -33,6 +33,18 @@ export default class Tile extends Entity {
 		this.activated = state
 	}
 
+	createSprite() {
+		super.createSprite();
+		this.sprite.alpha = 0
+		setTimeout(() => {
+			this.animate("fadeIn", 500, now => {
+				this.sprite.alpha = now * 0.15
+			})
+		}, 600 * Math.random())
+	}
+
+// region Event listeners
+
 	/**
 	 * Called when the {@link Player} is attempting to move over this {@link Tile}
 	 * @listens {@link EventPlayerMove}
@@ -71,6 +83,8 @@ export default class Tile extends Entity {
 	 * @param {EventPlayerLeave} event
 	 */
 	onPlayerLeave(event) { }
+
+	// endregion
 
 	static getRenderLayer() {
 		return RenderLayer.TILE

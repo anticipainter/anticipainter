@@ -87,11 +87,9 @@ export default class Entity {
 		let start = {}, end = {}
 		start[tag] = 0
 		end[tag] = 1
-		$(start).animate(end, {
-			duration: duration,
-			step: now => {step(now)},
-			complete: complete
-		})
+		let options = {duration : duration, step: step}
+		if (complete) options.complete = complete
+		$(start).animate(end, options)
 	}
 
 	// region Event listeners
