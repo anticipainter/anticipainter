@@ -20,47 +20,16 @@ export default class Wall extends Entity {
 	}
 
 	createSprite() {
-		let methods = {
-			default: function(entity) {
-				entity.sprite.scale.set(0)
-				setTimeout(() => {
-					entity.animate("scaleIn", 500, now => {
-						entity.sprite.scale.set(now * 64 / 1000)
-					})
-				}, 500 + 600 * Math.random())
-			},
-			scaleDown: function(entity) {
-				entity.sprite.scale.set(2)
-				entity.sprite.alpha = 0
-				setTimeout(() => {
-					entity.animate("scaleIn", 500, now => {
-						entity.sprite.scale.set ((2 - 1 * now) * 64 / 1000)
-						entity.sprite.alpha = now
-					})
-				}, 500 + 600 * Math.random())
-			},
-			wobbleIn: function(entity) {
-				entity.sprite.scale.set(0)
-				setTimeout(() => {
-					entity.animate("scaleIn", 500, now => {
-						entity.sprite.scale.set(now * 64 / 1000)
-						entity.sprite.anchor.set(1.5 - now, 0.5)
-					})
-				}, 500 + 600 * Math.random())
-			},
-			rotateIn: function(entity) {
-				let direction = Math.random() < 0.5 ? -1 : 1
-				entity.sprite.scale.set(0)
-				setTimeout(() => {
-					entity.animate("scaleIn", 500, now => {
-						entity.sprite.scale.set(now * 64 / 1000)
-						entity.sprite.angle = direction * 90 * (1 - now)
-					})
-				}, 500 + 600 * Math.random())
-			}
-		}
 		super.createSprite();
-		methods.default(this)
+		let horizontal = Orientation.equal(this.orientation, Orientation.HORIZONTAL)
+		this.sprite.scale.set(horizontal ? 0 : 64 / 1000, horizontal ? 64 / 1000 : 0)
+		setTimeout(() => {
+			this.animate("scaleIn", 500, now => {
+				this.sprite.scale.set(
+					64 / 1000 * (horizontal ? now : 1),
+					64 / 1000 * (horizontal ? 1 : now))
+			})
+		}, 500 + 600 * Math.random())
 	}
 
 	updateSprite() {
