@@ -70,5 +70,7 @@ export default class Anticipainter {
 			wall.createSprite()
 			Graphics.addSprite(wall)
 		})
+		this.level.player.createSprite()
+		Graphics.addSprite(this.level.player)
 	}
 }

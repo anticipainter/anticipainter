@@ -145,6 +145,16 @@ export default class Graphics extends GameModule {
 	}
 
 	/**
+	 * Gets the texture from a registry name
+	 * @param {string} registryName
+	 * @returns {PIXI.Texture}
+	 */
+	static getTextureByRegistry(registryName) {
+		let resource = Graphics.instance.resources[registryName]
+		return resource.texture
+	}
+
+	/**
 	 * Adds an {@link Entity} to its corresponding {@link RenderLayer}
 	 * @param {Entity} entity
 	 */

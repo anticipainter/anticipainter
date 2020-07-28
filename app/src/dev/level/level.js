@@ -5,6 +5,7 @@ import Player from "../entity/player.js"
 import Vector from "../util/vector.js"
 import MazeBuilder from "./builder/builder-maze.js"
 import WallStandard from "../wall/wall-standard.js"
+import Direction from "../util/direction.js";
 
 /**
  * Abstract level class for creating levels
@@ -88,11 +89,20 @@ export default class Level {
 	}
 
 	/**
+	 * Decided the starting {@link Direction} for the {@link Player}
+	 * @returns {Direction}
+	 */
+	getStartDirection() {
+		return Direction.random()
+	}
+
+	/**
 	 * Spawns the player into the {@link Level}
 	 */
 	spawnPlayer() {
 		this.player = new Player(this)
 		this.player.position = this.getStartPosition()
+		this.player.facing = this.getStartDirection()
 	}
 
 	/**
