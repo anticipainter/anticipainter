@@ -33,8 +33,9 @@ export default class Tile extends Entity {
 		this.activated = state
 	}
 
-	createSprite() {
-		super.createSprite();
+	// region Event listeners
+
+	onSpriteCreated() {
 		this.sprite.alpha = 0
 		this.sprite.scale.set(0)
 		setTimeout(() => {
@@ -45,46 +46,44 @@ export default class Tile extends Entity {
 		}, 600 * Math.random())
 	}
 
-// region Event listeners
-
 	/**
 	 * Called when the {@link Player} is attempting to move over this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
 	 */
-	onTryPlayerMove(event) { }
+	onTryPlayerMove(event) {}
 	/**
 	 * Called when the {@link Player} successfully moves over this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
 	 */
-	onPlayerMove(event) { }
+	onPlayerMove(event) {}
 
 	/**
 	 * Called when the {@link Player} is attempting to arrive on this {@link Tile}
 	 * @listens {@link EventPlayerArrive}
 	 * @param {EventPlayerArrive} event
 	 */
-	onTryPlayerArrive(event) { }
+	onTryPlayerArrive(event) {}
 	/**
 	 * Called when the {@link Player} successfully arrives on this {@link Tile}
 	 * @listens {@link EventPlayerArrive}
 	 * @param {EventPlayerArrive} event
 	 */
-	onPlayerArrive(event) { }
+	onPlayerArrive(event) {}
 
 	/**
 	 * Called when the {@link Player} is attempting to leave from this {@link Tile}
 	 * @listens {@link EventPlayerLeave}
 	 * @param {EventPlayerLeave} event
 	 */
-	onTryPlayerLeave(event) { }
+	onTryPlayerLeave(event) {}
 	/**
 	 * Called when the {@link Player} successfully leaves from this {@link Tile}
 	 * @listens {@link EventPlayerLeave}
 	 * @param {EventPlayerLeave} event
 	 */
-	onPlayerLeave(event) { }
+	onPlayerLeave(event) {}
 
 	// endregion
 

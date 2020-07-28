@@ -19,8 +19,15 @@ export default class Wall extends Entity {
 		this.orientation = orientation
 	}
 
-	createSprite() {
-		super.createSprite();
+	updateSprite() {
+		if (this.sprite === undefined) return
+		let x = Orientation.equal(this.orientation, Orientation.VERTICAL) ? 0.5 : 0
+		let y = Orientation.equal(this.orientation, Orientation.HORIZONTAL) ? 0.5 : 0
+		this.sprite.x = (this.position.x - x) * 64
+		this.sprite.y = (this.position.y - y) * 64
+	}
+
+	onSpriteCreated() {
 		let horizontal = Orientation.equal(this.orientation, Orientation.HORIZONTAL)
 		this.sprite.scale.set(horizontal ? 0 : 64 / 1000, horizontal ? 64 / 1000 : 0)
 		setTimeout(() => {
@@ -31,15 +38,6 @@ export default class Wall extends Entity {
 			})
 		}, 500 + 600 * Math.random())
 	}
-
-	updateSprite() {
-		if (this.sprite === undefined) return
-		let x = Orientation.equal(this.orientation, Orientation.VERTICAL) ? 0.5 : 0
-		let y = Orientation.equal(this.orientation, Orientation.HORIZONTAL) ? 0.5 : 0
-		this.sprite.x = (this.position.x - x) * 64
-		this.sprite.y = (this.position.y - y) * 64
-	}
-
 
 	getRegistryName() {
 		if (Orientation.equal(this.orientation, Orientation.VERTICAL)) return "wall_vertical"
