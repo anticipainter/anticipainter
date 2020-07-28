@@ -3,7 +3,7 @@
  * @class GameModule
  * @abstract
  */
-export class GameModule {
+export default class GameModule {
 	// region Properties
 	/**
 	 * Reference to the [game]{@link Anticipainter} instance

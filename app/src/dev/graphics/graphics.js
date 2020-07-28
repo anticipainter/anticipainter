@@ -1,5 +1,5 @@
 import Display from "./display.js"
-import {GameModule} from "../game-module.js"
+import GameModule from "../game-module.js"
 import Player from "../entity/player.js"
 import TileStandard from "../tile/tile-standard.js"
 import WallStandard from "../wall/wall-standard.js"

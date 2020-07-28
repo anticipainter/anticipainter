@@ -1,5 +1,6 @@
 import EventBus from "./event/eventbus.js"
 import Graphics from "./graphics/graphics.js"
+import Input from "./input/input.js";
 import Level0 from "./level/levels/level0.js"
 import Level1 from "./level/levels/level1.js"
 
@@ -30,6 +31,12 @@ export default class Anticipainter {
 	 */
 	graphics
 	/**
+	 * Reference to the {@link Input} module
+	 * @property input
+	 * @type {Input}
+	 */
+	input
+	/**
 	 * Reference to the {@link Level} instance
 	 * @property level
 	 * @type {Level}
@@ -54,6 +61,7 @@ export default class Anticipainter {
 		this.levelIndex = levelIndex
 		this.eventBus = new EventBus(this)
 		this.graphics = new Graphics(this)
+		this.input = new Input(this)
 		this.entities = new Set()
 	}
 

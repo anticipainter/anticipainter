@@ -1,13 +1,20 @@
-import {GameModule} from "../game-module.js"
-
-import EventUpdate from "./game/event-update.js"
-import EventInputKeyDown from "./input/event-input-keydown.js"
-import EventInputKeyUp from "./input/event-input-keyup.js"
+import GameModule from "../game-module.js"
 
 /**
  * @callback EventListener
  * @param {BaseEvent} event
  */
+/**
+ * @typedef ListenerID
+ * @type {number}
+ */
+
+/**
+ * Current number of listener IDs
+ * @property listenerCount
+ * @type {number}
+ */
+let listenerCount = 0
 
 /**
  *
@@ -22,9 +29,9 @@ export default class EventBus extends GameModule {
 
 	// region Properties
 	/**
-	 * A map from [Events]{@link BaseEvent} to an array of [EventListeners]{@link EventListener}
+	 * A map from [ListenerIDs]{@link ListenerID} to an array of [EventListeners]{@link EventListener}
 	 * @property events
-	 * @type {Map<BaseEvent, EventListener[]>}
+	 * @type {Map<ListenerID, EventListener[]>}
 	 * @private
 	 */
 	events
@@ -35,20 +42,17 @@ export default class EventBus extends GameModule {
 		super(game)
 		EventBus.instance = this
 
-		this.events = new Map([
-			[EventUpdate, []],
-			[EventInputKeyDown, []],
-			[EventInputKeyUp, []]
-		])
+		this.events = new Map()
+		for (let i = 0; i < listenerCount; i++) EventBus.instance.events.set(i, [])
 	}
 
 	/**
 	 * Run through a list of [EventListeners]{@link EventListener}
-	 * @method _runEvent
+	 * @param {ListenerID} listenerID
 	 * @param {BaseEvent} event
 	 */
-	callEvent(event) {
-		let listeners = this.events.get(event.constructor)
+	callEvent(listenerID, event) {
+		let listeners = this.events.get(listenerID)
 		if (listeners === undefined) return
 		for (let i = 0; i < listeners.length; i++) {
 			if (event.isCanceled()) break
@@ -60,12 +64,20 @@ export default class EventBus extends GameModule {
 	}
 
 	/**
+	 * Create a new listener
+	 * @returns {ListenerID} the id of the listener
+	 */
+	static createListener() {
+		return listenerCount++
+	}
+
+	/**
 	 * Subscribe an [Event]{@link BaseEvent} to the {@link EventBus}
 	 * @method subscribe
-	 * @param {typeof BaseEvent} EventType
+	 * @param {ListenerID} listenerID
 	 * @param {EventListener} listener
 	 */
-	static subscribe(EventType, listener) {
-		EventBus.instance.events.get(EventType).push(listener)
+	static subscribe(listenerID, listener) {
+		EventBus.instance.events.get(listenerID).push(listener)
 	}
 }

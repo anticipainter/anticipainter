@@ -3,8 +3,7 @@ import Vector from "../util/vector.js"
 
 import EventBus from "../event/eventbus.js"
 import EventUpdate from "../event/game/event-update.js"
-import EventInputKeyDown from "../event/input/event-input-keydown.js"
-import EventInputKeyUp from "../event/input/event-input-keyup.js"
+import EventInputKey from "../event/input/event-input-key.js"
 
 /**
  * Object used to store the name and path for a PIXI resource
@@ -25,6 +24,12 @@ let ID_COUNT = 0
  * @abstract
  */
 export default class Entity {
+	static listeners = {
+		onUpdate: EventBus.createListener(),
+		onInputKeyDown: EventBus.createListener(),
+		onInputKeyUp: EventBus.createListener()
+	}
+
 	// region Properties
 	/**
 	 * The ID of this {@link Entity}
@@ -49,9 +54,9 @@ export default class Entity {
 		this._id = ID_COUNT++
 		this.position = new Vector()
 
-		if (this.onUpdate !== Entity.prototype.onUpdate) EventBus.subscribe(EventUpdate, this.onUpdate.bind(this))
-		if (this.onInputKeyDown !== Entity.prototype.onInputKeyDown) EventBus.subscribe(EventInputKeyDown, this.onInputKeyDown.bind(this))
-		if (this.onInputKeyUp !== Entity.prototype.onInputKeyUp) EventBus.subscribe(EventInputKeyUp, this.onInputKeyUp.bind(this))
+		if (this.onUpdate !== Entity.prototype.onUpdate) EventBus.subscribe(Entity.listeners.onUpdate, this.onUpdate.bind(this))
+		if (this.onInputKeyDown !== Entity.prototype.onInputKeyDown) EventBus.subscribe(Entity.listeners.onInputKeyDown, this.onInputKeyDown.bind(this))
+		if (this.onInputKeyUp !== Entity.prototype.onInputKeyUp) EventBus.subscribe(Entity.listeners.onInputKeyUp, this.onInputKeyUp.bind(this))
 	}
 
 	/**
@@ -110,14 +115,14 @@ export default class Entity {
 	/**
 	 * Called when a key is pressed
 	 * @method onInputKeyDown
-	 * @param {EventInputKeyDown} event
+	 * @param {EventInputKey} event
 	 */
 	onInputKeyDown(event) {}
 
 	/**
 	 * Called when a key is released
 	 * @method onInputKeyUp
-	 * @param {EventInputKeyUp} event
+	 * @param {EventInputKey} event
 	 */
 	onInputKeyUp(event) {}
 

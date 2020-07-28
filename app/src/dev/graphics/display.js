@@ -1,4 +1,4 @@
-import {GameModule} from "../game-module.js"
+import GameModule from "../game-module.js"
 
 /**
  * The display module
