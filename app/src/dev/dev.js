@@ -16,6 +16,9 @@ app.renderer.resize(view.innerWidth(), view.innerHeight())
 
 let game = new Anticipainter(app, 1)
 
-body.fadeTo("slow", 1, () => {
+body.hide()
 
+$(() => {
+	body.show()
+	$("#hud").fadeTo(1000, 1, () => {})
 })

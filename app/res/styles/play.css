@@ -8,10 +8,6 @@ html, body {
 	user-select: none;
 }
 
-body {
-	opacity: 0;
-}
-
 #game {
 	position: absolute;
 	width: 75%;
