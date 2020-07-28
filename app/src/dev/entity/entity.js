@@ -64,6 +64,7 @@ export default class Entity {
 		this.sprite.height *= 64 / 1000
 		this.sprite.anchor.set(0.5, 0.5)
 		this.updateSprite()
+		this.onSpriteCreated()
 	}
 
 	/**
@@ -95,25 +96,30 @@ export default class Entity {
 	// region Event listeners
 
 	/**
+	 * Called when this {@link Entity}'s sprite gets created
+	 */
+	onSpriteCreated() {}
+
+	/**
 	 * Called once every frame
 	 * @method onUpdate
 	 * @param {EventUpdate} event
 	 */
-	onUpdate(event) { }
+	onUpdate(event) {}
 
 	/**
 	 * Called when a key is pressed
 	 * @method onInputKeyDown
 	 * @param {EventInputKeyDown} event
 	 */
-	onInputKeyDown(event) { }
+	onInputKeyDown(event) {}
 
 	/**
 	 * Called when a key is released
 	 * @method onInputKeyUp
 	 * @param {EventInputKeyUp} event
 	 */
-	onInputKeyUp(event) { }
+	onInputKeyUp(event) {}
 
 	// endregion
 	// region Registry methods
