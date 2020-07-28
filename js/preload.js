@@ -3,6 +3,8 @@ const path = require("path")
 const shell = require("electron").shell
 const userDataPath = require("electron").remote.app.getPath("userData")
 const version = require("../package.json").version
+// Possibly only create this variable if on the play.html page
+PIXI = require("pixi.js")
 
 Preferences = class {
 	constructor(opts) {
