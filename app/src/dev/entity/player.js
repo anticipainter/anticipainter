@@ -170,7 +170,7 @@ export default class Player extends Entity {
 	}
 
 	animEyesNorm() {
-		this.animate("eyesNorm", 50, now => {
+		this.animate("eyesNorm", 150, now => {
 			this.eyes.norm.alpha = now
 			this.eyes.exec.alpha = 1 - now
 		}, () => {
@@ -180,7 +180,7 @@ export default class Player extends Entity {
 	}
 
 	animEyesExec() {
-		this.animate("eyesNorm", 50, now => {
+		this.animate("eyesNorm", 150, now => {
 			this.eyes.norm.alpha = 1 - now
 			this.eyes.exec.alpha = now
 		}, () => {
