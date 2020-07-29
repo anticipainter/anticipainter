@@ -74,12 +74,15 @@ export default class Player extends Entity {
 		if (this.moving) return
 		let direction = this.moveQueue.shift()
 		if (direction === undefined) return
-		let oldPos = this.position, newPos = Vector.add(this.position, Direction.toVector(direction))
+		let oldPos = this.position
+		let newPos = Vector.add(this.position, Direction.toVector(direction))
 		// let oldDir = this.facing
 		this.animRotateEyes(this.facing, direction)
 		this.facing = direction
 		/** @type {Wall} */
 		let wall = this.level.stage.getWall(oldPos, direction)
+		if (wall) newPos = wall.getWallPos(direction)
+		// console.log(newPos)
 		/** @type {Tile} */
 		let tileA = this.level.stage.getTile(oldPos), tileB = this.level.stage.getTile(newPos)
 		let event = new EventPlayerMove(this, direction, this.level.stage)
@@ -97,6 +100,7 @@ export default class Player extends Entity {
 		} else if (Result.equal(result, ResultPlayerMove.BONK)) {
 			this.animBonk(oldPos, direction)
 		}
+		console.log(this.position)
 	}
 
 	// region Animations
@@ -220,7 +224,7 @@ export default class Player extends Entity {
 	}
 
 	onInputKeyDown(event) {
-		if (this.moveQueue.length === 0) {
+		if (this.moveQueue.length <= 1) {
 			if (Controls.MOVE_LEFT.includes(event.key)) this.moveQueue.push(Direction.LEFT)
 			if (Controls.MOVE_RIGHT.includes(event.key)) this.moveQueue.push(Direction.RIGHT)
 			if (Controls.MOVE_UP.includes(event.key)) this.moveQueue.push(Direction.UP)

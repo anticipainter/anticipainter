@@ -1,6 +1,8 @@
 import Entity from "../entity/entity.js"
 import Orientation from "../util/orientation.js"
 import {ResultPlayerMove} from "../event/player/event-player-move.js";
+import Direction from "../util/direction.js";
+import Vector from "../util/vector.js";
 
 /**
  * Abstract Wall class for creating walls
@@ -16,8 +18,24 @@ export default class Wall extends Entity {
 	orientation
 	// endregion
 
+	/**
+	 * Sets the {@link Orientation} of this {@link Tile}
+	 * @param {Orientation} orientation
+	 */
 	setOrientation(orientation) {
 		this.orientation = orientation
+	}
+
+	/**
+	 * Gets the [position]{@link Vector} of the {@link Tile} on one side of this {@link Wall}
+	 * @param {Direction} direction
+	 */
+	getWallPos(direction) {
+		if (!Orientation.equal(Direction.toOrientation(direction), this.orientation)) return
+		if (Direction.equal(direction, Direction.LEFT)) return Vector.add(this.position, Vector.left)
+		if (Direction.equal(direction, Direction.RIGHT)) return this.position
+		if (Direction.equal(direction, Direction.UP)) return Vector.add(this.position, Vector.up)
+		if (Direction.equal(direction, Direction.DOWN)) return this.position
 	}
 
 	updateSprite() {
