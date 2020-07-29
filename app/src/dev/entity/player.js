@@ -76,20 +76,15 @@ export default class Player extends Entity {
 		if (direction === undefined) return
 		let oldPos = this.position
 		let newPos = Vector.add(this.position, Direction.toVector(direction))
-		// let oldDir = this.facing
 		this.animRotateEyes(this.facing, direction)
 		this.facing = direction
 		/** @type {Wall} */
 		let wall = this.level.stage.getWall(oldPos, direction)
 		if (wall) newPos = wall.getWallPos(direction)
-		// console.log(newPos)
 		/** @type {Tile} */
 		let tileA = this.level.stage.getTile(oldPos), tileB = this.level.stage.getTile(newPos)
 		let event = new EventPlayerMove(this, direction, this.level.stage)
-		if (wall) {
-			wall.onPlayerMove(event)
-			// tileB = wall.getTile(direction)
-		}
+		if (wall) wall.onPlayerMove(event)
 		tileA.onPlayerLeave(event)
 		if (tileB) tileB.onPlayerArrive(event)
 		else event.setCanceled(true)
@@ -100,7 +95,6 @@ export default class Player extends Entity {
 		} else if (Result.equal(result, ResultPlayerMove.BONK)) {
 			this.animBonk(oldPos, direction)
 		}
-		console.log(this.position)
 	}
 
 	// region Animations
