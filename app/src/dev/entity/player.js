@@ -252,10 +252,6 @@ export default class Player extends Entity {
 		}
 	}
 
-	onInputKeyUp(event) {
-		if (Controls.PAINT.includes(event.key)) this.level.setGameMode(GameMode.NORMAl)
-	}
-
 	onModeNormal(event) {
 		this.animEyesNorm()
 	}
