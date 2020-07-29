@@ -61,27 +61,27 @@ export default class Tile extends Entity {
 
 	/**
 	 * Called when the {@link Player} is attempting to arrive on this {@link Tile}
-	 * @listens {@link EventPlayerArrive}
-	 * @param {EventPlayerArrive} event
+	 * @listens {@link EventPlayerMove}
+	 * @param {EventPlayerMove} event
 	 */
 	onTryPlayerArrive(event) {}
 	/**
 	 * Called when the {@link Player} successfully arrives on this {@link Tile}
-	 * @listens {@link EventPlayerArrive}
-	 * @param {EventPlayerArrive} event
+	 * @listens {@link EventPlayerMove}
+	 * @param {EventPlayerMove} event
 	 */
 	onPlayerArrive(event) {}
 
 	/**
 	 * Called when the {@link Player} is attempting to leave from this {@link Tile}
-	 * @listens {@link EventPlayerLeave}
-	 * @param {EventPlayerLeave} event
+	 * @listens {@link EventPlayerMove}
+	 * @param {EventPlayerMove} event
 	 */
 	onTryPlayerLeave(event) {}
 	/**
 	 * Called when the {@link Player} successfully leaves from this {@link Tile}
-	 * @listens {@link EventPlayerLeave}
-	 * @param {EventPlayerLeave} event
+	 * @listens {@link EventPlayerMove}
+	 * @param {EventPlayerMove} event
 	 */
 	onPlayerLeave(event) {}
 

@@ -1,5 +1,6 @@
 import EventPlayer from "./event-player.js"
 import Direction from "../../util/direction.js"
+import {Result} from "../event.js";
 
 /**
  * @event EventPlayerMove - Called when the {@link Player} moves anywhere
@@ -30,4 +31,9 @@ export default class EventPlayerMove extends EventPlayer {
 	isCancelable() {
 		return true
 	}
+}
+
+export class ResultPlayerMove extends Result {
+	static BONK = new ResultPlayerMove(3, "BONK")
+	static DIE = new ResultPlayerMove(4, "DIE")
 }

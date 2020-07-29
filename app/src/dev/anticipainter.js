@@ -1,8 +1,11 @@
 import EventBus from "./event/eventbus.js"
 import Graphics from "./graphics/graphics.js"
 import Input from "./input/input.js";
+import Controls from "./input/controls.js";
 import Level0 from "./level/levels/level0.js"
 import Level1 from "./level/levels/level1.js"
+import EventUpdate from "./event/game/event-update.js";
+import Entity from "./entity/entity.js";
 
 const levels = [Level0, Level1]
 
@@ -37,6 +40,12 @@ export default class Anticipainter {
 	 */
 	input
 	/**
+	 * Reference to the {@link Controls} module
+	 * @property controls
+	 * @type {Controls}
+	 */
+	controls
+	/**
 	 * Reference to the {@link Level} instance
 	 * @property level
 	 * @type {Level}
@@ -62,6 +71,7 @@ export default class Anticipainter {
 		this.eventBus = new EventBus(this)
 		this.graphics = new Graphics(this)
 		this.input = new Input(this)
+		this.controls = new Controls(this)
 		this.entities = new Set()
 	}
 
@@ -80,5 +90,12 @@ export default class Anticipainter {
 		})
 		this.level.player.createSprite()
 		Graphics.addSprite(this.level.player)
+		this.app.ticker.add(this.update.bind(this))
+	}
+
+	update() {
+		this.level.update()
+		let event = new EventUpdate()
+		this.eventBus.callEvent(Entity.listeners.onUpdate, event)
 	}
 }

@@ -1,5 +1,6 @@
 import Entity from "../entity/entity.js"
 import Orientation from "../util/orientation.js"
+import {ResultPlayerMove} from "../event/player/event-player-move.js";
 
 /**
  * Abstract Wall class for creating walls
@@ -37,6 +38,16 @@ export default class Wall extends Entity {
 					64 / 1000 * (horizontal ? 1 : now))
 			})
 		}, 500 + 600 * Math.random())
+	}
+
+	/**
+	 * Called when the {@link Player} is attempting to move through this {@link Wall}
+	 * @listens {@link EventPlayerMove}
+	 * @param {EventPlayerMove} event
+	 */
+	onPlayerMove(event) {
+		event.setCanceled(true)
+		event.setResult(ResultPlayerMove.BONK)
 	}
 
 	getRegistryName() {

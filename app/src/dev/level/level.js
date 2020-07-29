@@ -48,7 +48,6 @@ export default class Level {
 		let mazeBuilder = new MazeBuilder(this.stage, stageBuilder.getOrigin())
 		this.generateMaze(mazeBuilder)
 		mazeBuilder.draw()
-		console.log(this)
 
 		this.spawnPlayer()
 	}
