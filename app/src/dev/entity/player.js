@@ -108,7 +108,7 @@ export default class Player extends Entity {
 	 */
 	animMove(oldPos, newPos) {
 		this.moving = true
-		this.animate("move", 83, now => {
+		this.animate("move", 80, now => {
 			let pos = Vector.lerp(oldPos, newPos, now)
 			this.sprite.x = pos.x * 64
 			this.sprite.y = pos.y * 64
@@ -125,9 +125,9 @@ export default class Player extends Entity {
 	 */
 	animBonk(oldPos, dir) {
 		this.moving = true
-		let newPos = Vector.add(oldPos, Vector.mul(Direction.toVector(dir), 0.3))
+		let newPos = Vector.add(oldPos, Vector.mul(Direction.toVector(dir), 0.27))
 		let stop = 0.4
-		this.animate("bonk", 100, now => {
+		this.animate("bonk", 80, now => {
 			let lerp = (now <= stop) ? now / stop :
 				(now > stop && now <= 1 - stop) ? 1 : (1 - now) / stop
 			let pos = Vector.lerp(oldPos, newPos, lerp)
