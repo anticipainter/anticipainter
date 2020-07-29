@@ -77,7 +77,7 @@ export default class Anticipainter {
 
 	start() {
 		if (this.levelIndex === undefined) return
-		this.level = new levels[this.levelIndex]()
+		this.level = new levels[this.levelIndex](this)
 		this.level.stage.forEachTile(tile => {
 			this.entities.add(tile)
 			tile.createSprite()
@@ -94,8 +94,8 @@ export default class Anticipainter {
 	}
 
 	update() {
-		this.level.update()
 		let event = new EventUpdate()
+		this.level.onUpdate(event)
 		this.eventBus.callEvent(Entity.listeners.onUpdate, event)
 	}
 }

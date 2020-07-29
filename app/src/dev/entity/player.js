@@ -88,6 +88,7 @@ export default class Player extends Entity {
 		tileA.onPlayerLeave(event)
 		if (tileB) tileB.onPlayerArrive(event)
 		else event.setCanceled(true)
+		this.level.onPlayerMove(event)
 		let result = event.getResult()
 		if (Result.equal(result, Result.DEFAULT)) {
 			this.position = newPos
