@@ -99,20 +99,6 @@ export default class Player extends Entity {
 		}
 	}
 
-	/**
-	 * Performs a move operation on the {@link Player}
-	 */
-	move() {
-		let direction = this.moveQueue.shift()
-		if (direction === undefined) return
-		let oldPos = this.position
-		let oldDir = this.facing
-		this.position = Vector.add(this.position, Direction.toVector(direction))
-		this.facing = direction
-		this.animMove(oldPos, this.position)
-		this.animRotateEyes(oldDir, this.facing)
-	}
-
 	// region Animations
 
 	/**
