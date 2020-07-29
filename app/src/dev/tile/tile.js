@@ -38,11 +38,12 @@ export default class Tile extends Entity {
 	onSpriteCreated() {
 		this.sprite.alpha = 0
 		this.sprite.scale.set(0)
-		setTimeout(() => {
-			this.animate("fadeIn", 500, now => {
-				this.sprite.alpha = now * 0.15
-				this.sprite.scale.set(now * 64 / 1000)
-			})
+		this.animate("fadeIn", 500, now => {
+			this.sprite.alpha = now * 0.15
+			this.sprite.scale.set(now * 64 / 1000)
+		}, () => {
+			this.sprite.alpha = 0.15
+			this.sprite.scale.set(64 / 1000)
 		}, 600 * Math.random())
 	}
 

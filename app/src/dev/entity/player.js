@@ -188,28 +188,26 @@ export default class Player extends Entity {
 		this.sprite.addChild(this.eyes.parent)
 		this.sprite.alpha = 0
 		this.sprite.scale.set(0)
-		setTimeout(() => {
-			let angle = Direction.toAngle(this.facing), dir = Math.random() < 0.5 ? -1 : 1
-			let hasMoved = false
-			// Fade and scale the Player in
-			this.animate("fadeIn", 500, now => {
-				this.sprite.scale.set(now * 64 / 1000)
-				this.sprite.alpha = now
-			}, () => {
-				this.sprite.scale.set(64 / 1000)
-				this.sprite.alpha = 1
-			})
-			// Rotate eyes into the correct direction
-			this.animate("spinEyes", 1000, now => {
-				if (this.moving) hasMoved = true
-				if (hasMoved) return
-				this.eyes.parent.angle = angle + dir * (1 - now) * 360
-			}, () => {
-				if (hasMoved) return
-				this.eyes.parent.angle = angle
-				this.animBlink()
-			})
-		}, 0)
+		let angle = Direction.toAngle(this.facing), dir = Math.random() < 0.5 ? -1 : 1
+		let hasMoved = false
+		// Fade and scale the Player in
+		this.animate("fadeIn", 500, now => {
+			this.sprite.scale.set(now * 64 / 1000)
+			this.sprite.alpha = now
+		}, () => {
+			this.sprite.scale.set(64 / 1000)
+			this.sprite.alpha = 1
+		})
+		// Rotate eyes into the correct direction
+		this.animate("spinEyes", 1000, now => {
+			if (this.moving) hasMoved = true
+			if (hasMoved) return
+			this.eyes.parent.angle = angle + dir * (1 - now) * 360
+		}, () => {
+			if (hasMoved) return
+			this.eyes.parent.angle = angle
+			this.animBlink()
+		})
 		setInterval(this.animBlink.bind(this), 6000)
 	}
 

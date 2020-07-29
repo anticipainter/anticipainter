@@ -49,12 +49,12 @@ export default class Wall extends Entity {
 	onSpriteCreated() {
 		let horizontal = Orientation.equal(this.orientation, Orientation.HORIZONTAL)
 		this.sprite.scale.set(horizontal ? 0 : 64 / 1000, horizontal ? 64 / 1000 : 0)
-		setTimeout(() => {
-			this.animate("scaleIn", 500, now => {
-				this.sprite.scale.set(
-					64 / 1000 * (horizontal ? now : 1),
-					64 / 1000 * (horizontal ? 1 : now))
-			})
+		this.animate("scaleIn", 500, now => {
+			this.sprite.scale.set(
+				64 / 1000 * (horizontal ? now : 1),
+				64 / 1000 * (horizontal ? 1 : now))
+		}, () => {
+			this.sprite.scale.set(64 / 1000)
 		}, 500 + 600 * Math.random())
 	}
 

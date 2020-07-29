@@ -1,3 +1,4 @@
+import Animator from "./animator.js";
 import Graphics from "../graphics/graphics.js"
 import Vector from "../util/vector.js"
 
@@ -13,17 +14,11 @@ import EventInputKey from "../event/input/event-input-key.js"
  */
 
 /**
- * Universal ID count for keeping track of [Entities]{@link Entity}
- * @type {number}
- */
-let ID_COUNT = 0
-
-/**
  * Abstract Entity class for creating game entities
  * @class Entity
  * @abstract
  */
-export default class Entity {
+export default class Entity extends Animator {
 	static listeners = {
 		onUpdate: EventBus.createListener(),
 		onInputKeyDown: EventBus.createListener(),
@@ -31,13 +26,6 @@ export default class Entity {
 	}
 
 	// region Properties
-	/**
-	 * The ID of this {@link Entity}
-	 * @property id
-	 * @type {number}
-	 * @private
-	 */
-	_id
 	/**
 	 * The position of the entity
 	 * @type {Vector}
@@ -51,7 +39,7 @@ export default class Entity {
 	// endregion
 
 	constructor() {
-		this._id = ID_COUNT++
+		super()
 		this.position = new Vector()
 
 		if (this.onUpdate !== Entity.prototype.onUpdate) EventBus.subscribe(Entity.listeners.onUpdate, this.onUpdate.bind(this))
@@ -79,23 +67,6 @@ export default class Entity {
 		if (this.sprite === undefined) return
 		this.sprite.x = this.position.x * 64
 		this.sprite.y = this.position.y * 64
-	}
-
-	/**
-	 * Starts an animation for this {@link Entity}
-	 * @param {string} label - name of the animation
-	 * @param {number} duration - length of the animation
-	 * @param {function} step - Called at each frame of the animation
-	 * @param {function} [complete] - Called at the end of the animation
-	 */
-	animate(label, duration, step, complete) {
-		let tag = `entity-${this.id}-${label}`
-		let start = {}, end = {}
-		start[tag] = 0
-		end[tag] = 1
-		let options = {duration : duration, step: step}
-		if (complete) options.complete = complete
-		$(start).animate(end, options)
 	}
 
 	// region Event listeners
@@ -167,12 +138,4 @@ export default class Entity {
 	 * Gets the {@link RenderLayer} of this {@link Entity}
 	 */
 	static getRenderLayer() {}
-
-	/**
-	 * The ID of this {@link Entity}
-	 * @returns {number}
-	 */
-	get id() {
-		return this._id
-	}
 }
