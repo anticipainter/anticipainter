@@ -22,7 +22,11 @@ export default class Entity extends Animator {
 	static listeners = {
 		onUpdate: EventBus.createListener(),
 		onInputKeyDown: EventBus.createListener(),
-		onInputKeyUp: EventBus.createListener()
+		onInputKeyUp: EventBus.createListener(),
+		onModeNormal: EventBus.createListener(),
+		onModeExecute: EventBus.createListener(),
+		onModeDeath: EventBus.createListener(),
+		onModeVictory: EventBus.createListener()
 	}
 
 	// region Properties
@@ -45,6 +49,10 @@ export default class Entity extends Animator {
 		if (this.onUpdate !== Entity.prototype.onUpdate) EventBus.subscribe(Entity.listeners.onUpdate, this.onUpdate.bind(this))
 		if (this.onInputKeyDown !== Entity.prototype.onInputKeyDown) EventBus.subscribe(Entity.listeners.onInputKeyDown, this.onInputKeyDown.bind(this))
 		if (this.onInputKeyUp !== Entity.prototype.onInputKeyUp) EventBus.subscribe(Entity.listeners.onInputKeyUp, this.onInputKeyUp.bind(this))
+		if (this.onModeNormal !== Entity.prototype.onModeNormal) EventBus.subscribe(Entity.listeners.onModeNormal, this.onModeNormal.bind(this))
+		if (this.onModeExecute !== Entity.prototype.onModeExecute) EventBus.subscribe(Entity.listeners.onModeExecute, this.onModeExecute.bind(this))
+		if (this.onModeDeath !== Entity.prototype.onModeDeath) EventBus.subscribe(Entity.listeners.onModeDeath, this.onModeDeath.bind(this))
+		if (this.onModeVictory !== Entity.prototype.onModeVictory) EventBus.subscribe(Entity.listeners.onModeVictory, this.onModeVictory.bind(this))
 	}
 
 	/**
@@ -96,6 +104,30 @@ export default class Entity extends Animator {
 	 * @param {EventInputKey} event
 	 */
 	onInputKeyUp(event) {}
+
+	/**
+	 * Called when the [game]{@link Anticipainter} switches to [NORMAL]{@link GameMode} mode
+	 * @param {EventMode} event
+	 */
+	onModeNormal(event) {}
+
+	/**
+	 * Called when the [game]{@link Anticipainter} switches to [EXECUTE]{@link GameMode} mode
+	 * @param {EventMode} event
+	 */
+	onModeExecute(event) {}
+
+	/**
+	 * Called when the [game]{@link Anticipainter} switches to [DEATH]{@link GameMode} mode
+	 * @param {EventMode} event
+	 */
+	onModeDeath(event) {}
+
+	/**
+	 * Called when the [game]{@link Anticipainter} switches to [Victory]{@link GameMode} mode
+	 * @param {EventMode} event
+	 */
+	onModeVictory(event) {}
 
 	// endregion
 	// region Registry methods
