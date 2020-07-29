@@ -69,8 +69,8 @@ export default class Level {
 	generateStage(builder) {}
 
 	generateMaze(builder) {
-		// builder.queueMaze()
-		builder.queueBorder(WallStandard)
+		// builder.queueBorder(WallStandard)
+		builder.queueMaze(WallStandard)
 	}
 
 	/**

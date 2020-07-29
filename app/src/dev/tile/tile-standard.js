@@ -2,7 +2,7 @@ import Tile from "./tile.js"
 
 export default class TileStandard extends Tile {
 	constructor() {
-		super();
+		super()
 	}
 
 	static getRegistryName() {
