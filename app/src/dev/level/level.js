@@ -129,14 +129,14 @@ export default class Level extends Animator {
 
 	// region Animations
 
-	animShake(start, target) {
+	animShake(start, target, delay=0) {
 		this.animate("shakeMove", 80, now => {
 			let lerp = now < 0.5 ? now : 1 - now
 			let pos = Vector.lerp(start, target, 1 - Math.pow(lerp - 1, 2))
 			this.game.graphics.sprites.pivot.set(pos.x, pos.y)
 		}, () => {
 			this.game.graphics.sprites.pivot.set(0, 0)
-		})
+		}, delay)
 	}
 
 	animShakeMove(direction) {
@@ -148,7 +148,7 @@ export default class Level extends Animator {
 	animShakeBonk(direction) {
 		let start = Vector.zero
 		let target = Vector.mul(Direction.toVector(Direction.inverse(direction)), this.screenShakeIntensityBonk)
-		this.animShake(start, target)
+		this.animShake(start, target, 20)
 	}
 
 	// endregion
