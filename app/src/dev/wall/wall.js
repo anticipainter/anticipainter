@@ -63,10 +63,17 @@ export default class Wall extends Entity {
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
 	 */
-	onPlayerMove(event) {
+	onTryPlayerMove(event) {
 		event.setCanceled(true)
 		event.setResult(ResultPlayerMove.BONK)
 	}
+
+	/**
+	 * Called when the {@link Player} is going to move through this {@link Wall}
+	 * @listens {@link EventPlayerMove}
+	 * @param {EventPlayerMove} event
+	 */
+	onPlayerBonk(event) {}
 
 	getRegistryName() {
 		if (Orientation.equal(this.orientation, Orientation.VERTICAL)) return "wall_vertical"

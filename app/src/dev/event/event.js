@@ -16,25 +16,25 @@ export default class BaseEvent {
 	// region Properties
 	/**
 	 * Current cancel state of the event
-	 * @property _canceled
+	 * @property canceled
 	 * @type {boolean}
 	 * @private
 	 */
 	canceled = false
 	/**
 	 * The result of this event
-	 * @property _result
+	 * @property result
 	 * @type {Result}
 	 * @private
 	 */
-	result = Result.DEFAULT
+	result = Result.ALLOW
 	/**
-	 * List of [EventCallbacks]{@link EventCallback} for if [Event]{@link BaseEvent} this succeeds
-	 * @property _callbacks
-	 * @type {EventCallback[]}
+	 * A map from [Results]{@link Result} to a list of [EventCallbacks]{@link EventCallback}
+	 * @property callbacks
+	 * @type {Map<Result, EventCallback[]>}
 	 * @private
 	 */
-	callbacks = []
+	callbacks = new Map()
 	// endregion
 
 	/**
@@ -59,8 +59,9 @@ export default class BaseEvent {
 	 * Sets the cancel state of this event, or errors if unable
 	 * @method setCanceled
 	 * @param {boolean} state - new canceled value
+	 * @param {Result} [reason=Result.DENY] - reason for the cancellation
 	 */
-	setCanceled(state) {
+	setCanceled(state, reason=Result.DENY) {
 		if (!this.isCancelable()) {
 			throw new Error(
 				"Attempted to call Event#setCanceled() on a non-cancelable event: " +
@@ -68,6 +69,7 @@ export default class BaseEvent {
 			)
 		}
 		this.canceled = state
+		this.setResult(reason)
 	}
 
 	/**
@@ -96,32 +98,34 @@ export default class BaseEvent {
 	}
 
 	/**
-	 * Add an {@link EventCallback} for if this [Event]{@link BaseEvent} succeeds
+	 * Add an {@link EventCallback} for a given {@link Result}
 	 * @method then
+	 * @param {Result} result
 	 * @param {EventCallback} callback
+	 * @returns {BaseEvent} itself for chaining purposes
 	 */
-	then(callback) {
-		this.callbacks.push(callback)
+	onResult(result, callback) {
+		if (!this.callbacks.has(result)) this.callbacks.set(result, [])
+		this.callbacks.get(result).push(callback)
+		return this
 	}
 
 	/**
-	 * Get a list of this [Event]{@link BaseEvent}'s [EventCallbacks]{@link EventCallback}
+	 * Get a list of this [Event]{@link BaseEvent}'s [EventCallbacks]{@link EventCallback} for a given {@link Result}
 	 * @method getCallbacks
 	 * @returns {EventCallback[]}
 	 */
-	getCallbacks() {
-		return this.callbacks
+	getCallbacks(result) {
+		return this.callbacks.get(result)
 	}
 }
 
 /**
  * The Result enum
- * @property {Result} DEFAULT
- * @property {Result} DENY
  * @property {Result} ALLOW
+ * @property {Result} DENY
  */
 export class Result extends Enum {
-	static DEFAULT = new Result(0, "DEFAULT")
-	static ALLOW = new Result(1, "ALLOW")
-	static DENY = new Result(2, "DENY")
+	static ALLOW = new Result(0, "ALLOW")
+	static DENY = new Result(1, "DENY")
 }

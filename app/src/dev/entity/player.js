@@ -7,6 +7,8 @@ import Vector from "../util/vector.js";
 import EventPlayerMove, {ResultPlayerMove} from "../event/player/event-player-move.js";
 import {Result} from "../event/event.js";
 import GameMode from "../util/game-mode.js";
+import EventBus from "../event/eventbus.js";
+import {piecewise} from "../util/math-util.js";
 
 export default class Player extends Entity {
 	// region Properties
@@ -75,28 +77,37 @@ export default class Player extends Entity {
 		if (this.moving) return
 		let direction = this.moveQueue.shift()
 		if (direction === undefined) return
-		let oldPos = this.position
-		let newPos = Vector.add(this.position, Direction.toVector(direction))
+
+		let oldPos = this.position, newPos = Vector.add(this.position, Direction.toVector(direction))
 		this.animRotateEyes(this.facing, direction)
 		this.facing = direction
+
 		/** @type {Wall} */
 		let wall = this.level.stage.getWall(oldPos, direction)
 		if (wall) newPos = wall.getWallPos(direction)
 		/** @type {Tile} */
-		let tileA = this.level.stage.getTile(oldPos), tileB = this.level.stage.getTile(newPos)
+		let tileA = this.level.stage.getTile(oldPos)
+		let tileB = this.level.stage.getTile(newPos)
+
 		let event = new EventPlayerMove(this, direction, this.level.stage)
-		if (wall) wall.onPlayerMove(event)
-		tileA.onPlayerLeave(event)
-		if (tileB) tileB.onPlayerArrive(event)
-		else event.setCanceled(true)
-		this.level.onPlayerMove(event)
-		let result = event.getResult()
-		if (Result.equal(result, Result.DEFAULT)) {
+		event.onResult(Result.ALLOW, () => {
+			tileA.onPlayerLeave(event)
+			tileB.onPlayerArrive(event)
 			this.position = newPos
 			this.animMove(oldPos, newPos)
-		} else if (Result.equal(result, ResultPlayerMove.BONK)) {
+		}).onResult(ResultPlayerMove.BONK, () => {
+			wall.onPlayerBonk(event)
 			this.animBonk(oldPos, direction)
-		}
+		}).onResult(ResultPlayerMove.DIE, () => {
+			this.animDeath(oldPos, direction)
+		})
+
+		if (wall) wall.onTryPlayerMove(event)
+		if (!event.isCanceled()) tileA.onTryPlayerLeave(event)
+		if (!event.isCanceled() && tileB) tileB.onTryPlayerArrive(event)
+		this.level.onPlayerMove(event)
+
+		EventBus.executeEvent(event)
 	}
 
 	// region Animations
@@ -137,6 +148,33 @@ export default class Player extends Entity {
 			this.moving = false
 			this.sprite.x = oldPos.x * 64
 			this.sprite.y = oldPos.y * 64
+		})
+	}
+
+	/**
+	 * Animates the {@link Player}'s death
+	 * @param {Vector} start
+	 * @param {Direction} dir
+	 */
+	animDeath(start, dir) {
+		this.moving = true
+		let stop = Vector.add(start, Direction.toVector(dir))
+		let eyesDead = false
+		let x = 0.01, y = 0.25
+		this.animate("death", 750, now => {
+			let pos = Vector.lerp(start, stop, piecewise(x, y, now))
+			this.sprite.x = pos.x * 64
+			this.sprite.y = pos.y * 64
+			this.sprite.alpha = now < x ? 1 : 1 / (1 - x) * (1 - now)
+			if (!eyesDead && now > x) {
+				eyesDead = true
+				this.animEyesDead()
+			}
+		}, () => {
+			this.moving = false
+			this.sprite.x = stop.x * 64
+			this.sprite.y = stop.y * 64
+			this.sprite.alpha = 0
 		})
 	}
 

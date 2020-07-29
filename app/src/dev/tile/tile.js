@@ -30,9 +30,22 @@ export default class Tile extends Entity {
 	 * @param {boolean} state
 	 */
 	setActivated(state) {
+		if (state === this.activated) return
 		this.activated = state
+		if (this.activated) this.animFadeIn()
 	}
 
+	// region Animations
+
+	animFadeIn() {
+		this.animate("fadeIn", 500, now => {
+			this.sprite.alpha = 0.15 + now * (0.5 - 0.15)
+		}, () => {
+			this.sprite.alpha = 0.5
+		})
+	}
+
+	// endregion
 	// region Event listeners
 
 	onSpriteCreated() {
@@ -58,7 +71,10 @@ export default class Tile extends Entity {
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
 	 */
-	onPlayerMove(event) {}
+	onPlayerMove(event) {
+		this.activated = true
+		this.animFadeIn()
+	}
 
 	/**
 	 * Called when the {@link Player} is attempting to arrive on this {@link Tile}
@@ -71,7 +87,9 @@ export default class Tile extends Entity {
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
 	 */
-	onPlayerArrive(event) {}
+	onPlayerArrive(event) {
+		this.setActivated(true)
+	}
 
 	/**
 	 * Called when the {@link Player} is attempting to leave from this {@link Tile}
@@ -84,7 +102,8 @@ export default class Tile extends Entity {
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
 	 */
-	onPlayerLeave(event) {}
+	onPlayerLeave(event) {
+	}
 
 	// endregion
 

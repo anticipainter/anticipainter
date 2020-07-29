@@ -59,7 +59,16 @@ export default class EventBus extends GameModule {
 			listeners[i](event)
 		}
 		if (event.isCanceled()) return
-		let callbacks = event.getCallbacks()
+		// let callbacks = event.getCallbacks()
+		// for (let callback of callbacks) callback()
+	}
+
+	/**
+	 * Run all of the [EventCallbacks]{@link EventCallback} associated with the {@BaseEvent}'s {@link Result}
+	 * @param {BaseEvent} event
+	 */
+	static executeEvent(event) {
+		let callbacks = event.getCallbacks(event.getResult())
 		for (let callback of callbacks) callback()
 	}
 

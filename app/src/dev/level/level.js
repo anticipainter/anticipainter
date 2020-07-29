@@ -186,9 +186,11 @@ export default class Level extends Animator {
 	 * @param {EventPlayerMove} event
 	 */
 	onPlayerMove(event) {
-		let result = event.getResult()
-		if (Result.equal(result, Result.DEFAULT)) this.animShakeMove(event.direction)
-		else if (Result.equal(result, ResultPlayerMove.BONK)) this.animShakeBonk(event.direction)
+		event.onResult(Result.ALLOW, () => {
+			this.animShakeMove(event.direction)
+		}).onResult(ResultPlayerMove.BONK, () => {
+			this.animShakeBonk(event.direction)
+		})
 	}
 
 	// endregion
