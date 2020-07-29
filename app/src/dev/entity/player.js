@@ -6,6 +6,7 @@ import Controls from "../input/controls.js";
 import Vector from "../util/vector.js";
 import EventPlayerMove, {ResultPlayerMove} from "../event/player/event-player-move.js";
 import {Result} from "../event/event.js";
+import GameMode from "../util/game-mode.js";
 
 export default class Player extends Entity {
 	// region Properties
@@ -168,6 +169,32 @@ export default class Player extends Entity {
 		})
 	}
 
+	animEyesNorm() {
+		this.animate("eyesNorm", 50, now => {
+			this.eyes.norm.alpha = now
+			this.eyes.exec.alpha = 1 - now
+		}, () => {
+			this.eyes.norm.alpha = 1
+			this.eyes.exec.alpha = 0
+		})
+	}
+
+	animEyesExec() {
+		this.animate("eyesNorm", 50, now => {
+			this.eyes.norm.alpha = 1 - now
+			this.eyes.exec.alpha = now
+		}, () => {
+			this.eyes.norm.alpha = 0
+			this.eyes.exec.alpha = 1
+		})
+	}
+
+	animEyesDead() {
+		this.eyes.norm.alpha = 0
+		this.eyes.exec.alpha = 0
+		this.eyes.dead.alpha = 1
+	}
+
 	// endregion
 	// region Events
 
@@ -223,6 +250,22 @@ export default class Player extends Entity {
 			if (Controls.MOVE_UP.includes(event.key)) this.moveQueue.push(Direction.UP)
 			if (Controls.MOVE_DOWN.includes(event.key)) this.moveQueue.push(Direction.DOWN)
 		}
+	}
+
+	onInputKeyUp(event) {
+		if (Controls.PAINT.includes(event.key)) this.level.setGameMode(GameMode.NORMAl)
+	}
+
+	onModeNormal(event) {
+		this.animEyesNorm()
+	}
+
+	onModeExecute(event) {
+		this.animEyesExec()
+	}
+
+	onModeDeath(event) {
+		this.animEyesDead()
 	}
 
 	// endregion

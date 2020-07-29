@@ -9,6 +9,9 @@ import WallStandard from "../wall/wall-standard.js"
 import Direction from "../util/direction.js";
 import {Result} from "../event/event.js";
 import {ResultPlayerMove} from "../event/player/event-player-move.js";
+import EventMode from "../event/game/event-mode.js";
+import EventBus from "../event/eventbus.js";
+import Entity from "../entity/entity.js";
 
 /**
  * Abstract level class for creating levels
@@ -125,6 +128,16 @@ export default class Level extends Animator {
 		this.player = new Player(this)
 		this.player.position = this.getStartPosition()
 		this.player.facing = this.getStartDirection()
+	}
+
+	setGameMode(gameMode) {
+		if (GameMode.equal(gameMode, this.gameMode)) return
+		this.gameMode = gameMode
+		let event = new EventMode()
+		if (GameMode.equal(this.gameMode, GameMode.NORMAl)) this.game.eventBus.callEvent(Entity.listeners.onModeNormal, event)
+		if (GameMode.equal(this.gameMode, GameMode.EXECUTION)) this.game.eventBus.callEvent(Entity.listeners.onModeExecute, event)
+		if (GameMode.equal(this.gameMode, GameMode.DEATH)) this.game.eventBus.callEvent(Entity.listeners.onModeDeath, event)
+		if (GameMode.equal(this.gameMode, GameMode.VICTORY)) this.game.eventBus.callEvent(Entity.listeners.onModeVictory, event)
 	}
 
 	// region Animations
