@@ -7,7 +7,7 @@ let ID_COUNT = 0
  * Universal animation scalar for all [Animators]{@link Animator}
  * @type {number}
  */
-let ANIM_SCALE = 0
+let ANIM_SCALE = 1
 
 /**
  * @class Animator
