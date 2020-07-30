@@ -2,9 +2,8 @@ import Enum from "./enum.js"
 
 /**
  * The Orientation enum
- * @property {Orientation} UNSET
- * @property {Orientation} HORIZONTAL
- * @property {Orientation} VERTICAL
+ * @class Orientation
+ * @extends Enum
  */
 export default class Orientation extends Enum {
 	/**
@@ -12,25 +11,37 @@ export default class Orientation extends Enum {
 	 * @readonly
 	 * @type {Orientation}
 	 */
+	/**
+	 * The UNSET {@link Orientation}
+	 * @type {Orientation}
+	 * @constant
+	 *
+	 * @memberOf Orientation
+	 */
 	static UNSET = new Orientation(-1, "UNSET")
 	/**
-	 * The horizontal {@link Orientation}
-	 * @readonly
+	 * The HORIZONTAL {@link Orientation}
 	 * @type {Orientation}
+	 * @constant
+	 *
+	 * @memberOf Orientation
 	 */
 	static HORIZONTAL = new Orientation(0, "HORIZONTAL")
 	/**
-	 * The vertical {@link Orientation}
-	 * @readonly
+	 * The VERTICAL {@link Orientation}
 	 * @type {Orientation}
+	 * @constant
+	 *
+	 * @memberOf Orientation
 	 */
 	static VERTICAL = new Orientation(1, "VERTICAL")
 
 	/**
 	 * Gets the opposite {@link Orientation}
-	 * @method flip
 	 * @param {Orientation} orientation
 	 * @returns {Orientation}
+	 *
+	 * @memberOf Orientation
 	 */
 	static flip(orientation) {
 		if (orientation._id === 0) return Orientation.VERTICAL
@@ -41,6 +52,8 @@ export default class Orientation extends Enum {
 	/**
 	 * Gets a list of all [Orientations]{@link Orientation}
 	 * @returns {Orientation[]}
+	 *
+	 * @memberOf Orientation
 	 */
 	static all() {
 		return [Orientation.HORIZONTAL, Orientation.VERTICAL]
@@ -49,6 +62,8 @@ export default class Orientation extends Enum {
 	/**
 	 * Gets a random {@link Orientation}
 	 * @returns {Orientation}
+	 *
+	 * @memberOf Orientation
 	 */
 	static random() {
 		return Orientation.all()[Math.floor(Math.random() * 2)]

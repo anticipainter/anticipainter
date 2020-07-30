@@ -4,49 +4,57 @@ import Orientation from "./orientation.js"
 
 /**
  * The Direction enum
- * @property {Direction} UNSET
- * @property {Direction} LEFT
- * @property {Direction} RIGHT
- * @property {Direction} UP
- * @property {Direction} DOWN
+ * @class Direction
+ * @extends Enum
  */
 export default class Direction extends Enum {
 	/**
 	 * The unset {@link Direction}
-	 * @readonly
 	 * @type {Direction}
+	 * @constant
+	 *
+	 * @memberOf Direction
 	 */
 	static UNSET = new Direction(-1, "UNSET")
 	/**
 	 * The left {@link Direction}
-	 * @readonly
 	 * @type {Direction}
+	 * @constant
+	 *
+	 * @memberOf Direction
 	 */
 	static LEFT = new Direction(0, "LEFT")
 	/**
 	 * The right {@link Direction}
-	 * @readonly
 	 * @type {Direction}
+	 * @constant
+	 *
+	 * @memberOf Direction
 	 */
 	static RIGHT = new Direction(1, "RIGHT")
 	/**
 	 * The up {@link Direction}
-	 * @readonly
 	 * @type {Direction}
+	 * @constant
+	 *
+	 * @memberOf Direction
 	 */
 	static UP = new Direction(2, "UP")
 	/**
 	 * The down {@link Direction}
-	 * @readonly
 	 * @type {Direction}
+	 * @constant
+	 *
+	 * @memberOf Direction
 	 */
 	static DOWN = new Direction(3, "DOWN")
 
 	/**
 	 * Gets the opposite {@link Direction}
-	 * @method flip
 	 * @param {Direction} direction
 	 * @returns {Direction}
+	 *
+	 * @memberOf Direction
 	 */
 	static inverse(direction) {
 		if (direction._id === 0) return Direction.RIGHT
@@ -58,9 +66,10 @@ export default class Direction extends Enum {
 
 	/**
 	 * Gets the {@link Direction} one to the left
-	 * @method flip
 	 * @param {Direction} direction
 	 * @returns {Direction}
+	 *
+	 * @memberOf Direction
 	 */
 	static leftOf(direction) {
 		if (direction._id === 0) return Direction.DOWN
@@ -72,9 +81,10 @@ export default class Direction extends Enum {
 
 	/**
 	 * Gets the {@link Direction} one to the right
-	 * @method flip
 	 * @param {Direction} direction
 	 * @returns {Direction}
+	 *
+	 * @memberOf Direction
 	 */
 	static rightOf(direction) {
 		if (direction._id === 0) return Direction.UP
@@ -86,9 +96,10 @@ export default class Direction extends Enum {
 
 	/**
 	 * Converts a {@link Direction} to a {@link Vector}
-	 * @method toVector
 	 * @param {Direction} direction
 	 * @returns {Vector}
+	 *
+	 * @memberOf Direction
 	 */
 	static toVector(direction) {
 		if (direction._id === 0) return Vector.left
@@ -100,9 +111,10 @@ export default class Direction extends Enum {
 
 	/**
 	 * Converts a {@link Direction} to a {@link Orientation}
-	 * @method toOrientation
 	 * @param {Direction} direction
 	 * @returns {Orientation}
+	 *
+	 * @memberOf Direction
 	 */
 	static toOrientation(direction) {
 		if (direction._id === 0 || direction._id === 1) return Orientation.VERTICAL
@@ -112,9 +124,10 @@ export default class Direction extends Enum {
 
 	/**
 	 * Converts a {@link Direction} to an angle measurement
-	 * @method toAngle
 	 * @param {Direction} direction
 	 * @returns {number|undefined}
+	 *
+	 * @memberOf Direction
 	 */
 	static toAngle(direction) {
 		if (direction._id === 0) return 270
@@ -126,10 +139,11 @@ export default class Direction extends Enum {
 
 	/**
 	 * Get the corresponding wall coordinates based on a position and direction
-	 * @method getWallCoordinates
 	 * @param {Vector} position
 	 * @param {Direction} direction
 	 * @returns {Vector}
+	 *
+	 * @memberOf Direction
 	 */
 	static getWallCoordinates(position, direction) {
 		let offset = new Vector(direction._id === 1 ? 1 : 0, direction._id === 3 ? 1 : 0)
@@ -139,6 +153,8 @@ export default class Direction extends Enum {
 	/**
 	 * Gets a list of all [Directions]{@link Direction}
 	 * @returns {Direction[]}
+	 *
+	 * @memberOf Direction
 	 */
 	static all() {
 		return [Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.DOWN]
@@ -147,6 +163,8 @@ export default class Direction extends Enum {
 	/**
 	 * Gets a random {@link Direction}
 	 * @returns {Direction}
+	 *
+	 * @memberOf Direction
 	 */
 	static random() {
 		return Direction.all()[Math.floor(Math.random() * 4)]
