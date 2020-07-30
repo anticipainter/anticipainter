@@ -11,13 +11,16 @@ import GameModule from "../game-module.js"
 
 /**
  * Current number of listener IDs
- * @property listenerCount
  * @type {number}
  */
-let listenerCount = 0
+let LISTENER_COUNT = 0
 
 /**
+ * The EventBus for keeping track and calling [Events]{@link BaseEvent}
+ * @class EventBus
+ * @extends GameModule
  *
+ * @param {Anticipainter} game - Reference to the game instance
  */
 export default class EventBus extends GameModule {
 	/**
@@ -30,7 +33,6 @@ export default class EventBus extends GameModule {
 	// region Properties
 	/**
 	 * A map from [ListenerIDs]{@link ListenerID} to an array of [EventListeners]{@link EventListener}
-	 * @property events
 	 * @type {Map<ListenerID, EventListener[]>}
 	 * @private
 	 */
@@ -43,13 +45,16 @@ export default class EventBus extends GameModule {
 		EventBus.instance = this
 
 		this.events = new Map()
-		for (let i = 0; i < listenerCount; i++) EventBus.instance.events.set(i, [])
+		for (let i = 0; i < LISTENER_COUNT; i++) EventBus.instance.events.set(i, [])
 	}
 
 	/**
 	 * Run through a list of [EventListeners]{@link EventListener}
 	 * @param {ListenerID} listenerID
 	 * @param {BaseEvent} event
+	 *
+	 * @memberOf EventBus
+	 * @instance
 	 */
 	callEvent(listenerID, event) {
 		let listeners = this.events.get(listenerID)
@@ -66,6 +71,8 @@ export default class EventBus extends GameModule {
 	/**
 	 * Run all of the [EventCallbacks]{@link EventCallback} associated with the {@BaseEvent}'s {@link Result}
 	 * @param {BaseEvent} event
+	 *
+	 * @memberOf EventBus
 	 */
 	static executeEvent(event) {
 		let callbacks = event.getCallbacks(event.getResult())
@@ -75,16 +82,19 @@ export default class EventBus extends GameModule {
 	/**
 	 * Create a new listener
 	 * @returns {ListenerID} the id of the listener
+	 *
+	 * @memberOf EventBus
 	 */
 	static createListener() {
-		return listenerCount++
+		return LISTENER_COUNT++
 	}
 
 	/**
 	 * Subscribe an [Event]{@link BaseEvent} to the {@link EventBus}
-	 * @method subscribe
 	 * @param {ListenerID} listenerID
 	 * @param {EventListener} listener
+	 *
+	 * @memberOf EventBus
 	 */
 	static subscribe(listenerID, listener) {
 		EventBus.instance.events.get(listenerID).push(listener)
