@@ -1,19 +1,20 @@
 import BaseEvent from "../event.js"
 
+/**
+ * Called when a change to the {@link Stage} is made
+ * @event EventStage
+ *
+ * @param {Stage} stage - reference to the {@link Stage} instance
+ */
 export default class EventStage extends BaseEvent {
 	// region Properties
 	/**
 	 * Reference to the {@link Stage} instance
-	 * @property stage
 	 * @type {Stage}
 	 */
 	stage
 	// endregion
 
-	/**
-	 * @constructor
-	 * @param {Stage} stage
-	 */
 	constructor(stage) {
 		super()
 		this.stage = stage
