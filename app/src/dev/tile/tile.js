@@ -10,9 +10,11 @@ export default class Tile extends Entity {
 	// region Properties
 	/**
 	 * If this tile is currently activated
-	 * @property activated
 	 * @type {boolean}
-	 * @private
+	 * @protected
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	activated = false
 	// endregion
@@ -20,6 +22,9 @@ export default class Tile extends Entity {
 	/**
 	 * Get the activation state of this {@link Tile}
 	 * @returns {boolean}
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	getActivated() {
 		return this.activated
@@ -28,6 +33,9 @@ export default class Tile extends Entity {
 	/**
 	 * Set the activation state of this {@link Tile}
 	 * @param {boolean} state
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	setActivated(state) {
 		if (state === this.activated) return
@@ -37,6 +45,12 @@ export default class Tile extends Entity {
 
 	// region Animations
 
+	/**
+	 * Animation for fading this {@link Tile} in
+	 *
+	 * @memberOf Tile
+	 * @instance
+	 */
 	animFadeIn() {
 		this.animate("fadeIn", 500, now => {
 			this.sprite.alpha = 0.15 + now * (0.5 - 0.15)
@@ -64,12 +78,18 @@ export default class Tile extends Entity {
 	 * Called when the {@link Player} is attempting to move over this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	onTryPlayerMove(event) {}
 	/**
 	 * Called when the {@link Player} successfully moves over this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	onPlayerMove(event) {
 		this.activated = true
@@ -80,12 +100,18 @@ export default class Tile extends Entity {
 	 * Called when the {@link Player} is attempting to arrive on this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	onTryPlayerArrive(event) {}
 	/**
 	 * Called when the {@link Player} successfully arrives on this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	onPlayerArrive(event) {
 		this.setActivated(true)
@@ -95,12 +121,18 @@ export default class Tile extends Entity {
 	 * Called when the {@link Player} is attempting to leave from this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	onTryPlayerLeave(event) {}
 	/**
 	 * Called when the {@link Player} successfully leaves from this {@link Tile}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Tile
+	 * @instance
 	 */
 	onPlayerLeave(event) {
 	}
