@@ -10,15 +10,16 @@ let ID_COUNT = 0
 let ANIM_SCALE = 1
 
 /**
+ * Abstract class for an object that can run animations
  * @class Animator
- * @abstract
  */
 export default class Animator {
 	// region Properties
 	/**
 	 * The ID of this {@link Entity}
-	 * @property id
 	 * @type {number}
+	 *
+	 * @memberOf Animator
 	 * @private
 	 */
 	_id
@@ -35,6 +36,9 @@ export default class Animator {
 	 * @param {function} step - Called at each frame of the animation
 	 * @param {function} [complete] - Called at the end of the animation
 	 * @param {number} [delay=0] - Delay until the animation starts
+	 *
+	 * @memberOf Animator
+	 * @instance
 	 */
 	animate(label, duration, step, complete, delay=0) {
 		if (ANIM_SCALE === 0) {
@@ -57,6 +61,9 @@ export default class Animator {
 	/**
 	 * The ID of this {@link Animator}
 	 * @returns {number}
+	 *
+	 * @memberOf Animator
+	 * @instance
 	 */
 	get id() {
 		return this._id
