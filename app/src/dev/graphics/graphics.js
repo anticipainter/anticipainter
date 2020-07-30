@@ -9,6 +9,9 @@ import RenderLayer from "../util/render-layer.js"
 /**
  * The graphics module
  * @class Graphics
+ * @extends GameModule
+ *
+ * @param {Anticipainter} game - Reference to the game instance
  */
 export default class Graphics extends GameModule {
 	/**
@@ -21,29 +24,50 @@ export default class Graphics extends GameModule {
 	// region Properties
 	/**
 	 * Reference to the {@link Display} module
-	 * @property display
 	 * @type {Display}
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	display
 	/**
 	 * The wrapper {@link PIXI.Container} for everything
-	 * @property wrapper
 	 * @type {PIXI.Container}
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	wrapper
 	/**
 	 * The wrapper {@link PIXI.Container} for the layers
-	 * @property sprites
 	 * @type {PIXI.Container}
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	sprites
 	/**
 	 * The object that holds the layer [Containers]{@link PIXI.Container}
-	 * @property layers
 	 * @type {Map<RenderLayer, PIXI.Container>}
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	layers
+	/**
+	 * The DOM element for the game
+	 * @type {JQuery<HTMLElement>}
+	 *
+	 * @memberOf Graphics
+	 * @instance
+	 */
 	view = $("#game")
+	/**
+	 * Reference to PIXI's resources object
+	 *
+	 * @memberOf Graphics
+	 * @instance
+	 */
 	resources
 	// endregion
 
@@ -80,9 +104,11 @@ export default class Graphics extends GameModule {
 
 	/**
 	 * Dispatched once per loaded or errored resource
-	 * @method loadProgressHandler
 	 * @param loader
 	 * @param resource
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	loadProgressHandler(loader, resource) {
 		console.info("loading: " + resource.url)
@@ -91,9 +117,11 @@ export default class Graphics extends GameModule {
 
 	/**
 	 * Dispatched when all resources have been loaded
-	 * @method loadProgressHandler
 	 * @param loader
 	 * @param resources
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	loadFinishHandler(loader, resources) {
 		console.groupEnd()
@@ -109,9 +137,12 @@ export default class Graphics extends GameModule {
 	/**
 	 * Loads a sprite resource into memory<br>
 	 * Must pass a class type that extends {@link Entity}
-	 * @method loadResource
-	 * @param {typeof Entity} EntityType
-	 * @returns {Anticipainter} game instance for chaining
+	 * @template Entity
+	 * @param {Class<Entity>} EntityType
+	 * @returns {Graphics} graphics instance for chaining
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	loadResource(EntityType) {
 		this.game.app.loader.add(EntityType.getLoadableObject())
@@ -120,7 +151,9 @@ export default class Graphics extends GameModule {
 
 	/**
 	 * Called whenever the screen size changes
-	 * @method onResize
+	 *
+	 * @memberOf Graphics
+	 * @instance
 	 */
 	onResize() {
 		if (this.game.level === undefined) return
@@ -138,6 +171,8 @@ export default class Graphics extends GameModule {
 	 * Gets the texture for an {@link Entity}
 	 * @param {Entity} entity
 	 * @returns {PIXI.Texture}
+	 *
+	 * @memberOf Graphics
 	 */
 	static getTexture(entity) {
 		let resource = Graphics.instance.resources[entity.getRegistryName()]
@@ -148,6 +183,8 @@ export default class Graphics extends GameModule {
 	 * Gets the texture from a registry name
 	 * @param {string} registryName
 	 * @returns {PIXI.Texture}
+	 *
+	 * @memberOf Graphics
 	 */
 	static getTextureByRegistry(registryName) {
 		let resource = Graphics.instance.resources[registryName]
@@ -157,6 +194,8 @@ export default class Graphics extends GameModule {
 	/**
 	 * Adds an {@link Entity} to its corresponding {@link RenderLayer}
 	 * @param {Entity} entity
+	 *
+	 * @memberOf Graphics
 	 */
 	static addSprite(entity) {
 		if (entity.sprite === undefined) return
@@ -168,6 +207,8 @@ export default class Graphics extends GameModule {
 	 * Removes an {@link Entity} from its corresponding {@link RenderLayer}
 	 * @param {RenderLayer} renderLayer
 	 * @param {Entity} entity
+	 *
+	 * @memberOf Graphics
 	 */
 	static removeSprite(renderLayer, entity) {
 		if (entity.sprite === undefined) return
