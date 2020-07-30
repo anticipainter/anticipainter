@@ -5,18 +5,24 @@
 
 /**
  * 2d vector object
- * @property {number} x - The x component
- * @property {number} y - The y component
+ * @param {number} x - The x component
+ * @param {number} y - The y component
  */
 export class Vector {
 	/**
 	 * The x component of the {@link Vector}
 	 * @type {number}
+	 *
+	 * @memberOf Vector
+	 * @instance
 	 */
 	x
 	/**
 	 * The y component of the {@link Vector}
 	 * @type {number}
+	 *
+	 * @memberOf Vector
+	 * @instance
 	 */
 	y
 
@@ -27,7 +33,6 @@ export class Vector {
 
 	/**
 	 * Iterate over the {@link Vector} at each integer
-	 * @method iterate
 	 * @param {VectorCallback} callback - function to call at each step
 	 */
 	iterate(callback) {
@@ -36,7 +41,6 @@ export class Vector {
 
 	/**
 	 * Returns a new {@link Vector} with both dimensions the nearest integers
-	 * @method getRounded
 	 * @returns {Vector}
 	 */
 	getRounded() {
@@ -45,7 +49,6 @@ export class Vector {
 
 	/**
 	 * Gets the string representation of this {@link Vector}
-	 * @method
 	 * @returns {string}
 	 */
 	toString() {
@@ -54,7 +57,6 @@ export class Vector {
 
 	/**
 	 * Linearly interpolates between two [Vectors]{@link Vector} by a percentage
-	 * @method lerp
 	 * @param {Vector} a - starting point
 	 * @param {Vector} b - ending point
 	 * @param {number} t - percentage between the two
@@ -66,7 +68,6 @@ export class Vector {
 
 	/**
 	 * Iterate between two [Vectors]{@link Vector} stopping at each integer
-	 * @method iterate
 	 * @param {Vector} a - starting point
 	 * @param {Vector} b - ending point
 	 * @param {VectorCallback} callback - function to call at each step
@@ -79,7 +80,6 @@ export class Vector {
 
 	/**
 	 * Rotates a {@link Vector} by an angle in degrees
-	 * @method rotate
 	 * @param {Vector} vector - original vector
 	 * @param {number} degrees - how far to rotate
 	 * @returns {Vector} the new rotated {@link Vector}
@@ -93,7 +93,6 @@ export class Vector {
 
 	/**
 	 * Gets the sum of two [Vectors]{@link Vector}
-	 * @method add
 	 * @param {Vector} a - addend vector
 	 * @param {Vector} b - augend vector
 	 * @returns {Vector} `a + b`
@@ -104,7 +103,6 @@ export class Vector {
 
 	/**
 	 * Gets the difference of two [Vectors]{@link Vector}
-	 * @method sub
 	 * @param {Vector} a - minuend vector
 	 * @param {Vector} b - subtrahend vector
 	 * @returns {Vector} `a - b`
@@ -115,7 +113,6 @@ export class Vector {
 
 	/**
 	 * Scales a {@link Vector} by a scalar
-	 * @method mul
 	 * @param {Vector} a - multiplicand
 	 * @param {number} b - multiplier
 	 * @returns {Vector} `a * b`
@@ -126,7 +123,6 @@ export class Vector {
 
 	/**
 	 * Inversely scales a {@link Vector} by a scalar or returns the zero {@link Vector} if dividing by 0
-	 * @method div
 	 * @param {Vector} a - dividend
 	 * @param {number} b - divisor
 	 * @returns {Vector} `a / b`
@@ -137,7 +133,6 @@ export class Vector {
 
 	/**
 	 * Negates a {@link Vector}
-	 * @method neg
 	 * @param {Vector} vector
 	 * @returns {Vector} `-a`
 	 */
@@ -147,7 +142,6 @@ export class Vector {
 
 	/**
 	 * Returns a new {@link Vector} containing the minimum dimensions of `a` and `b`
-	 * @method min
 	 * @param {Vector} a
 	 * @param {Vector} b
 	 * @returns {Vector|undefined}
@@ -160,7 +154,6 @@ export class Vector {
 
 	/**
 	 * Returns a new {@link Vector} containing the maximum dimensions of `a` and `b`
-	 * @method max
 	 * @param {Vector} a
 	 * @param {Vector} b
 	 * @returns {Vector|undefined}
@@ -173,7 +166,6 @@ export class Vector {
 
 	/**
 	 * If both [Vectors]{@link Vector} are equal
-	 * @method equals
 	 * @param {Vector} a - left vector
 	 * @param {Vector} b - right vector
 	 * @returns {boolean} `a == b`
@@ -184,7 +176,6 @@ export class Vector {
 
 	/**
 	 * Gets the string representation of the {@link Vector}
-	 * @method
 	 * @param vector
 	 * @returns {string}
 	 */
@@ -194,7 +185,6 @@ export class Vector {
 
 	/**
 	 * Returns a new zero {@link Vector}<br>`return new Vector(0, 0)`
-	 * @method zero
 	 * @returns {Vector}
 	 */
 	static zero() {
@@ -203,7 +193,6 @@ export class Vector {
 
 	/**
 	 * Returns a new one {@link Vector}<br>`return new Vector(1, 1)`
-	 * @method one
 	 * @returns {Vector}
 	 */
 	static one() {
@@ -212,7 +201,6 @@ export class Vector {
 
 	/**
 	 * Converts a list to a {@link Vector}
-	 * @method
 	 * @param {number[]} list - list of length 2
 	 * @returns {Vector}
 	 */
@@ -222,7 +210,6 @@ export class Vector {
 
 	/**
 	 * Converts a {@link Vector} to a list
-	 * @method
 	 * @param {Vector} vector
 	 * @returns {number[]} list of length 2
 	 */
