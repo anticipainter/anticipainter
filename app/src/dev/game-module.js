@@ -2,21 +2,21 @@
  * Abstract class for creating game modules
  * @class GameModule
  * @abstract
+ *
+ * @param {Anticipainter} game - Reference to the game instance
  */
 export default class GameModule {
 	// region Properties
 	/**
 	 * Reference to the [game]{@link Anticipainter} instance
-	 * @property game
 	 * @type {Anticipainter}
+	 *
+	 * @memberOf GameModule
+	 * @instance
 	 */
 	game
 	// endregion
 
-	/**
-	 * @constructor
-	 * @param {Anticipainter} game
-	 */
 	constructor(game) {
 		this.game = game
 	}
