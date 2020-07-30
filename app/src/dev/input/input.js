@@ -2,14 +2,22 @@ import GameModule from "../game-module.js";
 import EventInputKey from "../event/input/event-input-key.js";
 import Entity from "../entity/entity.js";
 
+/**
+ * The input module
+ * @class Input
+ * @extends GameModule
+ *
+ * @param {Anticipainter} game - Reference to the game instance
+ */
 export default class Input extends GameModule {
+	// region Properties
 	/**
 	 * The list of keys currently being pressed
-	 * @property keys
 	 * @type {Set<number>}
 	 * @private
 	 */
 	keys
+	// endregion
 
 	constructor(game) {
 		super(game);
