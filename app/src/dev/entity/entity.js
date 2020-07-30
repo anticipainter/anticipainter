@@ -164,7 +164,7 @@ export default class Entity extends Animator {
 	onModeDeath(event) {}
 
 	/**
-	 * Called when the [game]{@link Anticipainter} switches to [Victory]{@link GameMode} mode
+	 * Called when the [game]{@link Anticipainter} switches to [VICTORY]{@link GameMode} mode
 	 * @param {EventMode} event
 	 * @listens EventMode
 	 *

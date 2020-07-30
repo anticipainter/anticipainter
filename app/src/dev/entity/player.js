@@ -10,49 +10,62 @@ import GameMode from "../util/game-mode.js";
 import EventBus from "../event/eventbus.js";
 import {piecewise} from "../util/math-util.js";
 
+/**
+ * The main {@link Player} class
+ * @class Player
+ * @extends Entity
+ *
+ * @param {Level} level - The reference to the {@link Level} instance
+ */
 export default class Player extends Entity {
 	// region Properties
 	/**
 	 * Reference to the {@link Level} instance
-	 * @property leve
 	 * @type {Level}
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	level
 	/**
 	 * The {@link Player}'s different eye visuals
-	 * @property eyes
 	 * @type {{
 	 *  parent: PIXI.Container,
 	 *  norm: PIXI.Sprite,
 	 *  exec: PIXI.Sprite,
 	 *  dead: PIXI.Sprite
 	 * }}
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	eyes
 	/**
 	 * The {@link Player}'s facing direction
-	 * @property facing
 	 * @type {Direction}
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	facing
 	/**
 	 * The list of queued moves
-	 * @property moveQueue
 	 * @type {Direction[]}
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	moveQueue
 	/**
 	 * If the {@link Player} is currently in the move animation
-	 * @property moving
 	 * @type {boolean}
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	moving
 	// endregion
 
-	/**
-	 * @constructor
-	 * @param {Level} level
-	 */
 	constructor(level) {
 		super();
 		this.level = level
@@ -63,16 +76,33 @@ export default class Player extends Entity {
 
 	/**
 	 * Reference to the current {@link GameMode}
-	 * @returns {GameMode}
+	 * @type {GameMode}
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	get gameMode() {
 		return this.level.gameMode
 	}
 
+	/**
+	 * Queue up a [move]{@link Direction} to be executed
+	 * @param direction
+	 *
+	 *
+	 * @memberOf Player
+	 * @instance
+	 */
 	queueMove(direction) {
 		this.moveQueue.push(direction)
 	}
 
+	/**
+	 * Check if there is a [move]{@link Direction} in the [queue]{@link Player#moveQueue} and try to execute it
+	 *
+	 * @memberOf Player
+	 * @instance
+	 */
 	checkMove() {
 		if (this.moving) return
 		let direction = this.moveQueue.shift()
@@ -116,6 +146,9 @@ export default class Player extends Entity {
 	 * Animates the {@link Player}'s sprite between two [positions]{@link Vector}
 	 * @param {Vector} oldPos
 	 * @param {Vector} newPos
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	animMove(oldPos, newPos) {
 		this.moving = true
@@ -133,6 +166,9 @@ export default class Player extends Entity {
 	 * Animates the {@link Player}'s bonk in a {link Direction}
 	 * @param {Vector} oldPos
 	 * @param {Direction} dir
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	animBonk(oldPos, dir) {
 		this.moving = true
@@ -155,6 +191,9 @@ export default class Player extends Entity {
 	 * Animates the {@link Player}'s death
 	 * @param {Vector} start
 	 * @param {Direction} dir
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	animDeath(start, dir) {
 		this.moving = true
@@ -182,6 +221,9 @@ export default class Player extends Entity {
 	 * Animates the {@link Player}'s eye rotation between two [Directions]{@link Direction}
 	 * @param {Direction} oldDir
 	 * @param {Direction} newDir
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	animRotateEyes(oldDir, newDir) {
 		let dir = 2
@@ -197,6 +239,9 @@ export default class Player extends Entity {
 
 	/**
 	 * Causes the {@link Player} to blink once
+	 *
+	 * @memberOf Player
+	 * @instance
 	 */
 	animBlink() {
 		this.animate("blink", 400, now => {
@@ -207,6 +252,12 @@ export default class Player extends Entity {
 		})
 	}
 
+	/**
+	 * Switch [eyes]{@link Player#eyes} to the [NORMAL]{@link GameMode} state
+	 *
+	 * @memberOf Player
+	 * @instance
+	 */
 	animEyesNorm() {
 		this.animate("eyesNorm", 150, now => {
 			this.eyes.norm.alpha = now
@@ -217,6 +268,12 @@ export default class Player extends Entity {
 		})
 	}
 
+	/**
+	 * Switch [eyes]{@link Player#eyes} to the [EXECUTE]{@link GameMode} state
+	 *
+	 * @memberOf Player
+	 * @instance
+	 */
 	animEyesExec() {
 		this.animate("eyesNorm", 150, now => {
 			this.eyes.norm.alpha = 1 - now
@@ -227,6 +284,12 @@ export default class Player extends Entity {
 		})
 	}
 
+	/**
+	 * Switch [eyes]{@link Player#eyes} to the [DEATH]{@link GameMode} state
+	 *
+	 * @memberOf Player
+	 * @instance
+	 */
 	animEyesDead() {
 		this.eyes.norm.alpha = 0
 		this.eyes.exec.alpha = 0
