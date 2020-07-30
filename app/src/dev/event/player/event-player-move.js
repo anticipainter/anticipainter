@@ -3,13 +3,17 @@ import Direction from "../../util/direction.js"
 import {Result} from "../event.js";
 
 /**
- * @event EventPlayerMove - Called when the {@link Player} moves anywhere
+ * Called when the {@link Player} moves anywhere
+ * @event EventPlayerMove
+ *
+ * @param {Player} player - reference to the {@link Player} instance
+ * @param {Direction} direction - {@link Direction} the move was in
+ * @param {Stage} stage - reference to the {@link Stage} instance
  */
 export default class EventPlayerMove extends EventPlayer {
 	// region Properties
 	/**
 	 * Desired {@link Direction} of the movement
-	 * @property direction
 	 * @type {Direction}
 	 */
 	direction
