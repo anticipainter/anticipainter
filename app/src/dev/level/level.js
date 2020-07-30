@@ -10,58 +10,68 @@ import Direction from "../util/direction.js";
 import {Result} from "../event/event.js";
 import {ResultPlayerMove} from "../event/player/event-player-move.js";
 import EventMode from "../event/game/event-mode.js";
-import EventBus from "../event/eventbus.js";
 import Entity from "../entity/entity.js";
 
 /**
  * Abstract level class for creating levels
  * @class Level
  * @abstract
+ * @extends Animator
+ *
+ * @param {Anticipainter} game - Reference to the game instance
  */
 export default class Level extends Animator {
 	// region Properties
 	/**
 	 * Reference to the [game]{@link Anticipainter} instance
-	 * @property game
 	 * @type {Anticipainter}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	game
 	/**
 	 * The current {@link GameMode}
-	 * @property gameMode
 	 * @type {GameMode}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	gameMode
 	/**
 	 * Contains the [tiles]{@link Tile} and [walls]{@link Wall}
-	 * @property stage
 	 * @type {Stage}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	stage
 	/**
 	 * The {@link Player} instance
-	 * @property player
 	 * @type {Player}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	player
 	/**
 	 * Intensity of the screen shake when the {@link Player} moves
-	 * @property screenShakeIntensity
 	 * @type {number}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	screenShakeIntensity = 3
 	/**
 	 * Intensity of the screen shake when the {@link Player} bonks
-	 * @property screenShakeIntensity
 	 * @type {number}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	screenShakeIntensityBonk = 10
 	// endregion
 
-	/**
-	 * @constructor Level
-	 * @param {Anticipainter} game - Reference to the game instance
-	 */
 	constructor(game) {
 		super()
 		this.game = game
@@ -81,18 +91,30 @@ export default class Level extends Animator {
 	/**
 	 * The name of the {@link Level}
 	 * @abstract
-	 * @returns {string}
+	 * @type {string}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	get name() {}
 
 	/**
-	 * Draws the [tiles]{@link Tile} to the {@link Stage} using a [builder]{@link StageBuilder}
-	 * @method generateTiles
+	 * Draws the [Tiles]{@link Tile} to the {@link Stage} using a [builder]{@link StageBuilder}
 	 * @abstract
 	 * @param {StageBuilder} builder - A grid builder to draw shapes
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	generateStage(builder) {}
 
+	/**
+	 * Draws the [Walls]{@link Wall} to the {@link Stage} using a [builder]{@link MazeBuilder}
+	 * @param {MazeBuilder} builder
+	 *
+	 * @memberOf Level
+	 * @instance
+	 */
 	generateMaze(builder) {
 		// builder.queueBorder(WallStandard)
 		builder.queueMaze(WallStandard)
@@ -100,8 +122,10 @@ export default class Level extends Animator {
 
 	/**
 	 * Decides the starting [position]{@link Vector} for the {@link Player}
-	 * @method
 	 * @returns {Vector}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	getStartPosition() {
 		while (true) {
@@ -116,6 +140,9 @@ export default class Level extends Animator {
 	/**
 	 * Decided the starting {@link Direction} for the {@link Player}
 	 * @returns {Direction}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	getStartDirection() {
 		return Direction.random()
@@ -123,6 +150,9 @@ export default class Level extends Animator {
 
 	/**
 	 * Spawns the player into the {@link Level}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	spawnPlayer() {
 		this.player = new Player(this)
@@ -130,6 +160,14 @@ export default class Level extends Animator {
 		this.player.facing = this.getStartDirection()
 	}
 
+	/**
+	 * Sets the {@link GameMode} of the {@link Level}
+	 * @param gameMode
+	 * @fires EventMode
+	 *
+	 * @memberOf Level
+	 * @instance
+	 */
 	setGameMode(gameMode) {
 		if (GameMode.equal(gameMode, this.gameMode)) return
 		this.gameMode = gameMode
@@ -142,6 +180,15 @@ export default class Level extends Animator {
 
 	// region Animations
 
+	/**
+	 * Animation for shaking the screen
+	 * @param {Vector} start
+	 * @param {Vector} target
+	 * @param {number} [delay=0]
+	 *
+	 * @memberOf Level
+	 * @instance
+	 */
 	animShake(start, target, delay=0) {
 		this.animate("shakeMove", 80, now => {
 			let lerp = now < 0.5 ? now : 1 - now
@@ -152,12 +199,26 @@ export default class Level extends Animator {
 		}, delay)
 	}
 
+	/**
+	 * Animation for shaking the screen for a move
+	 * @param {Direction} direction
+	 *
+	 * @memberOf Level
+	 * @instance
+	 */
 	animShakeMove(direction) {
 		let start = Vector.zero
 		let target = Vector.mul(Direction.toVector(direction), this.screenShakeIntensity)
 		this.animShake(start, target)
 	}
 
+	/**
+	 * Animation for shaking the screen for a bonk
+	 * @param {Direction} direction
+	 *
+	 * @memberOf Level
+	 * @instance
+	 */
 	animShakeBonk(direction) {
 		let start = Vector.zero
 		let target = Vector.mul(Direction.toVector(Direction.inverse(direction)), this.screenShakeIntensityBonk)
@@ -169,14 +230,21 @@ export default class Level extends Animator {
 
 	/**
 	 * Runs once the {@link Level} is loaded
-	 * @method start
+	 * @param {EventStart} event
+	 * @listens EventStart
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
-	onStart() {}
+	onStart(event) {}
 
 	/**
 	 * Called once every frame
-	 * @method onUpdate
 	 * @param {EventUpdate} event
+	 * @listens EventStart
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	onUpdate(event) {}
 
@@ -184,6 +252,9 @@ export default class Level extends Animator {
 	 * Called when the {@link Player} is attempting to move
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	onPlayerMove(event) {
 		event.onResult(Result.ALLOW, () => {
@@ -197,7 +268,10 @@ export default class Level extends Animator {
 
 	/**
 	 * The size of the {@link Stage}
-	 * @returns {Vector}
+	 * @type {Vector}
+	 *
+	 * @memberOf Level
+	 * @instance
 	 */
 	get size() {
 		return this.stage.size
