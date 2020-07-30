@@ -1,34 +1,39 @@
 import BaseEvent from "../event.js"
 
+/**
+ * Called when a key is pressed or released
+ * @event EventInputKey
+ *
+ * @param {number} key - the key that was pressed
+ * @param {boolean} shift - if the shift key was held
+ * @param {boolean} ctrl - if the ctrl key was held
+ * @param {boolean} alt - if the alt key was held
+ * @param {boolean} meta - if the meta key was held
+ */
 export default class EventInputKey extends BaseEvent {
 	// region Properties
 	/**
 	 * The key code that was pressed
-	 * @property key
 	 * @type {number}
 	 */
 	key
 	/**
 	 * If the `shift` key was held
-	 * @property shift
 	 * @type {boolean}
 	 */
 	shift
 	/**
 	 * If the `ctrl` key was held
-	 * @property ctrl
 	 * @type {boolean}
 	 */
 	ctrl
 	/**
 	 * If the `alt` key was held
-	 * @property alt
 	 * @type {boolean}
 	 */
 	alt
 	/**
 	 * If the `meta` key was held
-	 * @property meta
 	 * @type {boolean}
 	 */
 	meta
