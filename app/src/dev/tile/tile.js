@@ -76,7 +76,7 @@ export default class Tile extends Entity {
 
 	/**
 	 * Called when the {@link Player} is attempting to move over this {@link Tile}
-	 * @listens {@link EventPlayerMove}
+	 * @listens EventPlayerMove
 	 * @param {EventPlayerMove} event
 	 *
 	 * @memberOf Tile
@@ -85,7 +85,7 @@ export default class Tile extends Entity {
 	onTryPlayerMove(event) {}
 	/**
 	 * Called when the {@link Player} successfully moves over this {@link Tile}
-	 * @listens {@link EventPlayerMove}
+	 * @listens EventPlayerMove
 	 * @param {EventPlayerMove} event
 	 *
 	 * @memberOf Tile
@@ -98,7 +98,7 @@ export default class Tile extends Entity {
 
 	/**
 	 * Called when the {@link Player} is attempting to arrive on this {@link Tile}
-	 * @listens {@link EventPlayerMove}
+	 * @listens EventPlayerMove
 	 * @param {EventPlayerMove} event
 	 *
 	 * @memberOf Tile
@@ -107,7 +107,7 @@ export default class Tile extends Entity {
 	onTryPlayerArrive(event) {}
 	/**
 	 * Called when the {@link Player} successfully arrives on this {@link Tile}
-	 * @listens {@link EventPlayerMove}
+	 * @listens EventPlayerMove
 	 * @param {EventPlayerMove} event
 	 *
 	 * @memberOf Tile
@@ -119,7 +119,7 @@ export default class Tile extends Entity {
 
 	/**
 	 * Called when the {@link Player} is attempting to leave from this {@link Tile}
-	 * @listens {@link EventPlayerMove}
+	 * @listens EventPlayerMove
 	 * @param {EventPlayerMove} event
 	 *
 	 * @memberOf Tile
@@ -128,14 +128,13 @@ export default class Tile extends Entity {
 	onTryPlayerLeave(event) {}
 	/**
 	 * Called when the {@link Player} successfully leaves from this {@link Tile}
-	 * @listens {@link EventPlayerMove}
+	 * @listens EventPlayerMove
 	 * @param {EventPlayerMove} event
 	 *
 	 * @memberOf Tile
 	 * @instance
 	 */
-	onPlayerLeave(event) {
-	}
+	onPlayerLeave(event) {}
 
 	// endregion
 

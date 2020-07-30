@@ -19,12 +19,6 @@ export default class EventPlayerMove extends EventPlayer {
 	direction
 	// endregion
 
-	/**
-	 * @constructor
-	 * @param {Stage} stage
-	 * @param {Player} player
-	 * @param {Direction} direction
-	 */
 	constructor(player, direction, stage) {
 		super(stage, player)
 		this.stage = stage
@@ -37,6 +31,13 @@ export default class EventPlayerMove extends EventPlayer {
 	}
 }
 
+/**
+ * Result for a player movement
+ * @class ResultPlayerMove
+ * @extends Result
+ * @memberOf Result
+ * @inner
+ */
 export class ResultPlayerMove extends Result {
 	static BONK = new ResultPlayerMove(3, "BONK")
 	static DIE = new ResultPlayerMove(4, "DIE")

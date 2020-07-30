@@ -102,9 +102,8 @@ export default class Entity extends Animator {
 
 	/**
 	 * Called once every frame
-	 * @method onUpdate
-	 * @param {EventUpdate} event
 	 * @listens EventUpdate
+	 * @param {EventUpdate} event
 	 *
 	 * @memberOf Entity
 	 * @instance
@@ -113,9 +112,8 @@ export default class Entity extends Animator {
 
 	/**
 	 * Called when a key is pressed
-	 * @method onInputKeyDown
-	 * @param {EventInputKey} event
 	 * @listens EventInputKey
+	 * @param {EventInputKey} event
 	 *
 	 * @memberOf Entity
 	 * @instance
@@ -124,9 +122,8 @@ export default class Entity extends Animator {
 
 	/**
 	 * Called when a key is released
-	 * @method onInputKeyUp
-	 * @param {EventInputKey} event
 	 * @listens EventInputKey
+	 * @param {EventInputKey} event
 	 *
 	 * @memberOf Entity
 	 * @instance
