@@ -16,21 +16,18 @@ export default class BaseEvent {
 	// region Properties
 	/**
 	 * Current cancel state of the event
-	 * @property canceled
 	 * @type {boolean}
 	 * @private
 	 */
 	canceled = false
 	/**
 	 * The result of this event
-	 * @property result
 	 * @type {Result}
 	 * @private
 	 */
 	result = Result.ALLOW
 	/**
 	 * A map from [Results]{@link Result} to a list of [EventCallbacks]{@link EventCallback}
-	 * @property callbacks
 	 * @type {Map<Result, EventCallback[]>}
 	 * @private
 	 */
@@ -39,8 +36,10 @@ export default class BaseEvent {
 
 	/**
 	 * Determine if this event is cancelable
-	 * @method isCancelable
 	 * @returns {boolean}
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	isCancelable() {
 		return false
@@ -48,8 +47,10 @@ export default class BaseEvent {
 
 	/**
 	 * Determine if this event is canceled and should stop executing
-	 * @method isCanceled
 	 * @returns {boolean}
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	isCanceled() {
 		return this.canceled
@@ -57,9 +58,11 @@ export default class BaseEvent {
 
 	/**
 	 * Sets the cancel state of this event, or errors if unable
-	 * @method setCanceled
 	 * @param {boolean} state - new canceled value
 	 * @param {Result} [reason=Result.DENY] - reason for the cancellation
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	setCanceled(state, reason=Result.DENY) {
 		if (!this.isCancelable()) {
@@ -74,8 +77,10 @@ export default class BaseEvent {
 
 	/**
 	 * Determines if this event expects a significant result value
-	 * @method hasResult
 	 * @returns {boolean}
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	hasResult() {
 		return false
@@ -84,6 +89,9 @@ export default class BaseEvent {
 	/**
 	 * Returns the value set as the result of this event
 	 * @returns {Result}
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	getResult() {
 		return this.result
@@ -92,6 +100,9 @@ export default class BaseEvent {
 	/**
 	 * Sets the result value for this event
 	 * @param {Result} result
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	setResult(result) {
 		this.result = result
@@ -99,10 +110,12 @@ export default class BaseEvent {
 
 	/**
 	 * Add an {@link EventCallback} for a given {@link Result}
-	 * @method then
 	 * @param {Result} result
 	 * @param {EventCallback} callback
 	 * @returns {BaseEvent} itself for chaining purposes
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	onResult(result, callback) {
 		if (!this.callbacks.has(result)) this.callbacks.set(result, [])
@@ -112,8 +125,10 @@ export default class BaseEvent {
 
 	/**
 	 * Get a list of this [Event]{@link BaseEvent}'s [EventCallbacks]{@link EventCallback} for a given {@link Result}
-	 * @method getCallbacks
 	 * @returns {EventCallback[]}
+	 *
+	 * @memberOf BaseEvent
+	 * @instance
 	 */
 	getCallbacks(result) {
 		return this.callbacks.get(result)
@@ -122,6 +137,8 @@ export default class BaseEvent {
 
 /**
  * The Result enum
+ * @class Result
+ *
  * @property {Result} ALLOW
  * @property {Result} DENY
  */
