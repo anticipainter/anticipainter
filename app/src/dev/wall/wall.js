@@ -14,6 +14,10 @@ export default class Wall extends Entity {
 	/**
 	 * The {@link Orientation} of the {@link Wall}
 	 * @type {Orientation}
+	 * @protected
+	 *
+	 * @memberOf Wall
+	 * @instance
 	 */
 	orientation
 	// endregion
@@ -21,6 +25,9 @@ export default class Wall extends Entity {
 	/**
 	 * Sets the {@link Orientation} of this {@link Tile}
 	 * @param {Orientation} orientation
+	 *
+	 * @memberOf Wall
+	 * @instance
 	 */
 	setOrientation(orientation) {
 		this.orientation = orientation
@@ -29,6 +36,9 @@ export default class Wall extends Entity {
 	/**
 	 * Gets the [position]{@link Vector} of the {@link Tile} on one side of this {@link Wall}
 	 * @param {Direction} direction
+	 *
+	 * @memberOf Wall
+	 * @instance
 	 */
 	getWallPos(direction) {
 		if (!Orientation.equal(Direction.toOrientation(direction), this.orientation)) return
@@ -62,6 +72,9 @@ export default class Wall extends Entity {
 	 * Called when the {@link Player} is attempting to move through this {@link Wall}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Wall
+	 * @instance
 	 */
 	onTryPlayerMove(event) {
 		event.setCanceled(true)
@@ -72,6 +85,9 @@ export default class Wall extends Entity {
 	 * Called when the {@link Player} is going to move through this {@link Wall}
 	 * @listens {@link EventPlayerMove}
 	 * @param {EventPlayerMove} event
+	 *
+	 * @memberOf Wall
+	 * @instance
 	 */
 	onPlayerBonk(event) {}
 

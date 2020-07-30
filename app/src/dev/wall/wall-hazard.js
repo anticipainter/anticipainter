@@ -1,6 +1,14 @@
 import Wall from "./wall.js"
 import RenderLayer from "../util/render-layer.js"
 
+/**
+ * Hazard {@link Wall} class
+ * @class WallHazard
+ * @extends Wall
+ *
+ * @memberOf Wall
+ * @inner
+ */
 export default class WallHazard extends Wall {
 	static getRenderLayer() {
 		return RenderLayer.HAZARD
