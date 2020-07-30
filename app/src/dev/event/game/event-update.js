@@ -1,5 +1,7 @@
 import BaseEvent from "../event.js"
 
-export default class EventUpdate extends BaseEvent {
-
-}
+/**
+ * Called once per update cycle
+ * @event EventUpdate
+ */
+export default class EventUpdate extends BaseEvent {}
