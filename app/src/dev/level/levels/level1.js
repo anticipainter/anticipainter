@@ -2,6 +2,9 @@ import Level from "../level.js"
 import Vector from "../../util/vector.js"
 import TileStandard from "../../tile/tile-standard.js"
 
+/**
+ * Level 1
+ */
 export default class Level1 extends Level {
 	get name() {
 		return "Level 1";

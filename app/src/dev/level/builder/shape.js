@@ -6,10 +6,12 @@
 export default class Shape {
 	/**
 	 * Draws the shape to the grid
-	 * @method draw
 	 * @abstract
 	 * @param {Stage} stage
 	 * @param {Vector} origin
+	 *
+	 * @memberOf Shape
+	 * @instance
 	 */
 	draw(stage, origin) {}
 }

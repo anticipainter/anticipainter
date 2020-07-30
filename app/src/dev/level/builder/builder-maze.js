@@ -11,20 +11,26 @@ export default class MazeBuilder {
 	// region Properties
 	/**
 	 * Reference to the stage
-	 * @property stage
 	 * @type {Stage}
+	 *
+	 * @memberOf MazeBuilder
+	 * @instance
 	 */
 	stage
 	/**
 	 * [Position]{@link Vector} of the top left corner of the {@link Stage}
-	 * @property origin
 	 * @type {Vector}
+	 *
+	 * @memberOf MazeBuilder
+	 * @instance
 	 */
 	origin
 	/**
 	 * Queue of shapes to draw
-	 * @property queue
 	 * @type {Shape[]}
+	 *
+	 * @memberOf MazeBuilder
+	 * @instance
 	 */
 	queue
 	// endregion
@@ -42,7 +48,9 @@ export default class MazeBuilder {
 
 	/**
 	 * Draw all of the queued shapes to the grid
-	 * @method draw
+	 *
+	 * @memberOf MazeBuilder
+	 * @instance
 	 */
 	draw() {
 		for (let shape of this.queue) {
@@ -50,10 +58,24 @@ export default class MazeBuilder {
 		}
 	}
 
+	/**
+	 * Queue a border around all the [Tiles]{@link Tile} on the {@link Stage}
+	 * @param WallType
+	 *
+	 * @memberOf MazeBuilder
+	 * @instance
+	 */
 	queueBorder(WallType) {
 		this.queue.push(new MazeBorder(WallType))
 	}
 
+	/**
+	 * Queue a maze on the {@link Stage}
+	 * @param WallType
+	 *
+	 * @memberOf MazeBuilder
+	 * @instance
+	 */
 	queueMaze(WallType) {
 		this.queue.push(new Maze(WallType))
 	}

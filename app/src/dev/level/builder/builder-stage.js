@@ -9,26 +9,34 @@ export default class StageBuilder {
 	// region Properties
 	/**
 	 * Reference to the stage
-	 * @property stage
 	 * @type {Stage}
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	stage
 	/**
 	 * Queue of shapes to draw
-	 * @property queue
 	 * @type {Shape[]}
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	queue
 	/**
 	 * Position of top left corner
-	 * @property topLeft
 	 * @type {Vector}
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	topLeft
 	/**
 	 * Position of bottom right corner
-	 * @property bottomRight
 	 * @type {Vector}
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	bottomRight
 	// endregion
@@ -44,9 +52,11 @@ export default class StageBuilder {
 
 	/**
 	 * Updates the bounds of the grid
-	 * @method updateBounds
 	 * @param {Vector} min
 	 * @param {Vector} max
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	updateBounds(min, max) {
 		this.topLeft = Vector.min(this.topLeft, min)
@@ -56,6 +66,9 @@ export default class StageBuilder {
 	/**
 	 * Gets the top left corner of the {@link Stage}
 	 * @returns {Vector}
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	getOrigin() {
 		return this.topLeft
@@ -63,10 +76,12 @@ export default class StageBuilder {
 
 	/**
 	 * Queues a rectangle using the given tile type
-	 * @method drawRect
 	 * @param {Class<Tile>} TileType - The type of tile to use
 	 * @param {Vector} a - The first corner
 	 * @param {Vector} b - The cater corner
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	queueRect(TileType, a, b) {
 		let min = Vector.min(a, b), max = Vector.max(a, b)
@@ -76,9 +91,11 @@ export default class StageBuilder {
 
 	/**
 	 * Clears a rectangle from the grid
-	 * @method drawRect
 	 * @param {Vector} a - The first corner
 	 * @param {Vector} b - The cater corner
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	clearRect(a, b) {
 		let min = Vector.min(a, b), max = Vector.max(a, b)
@@ -88,7 +105,9 @@ export default class StageBuilder {
 
 	/**
 	 * Draw all of the queued shapes to the grid
-	 * @method draw
+	 *
+	 * @memberOf StageBuilder
+	 * @instance
 	 */
 	draw() {
 		this.stage.generateEmptyGrid(Vector.add(Vector.sub(this.bottomRight, this.topLeft), Vector.one))
