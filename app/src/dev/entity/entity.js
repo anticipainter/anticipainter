@@ -17,6 +17,7 @@ import EventInputKey from "../event/input/event-input-key.js"
  * Abstract Entity class for creating game entities
  * @class Entity
  * @abstract
+ * @extends Animator
  */
 export default class Entity extends Animator {
 	static listeners = {
@@ -33,11 +34,17 @@ export default class Entity extends Animator {
 	/**
 	 * The position of the entity
 	 * @type {Vector}
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	position
 	/**
 	 * The sprite used to draw to the screen
 	 * @type {PIXI.Sprite}
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	sprite
 	// endregion
@@ -57,6 +64,9 @@ export default class Entity extends Animator {
 
 	/**
 	 * Generates a new {@link PIXI.Sprite} for this {@link Entity}
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	createSprite() {
 		if (this.sprite !== undefined) return
@@ -70,6 +80,9 @@ export default class Entity extends Animator {
 
 	/**
 	 * Sets the sprite position based on this {@link Entity}'s [position]{@link Vector}
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	updateSprite() {
 		if (this.sprite === undefined) return
@@ -81,6 +94,9 @@ export default class Entity extends Animator {
 
 	/**
 	 * Called when this {@link Entity}'s sprite gets created
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onSpriteCreated() {}
 
@@ -88,6 +104,10 @@ export default class Entity extends Animator {
 	 * Called once every frame
 	 * @method onUpdate
 	 * @param {EventUpdate} event
+	 * @listens EventUpdate
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onUpdate(event) {}
 
@@ -95,6 +115,10 @@ export default class Entity extends Animator {
 	 * Called when a key is pressed
 	 * @method onInputKeyDown
 	 * @param {EventInputKey} event
+	 * @listens EventInputKey
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onInputKeyDown(event) {}
 
@@ -102,30 +126,50 @@ export default class Entity extends Animator {
 	 * Called when a key is released
 	 * @method onInputKeyUp
 	 * @param {EventInputKey} event
+	 * @listens EventInputKey
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onInputKeyUp(event) {}
 
 	/**
 	 * Called when the [game]{@link Anticipainter} switches to [NORMAL]{@link GameMode} mode
 	 * @param {EventMode} event
+	 * @listens EventMode
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onModeNormal(event) {}
 
 	/**
 	 * Called when the [game]{@link Anticipainter} switches to [EXECUTE]{@link GameMode} mode
 	 * @param {EventMode} event
+	 * @listens EventMode
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onModeExecute(event) {}
 
 	/**
 	 * Called when the [game]{@link Anticipainter} switches to [DEATH]{@link GameMode} mode
 	 * @param {EventMode} event
+	 * @listens EventMode
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onModeDeath(event) {}
 
 	/**
 	 * Called when the [game]{@link Anticipainter} switches to [Victory]{@link GameMode} mode
 	 * @param {EventMode} event
+	 * @listens EventMode
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	onModeVictory(event) {}
 
@@ -135,6 +179,9 @@ export default class Entity extends Animator {
 	/**
 	 * Gets the local registry name of this {@link Entity}
 	 * @returns {string}
+	 *
+	 * @memberOf Entity
+	 * @instance
 	 */
 	getRegistryName() {
 		return this.constructor.getRegistryName()
@@ -142,20 +189,25 @@ export default class Entity extends Animator {
 
 	/**
 	 * Gets the registry name of this {@link Entity}
-	 * @method getRegistryName
 	 * @returns {string}
+	 *
+	 * @memberOf Entity
 	 */
 	static getRegistryName() { }
 
 	/**
 	 * Gets the resource path of this {@link Entity}
-	 * @method getResourcePath
 	 * @returns {string}
+	 *
+	 * @memberOf Entity
 	 */
 	static getResourcePath() { }
 
 	/**
+	 * Gets a {@link LoadableObject} for this {@link Entity}
 	 * @returns {LoadableObject|LoadableObject[]}
+	 *
+	 * @memberOf Entity
 	 */
 	static getLoadableObject() {
 		return {
@@ -168,6 +220,9 @@ export default class Entity extends Animator {
 
 	/**
 	 * Gets the {@link RenderLayer} of this {@link Entity}
+	 * @returns {RenderLayer}
+	 *
+	 * @memberOf Entity
 	 */
 	static getRenderLayer() {}
 }
