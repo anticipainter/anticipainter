@@ -10,57 +10,80 @@ import Entity from "./entity/entity.js";
 const levels = [Level0, Level1]
 
 /**
- * The main Anticipainter class
- * @class
+ * The main Anticipainter module
+ * @class Anticipainter
  */
 export default class Anticipainter {
 	// region Properties
 	/**
 	 * Reference to the {@link PIXI.Application} instance
-	 * @property app
 	 * @type {PIXI.Application}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	app
 	/**
 	 * Reference to the {@link EventBus} module
 	 * @property eventBus
 	 * @type {EventBus}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	eventBus
 	/**
 	 * Reference to the {@link Graphics} module
 	 * @property graphics
 	 * @type {Graphics}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	graphics
 	/**
 	 * Reference to the {@link Input} module
 	 * @property input
 	 * @type {Input}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	input
 	/**
 	 * Reference to the {@link Controls} module
 	 * @property controls
 	 * @type {Controls}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	controls
 	/**
 	 * Reference to the {@link Level} instance
 	 * @property level
 	 * @type {Level}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	level
 	/**
 	 * The index of the {@link Level}
 	 * @property levelIndex
 	 * @type {number}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	levelIndex
 	/**
 	 * Set of all the [Entities]{@link Entity} currently active
 	 * @property entities
 	 * @type {Set<Entity>}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
 	 */
 	entities
 	// endregion
@@ -75,6 +98,12 @@ export default class Anticipainter {
 		this.entities = new Set()
 	}
 
+	/**
+	 * Called once the resources are loaded
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
+	 */
 	start() {
 		if (this.levelIndex === undefined) return
 		this.level = new levels[this.levelIndex](this)
@@ -93,6 +122,12 @@ export default class Anticipainter {
 		this.app.ticker.add(this.update.bind(this))
 	}
 
+	/**
+	 * Called once per frame
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
+	 */
 	update() {
 		let event = new EventUpdate()
 		this.level.onUpdate(event)
