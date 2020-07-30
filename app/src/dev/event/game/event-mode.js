@@ -1,5 +1,7 @@
 import BaseEvent from "../event.js";
 
-export default class EventMode extends BaseEvent {
-
-}
+/**
+ * Called whenever the {@link GameMode} changes
+ * @event EventMode
+ */
+export default class EventMode extends BaseEvent {}
