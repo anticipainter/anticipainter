@@ -13,31 +13,40 @@ import Orientation from "../util/orientation.js"
 
 /**
  * The tiles and walls on a level
+ * @class Stage
  */
 export default class Stage {
 	// region Properties
 	/**
 	 * The size of the stage
-	 * @property size
 	 * @type {Vector}
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	size
 	/**
 	 * 2d array of [tiles]{@link Tile} on the [stage]{@link Stage}
-	 * @property tiles
 	 * @type {Tile[][]}
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	tiles
 	/**
 	 * 2d array of horizontal [walls]{@link Wall} on the [stage]{@link Stage}
-	 * @property wallsHorizontal
 	 * @type {Wall[][]}
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	wallsHorizontal
 	/**
 	 * 2d array of vertical [walls]{@link Wall} on the [stage]{@link Stage}
-	 * @property wallsVertical
 	 * @type {Wall[][]}
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	wallsVertical
 	// endregion
@@ -50,8 +59,10 @@ export default class Stage {
 
 	/**
 	 * Initializes the grid to an empty state
-	 * @method generateEmptyGrid
 	 * @param {Vector} size
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	generateEmptyGrid(size) {
 		this.size = size
@@ -73,9 +84,11 @@ export default class Stage {
 
 	/**
 	 * Gets the {@link Tile} at a specific [position]{@link Vector}
-	 * @method getTile
 	 * @param {Vector} position - The desired position
 	 * @returns {Tile|undefined} The tile at position, or undefined
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	getTile(position) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
@@ -85,10 +98,12 @@ export default class Stage {
 
 	/**
 	 * Sets the {@link Tile} at a specific [position]{@link Vector}
-	 * @method getTile
 	 * @param {Vector} position - The desired position
 	 * @param {Class<Tile>} TileType - The TileType
 	 * @returns {Tile|undefined} The previous tile at position, or undefined
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	setTile(position, TileType) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
@@ -108,6 +123,9 @@ export default class Stage {
 	 * @param {Vector} position - the desired position
 	 * @param {Direction} direction - the desired direction
 	 * @returns {Vector} - relative [position]{@link Vector}
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	getWallPosFromDir(position, direction) {
 		let orientation = Direction.toOrientation(direction)
@@ -120,10 +138,12 @@ export default class Stage {
 
 	/**
 	 * Gets the {@link Wall} at a specific [position]{@link Vector} and {@link Direction}
-	 * @method getWall
 	 * @param {Vector} position - the desired position
 	 * @param {Direction} direction - the desired direction
 	 * @returns {Wall|undefined} The wall at position, or undefined
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	getWall(position, direction) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
@@ -138,11 +158,13 @@ export default class Stage {
 
 	/**
 	 * Sets the {@link Wall} from a {@link Direction} at a specific [position]{@link Vector}
-	 * @method getTile
 	 * @param {Vector} position - The desired position
 	 * @param {Direction} direction - The desired direction
 	 * @param {Class<Wall>} WallType - The WallType
 	 * @returns {Wall|undefined} The previous wall at position, or undefined
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	setWall(position, direction, WallType) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
@@ -163,9 +185,11 @@ export default class Stage {
 
 	/**
 	 * Gets the horizontal {@link Wall} at a specific [position]{@link Vector}
-	 * @method getWallHorizontal
 	 * @param {Vector} position - The desired position
 	 * @returns {Wall|undefined} The wall at position, or undefined
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	getWallHorizontal(position) {
 		if (position.x < 0 || position.x >= this.size.x) return undefined
@@ -175,9 +199,11 @@ export default class Stage {
 
 	/**
 	 * Gets the vertical {@link Wall} at a specific [position]{@link Vector}
-	 * @method getWallHorizontal
 	 * @param {Vector} position - The desired position
 	 * @returns {Wall|undefined} The wall at position, or undefined
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	getWallVertical(position) {
 		if (position.x < 0 || position.x >= this.size.x + 1) return undefined
@@ -187,8 +213,10 @@ export default class Stage {
 
 	/**
 	 * Runs a [function]{@link TileCallback} over each {@link Tile}
-	 * @method forEachTile
 	 * @param {TileCallback} callback
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	forEachTile(callback) {
 		this.size.iterate(vector => {
@@ -199,8 +227,10 @@ export default class Stage {
 
 	/**
 	 * Runs a [function]{@link WallCallback} over each {@link Wall}
-	 * @method forEachWall
 	 * @param {WallCallback} callback
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	forEachWall(callback) {
 		this.forEachWallHorizontal(callback)
@@ -209,8 +239,10 @@ export default class Stage {
 
 	/**
 	 * Runs a [function]{@link WallCallback} over each horizontal {@link Wall}
-	 * @method forEachWallHorizontal
 	 * @param {WallCallback} callback
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	forEachWallHorizontal(callback) {
 		Vector.add(this.size, new Vector(1, 1)).iterate(vector => {
@@ -221,8 +253,10 @@ export default class Stage {
 
 	/**
 	 * Runs a [function]{@link WallCallback} over each vertical {@link Wall}
-	 * @method forEachWallVertical
 	 * @param {WallCallback} callback
+	 *
+	 * @memberOf Stage
+	 * @instance
 	 */
 	forEachWallVertical(callback) {
 		Vector.add(this.size, new Vector(1, 1)).iterate(vector => {
