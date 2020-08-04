@@ -123,6 +123,7 @@ export default class Player extends Entity {
 		event.onResult(Result.ALLOW, () => {
 			tileA.onPlayerLeave(event)
 			tileB.onPlayerArrive(event)
+			tileB.onPlayerMove(event)
 			this.position = newPos
 			this.animMove(oldPos, newPos)
 		}).onResult(ResultPlayerMove.BONK, () => {
@@ -130,6 +131,8 @@ export default class Player extends Entity {
 			this.animBonk(oldPos, direction)
 		}).onResult(ResultPlayerMove.DIE, () => {
 			this.animDeath(oldPos, direction)
+		}).onResult(Result.ANY, () => {
+			tileA.onPlayerMove(event)
 		})
 
 		if (wall) wall.onTryPlayerMove(event)

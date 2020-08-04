@@ -31,7 +31,7 @@ export default class BaseEvent {
 	 * @type {Map<Result, EventCallback[]>}
 	 * @private
 	 */
-	callbacks = new Map()
+	callbacks = new Map([Result.ANY, []])
 	// endregion
 
 	/**
@@ -145,4 +145,5 @@ export default class BaseEvent {
 export class Result extends Enum {
 	static ALLOW = new Result(0, "ALLOW")
 	static DENY = new Result(1, "DENY")
+	static ANY = new Result(2, "ANY")
 }

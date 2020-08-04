@@ -92,8 +92,8 @@ export default class Tile extends Entity {
 	 * @instance
 	 */
 	onPlayerMove(event) {
-		this.activated = true
-		this.animFadeIn()
+		if (this.activated) return
+		this.setActivated(true)
 	}
 
 	/**
@@ -113,9 +113,7 @@ export default class Tile extends Entity {
 	 * @memberOf Tile
 	 * @instance
 	 */
-	onPlayerArrive(event) {
-		this.setActivated(true)
-	}
+	onPlayerArrive(event) {}
 
 	/**
 	 * Called when the {@link Player} is attempting to leave from this {@link Tile}

@@ -1,4 +1,5 @@
 import GameModule from "../game-module.js"
+import {Result} from "./event.js";
 
 /**
  * @callback EventListener
@@ -77,6 +78,7 @@ export default class EventBus extends GameModule {
 	static executeEvent(event) {
 		let callbacks = event.getCallbacks(event.getResult())
 		for (let callback of callbacks) callback()
+		for (let callback of event.getCallbacks(Result.ANY)) callback()
 	}
 
 	/**
