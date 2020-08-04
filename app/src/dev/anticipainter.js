@@ -14,6 +14,14 @@ const levels = [Level0, Level1]
  * @class Anticipainter
  */
 export default class Anticipainter {
+	/**
+	 * If the [game]{@link Anticipainter} is running in the background
+	 * @type {boolean}
+	 *
+	 * @memberOf Anticipainter
+	 */
+	static frozen = false
+
 	// region Properties
 	/**
 	 * Reference to the {@link PIXI.Application} instance
@@ -86,6 +94,14 @@ export default class Anticipainter {
 	 * @instance
 	 */
 	entities
+	/**
+	 * If the game has finished initializing all the textures and the {@link Level}
+	 * @type {boolean}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
+	 */
+	ready
 	// endregion
 
 	constructor(app, levelIndex) {
@@ -96,6 +112,8 @@ export default class Anticipainter {
 		this.input = new Input(this)
 		this.controls = new Controls(this)
 		this.entities = new Set()
+		this.ready = false
+		this.checkFrozenLoop()
 	}
 
 	/**
@@ -119,7 +137,11 @@ export default class Anticipainter {
 		})
 		this.level.player.createSprite()
 		Graphics.addSprite(this.level.player)
-		this.app.ticker.add(this.update.bind(this))
+
+		this.ready = true
+		this.app.ticker.add(() => {
+			if (!Anticipainter.frozen) this.update()
+		})
 	}
 
 	/**
@@ -129,8 +151,20 @@ export default class Anticipainter {
 	 * @instance
 	 */
 	update() {
+		if (!this.ready) return
 		let event = new EventUpdate()
 		this.level.onUpdate(event)
 		this.eventBus.callEvent(Entity.listeners.onUpdate, event)
+	}
+
+	checkFrozenLoop() {
+		let last = new Date(), times = [0, 0, 0]
+		setInterval(() => {
+			let now = new Date()
+			times.shift()
+			times.push(now - last)
+			last = now
+			Anticipainter.frozen = Math.max(...times) > 500
+		}, 250)
 	}
 }

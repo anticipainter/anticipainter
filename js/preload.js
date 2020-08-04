@@ -1,6 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const shell = require("electron").shell
+const ipcRenderer = require("electron").ipcRenderer
 const userDataPath = require("electron").remote.app.getPath("userData")
 const version = require("../package.json").version
 // Possibly only create this variable if on the play.html page
@@ -55,6 +56,10 @@ function parseDataFile(filePath, defaults) {
 		return defaults
 	}
 }
+
+ipcRenderer.on("update", () => {
+	if (window.frameLoop) window.frameLoop()
+})
 
 preload = {
 	version: version,

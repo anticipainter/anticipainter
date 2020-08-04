@@ -16,6 +16,12 @@ app.renderer.resize(view.innerWidth(), view.innerHeight())
 
 let game = new Anticipainter(app, 1)
 
+window.frameLoop = () => {
+	if (Anticipainter.frozen) {
+		game.update()
+	}
+}
+
 body.hide()
 
 $(() => {

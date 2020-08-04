@@ -2,7 +2,7 @@ const {app, BrowserWindow, Menu} = require("electron")
 const path = require("path")
 const isDev = require("electron-is-dev")
 
-let mainWindow
+let mainWindow, updateInterval = false
 
 function createMainWindow() {
 	const window = new BrowserWindow({
@@ -34,12 +34,21 @@ function createMainWindow() {
 	window.loadFile("app/index.html")
 	window.on("closed", () => { mainWindow = null })
 
+	updateInterval = true
+	startUpdate(() => {
+		if (!window.isDestroyed()) window.webContents.send("update", "run")
+	})
+
 	window.on("ready-to-show", window.show)
 	return window
 }
 
 app.on("window-all-closed", () => {
 	/* if (process.platform !== "darwin") */ app.quit()
+})
+
+app.on("quit", () => {
+	stopUpdate()
 })
 
 app.on("activate", () => {
@@ -49,3 +58,19 @@ app.on("activate", () => {
 app.on("ready", () => {
 	mainWindow = createMainWindow()
 })
+
+let updateLast = new Date()
+let framerate = Math.floor(1000 / 60)
+function startUpdate(callback) {
+	if (!updateInterval) return
+	callback()
+	let updateNow = new Date()
+	let delta = updateNow - updateLast
+	updateLast = updateNow
+	let time = delta > framerate ? 2 * framerate - delta : framerate
+	setTimeout(startUpdate.bind(this, callback), time - 1)
+}
+
+function stopUpdate() {
+	updateInterval = false
+}

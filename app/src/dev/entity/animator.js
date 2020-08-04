@@ -1,3 +1,5 @@
+import Anticipainter from "../anticipainter.js";
+
 /**
  * Universal ID count for keeping track of [Animators]{@link Animator}
  * @type {number}
@@ -41,7 +43,7 @@ export default class Animator {
 	 * @instance
 	 */
 	animate(label, duration, step, complete, delay=0) {
-		if (ANIM_SCALE === 0) {
+		if (Anticipainter.frozen || ANIM_SCALE === 0) {
 			if (complete) complete()
 			return
 		}
