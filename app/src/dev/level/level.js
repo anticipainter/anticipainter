@@ -1,10 +1,10 @@
 import Animator from "../entity/animator.js";
 import GameMode from "../util/game-mode.js"
 import Stage from "./stage.js"
-import StageBuilder from "./builder/builder-stage.js"
+import TileBuilder from "./builder/builder-tiles.js"
 import Player from "../entity/player.js"
 import Vector from "../util/vector.js"
-import MazeBuilder from "./builder/builder-maze.js"
+import WallBuilder from "./builder/builder-walls.js"
 import WallStandard from "../wall/wall-standard.js"
 import Direction from "../util/direction.js";
 import {Result} from "../event/event.js";
@@ -78,10 +78,10 @@ export default class Level extends Animator {
 		this.gameMode = GameMode.WAITING
 		this.stage = new Stage()
 
-		let stageBuilder = new StageBuilder(this.stage)
+		let stageBuilder = new TileBuilder(this.stage)
 		this.generateStage(stageBuilder)
 		stageBuilder.draw()
-		let mazeBuilder = new MazeBuilder(this.stage, stageBuilder.getOrigin())
+		let mazeBuilder = new WallBuilder(this.stage, stageBuilder.getOrigin())
 		this.generateMaze(mazeBuilder)
 		mazeBuilder.draw()
 
@@ -99,9 +99,9 @@ export default class Level extends Animator {
 	get name() {}
 
 	/**
-	 * Draws the [Tiles]{@link Tile} to the {@link Stage} using a [builder]{@link StageBuilder}
+	 * Draws the [Tiles]{@link Tile} to the {@link Stage} using a [builder]{@link TileBuilder}
 	 * @abstract
-	 * @param {StageBuilder} builder - A grid builder to draw shapes
+	 * @param {TileBuilder} builder - A grid builder to draw shapes
 	 *
 	 * @memberOf Level
 	 * @instance
@@ -109,8 +109,8 @@ export default class Level extends Animator {
 	generateStage(builder) {}
 
 	/**
-	 * Draws the [Walls]{@link Wall} to the {@link Stage} using a [builder]{@link MazeBuilder}
-	 * @param {MazeBuilder} builder
+	 * Draws the [Walls]{@link Wall} to the {@link Stage} using a [builder]{@link WallBuilder}
+	 * @param {WallBuilder} builder
 	 *
 	 * @memberOf Level
 	 * @instance

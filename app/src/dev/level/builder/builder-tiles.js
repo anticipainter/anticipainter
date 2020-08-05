@@ -3,15 +3,15 @@ import Shape from "./shape.js"
 
 /**
  * Helper class for drawing [tiles]{@link Tile} to the {@link Stage}
- * @class StageBuilder
+ * @class TileBuilder
  */
-export default class StageBuilder {
+export default class TileBuilder {
 	// region Properties
 	/**
 	 * Reference to the stage
 	 * @type {Stage}
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	stage
@@ -19,7 +19,7 @@ export default class StageBuilder {
 	 * Queue of shapes to draw
 	 * @type {Shape[]}
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	queue
@@ -27,7 +27,7 @@ export default class StageBuilder {
 	 * Position of top left corner
 	 * @type {Vector}
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	topLeft
@@ -35,7 +35,7 @@ export default class StageBuilder {
 	 * Position of bottom right corner
 	 * @type {Vector}
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	bottomRight
@@ -55,7 +55,7 @@ export default class StageBuilder {
 	 * @param {Vector} min
 	 * @param {Vector} max
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	updateBounds(min, max) {
@@ -67,7 +67,7 @@ export default class StageBuilder {
 	 * Gets the top left corner of the {@link Stage}
 	 * @returns {Vector}
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	getOrigin() {
@@ -80,7 +80,7 @@ export default class StageBuilder {
 	 * @param {Vector} a - The first corner
 	 * @param {Vector} b - The cater corner
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	queueRect(TileType, a, b) {
@@ -94,7 +94,7 @@ export default class StageBuilder {
 	 * @param {Vector} a - The first corner
 	 * @param {Vector} b - The cater corner
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	clearRect(a, b) {
@@ -106,7 +106,7 @@ export default class StageBuilder {
 	/**
 	 * Draw all of the queued shapes to the grid
 	 *
-	 * @memberOf StageBuilder
+	 * @memberOf TileBuilder
 	 * @instance
 	 */
 	draw() {

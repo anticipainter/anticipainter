@@ -5,15 +5,15 @@ import Stage from "../stage.js"
 
 /**
  * Helper class for generating the maze [Walls]{@link Wall}
- * @class MazeBuilder
+ * @class WallBuilder
  */
-export default class MazeBuilder {
+export default class WallBuilder {
 	// region Properties
 	/**
 	 * Reference to the stage
 	 * @type {Stage}
 	 *
-	 * @memberOf MazeBuilder
+	 * @memberOf WallBuilder
 	 * @instance
 	 */
 	stage
@@ -21,7 +21,7 @@ export default class MazeBuilder {
 	 * [Position]{@link Vector} of the top left corner of the {@link Stage}
 	 * @type {Vector}
 	 *
-	 * @memberOf MazeBuilder
+	 * @memberOf WallBuilder
 	 * @instance
 	 */
 	origin
@@ -29,7 +29,7 @@ export default class MazeBuilder {
 	 * Queue of shapes to draw
 	 * @type {Shape[]}
 	 *
-	 * @memberOf MazeBuilder
+	 * @memberOf WallBuilder
 	 * @instance
 	 */
 	queue
@@ -49,7 +49,7 @@ export default class MazeBuilder {
 	/**
 	 * Draw all of the queued shapes to the grid
 	 *
-	 * @memberOf MazeBuilder
+	 * @memberOf WallBuilder
 	 * @instance
 	 */
 	draw() {
@@ -62,7 +62,7 @@ export default class MazeBuilder {
 	 * Queue a border around all the [Tiles]{@link Tile} on the {@link Stage}
 	 * @param WallType
 	 *
-	 * @memberOf MazeBuilder
+	 * @memberOf WallBuilder
 	 * @instance
 	 */
 	queueBorder(WallType) {
@@ -73,7 +73,7 @@ export default class MazeBuilder {
 	 * Queue a maze on the {@link Stage}
 	 * @param WallType
 	 *
-	 * @memberOf MazeBuilder
+	 * @memberOf WallBuilder
 	 * @instance
 	 */
 	queueMaze(WallType) {
