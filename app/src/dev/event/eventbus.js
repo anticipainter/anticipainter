@@ -9,6 +9,19 @@ import {Result} from "./event.js";
  * @typedef ListenerID
  * @type {number}
  */
+/**
+ * @typedef DefaultEventListener
+ * @interface
+ * @property onUpdate
+ * @property onInputKeyDown
+ * @property onInputKeyUp
+ * @property onModeNormal
+ * @property onModeExecute
+ * @property onModeDeath
+ * @property onModeVictory
+ * @property onWaveStart
+ * @property onWaveEnd
+ */
 
 /**
  * Current number of listener IDs
@@ -116,7 +129,7 @@ export default class EventBus extends GameModule {
 
 	/**
 	 * Subscribe an object to all {@link Entity} events if needed
-	 * @param {Object} instance
+	 * @param {DefaultEventListener} instance
 	 * @param {Class} ClassType
 	 *
 	 * @memberOf EventBus
