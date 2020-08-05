@@ -44,7 +44,7 @@ export default class Entity extends Animator {
 		super()
 		this.position = new Vector()
 
-		EventBus.registerEntityEvents(this, Entity)
+		EventBus.subscribeEntityEvents(this, Entity)
 	}
 
 	/**

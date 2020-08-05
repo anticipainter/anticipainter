@@ -114,7 +114,14 @@ export default class EventBus extends GameModule {
 		EventBus.instance.events.get(listenerID).push(listener)
 	}
 
-	static registerEntityEvents(instance, ClassType) {
+	/**
+	 * Subscribe an object to all {@link Entity} events if needed
+	 * @param {Object} instance
+	 * @param {Class} ClassType
+	 *
+	 * @memberOf EventBus
+	 */
+	static subscribeEntityEvents(instance, ClassType) {
 		if (instance.onUpdate !== ClassType.prototype.onUpdate) EventBus.subscribe(EventBus.listeners.onUpdate, instance.onUpdate.bind(instance))
 		if (instance.onInputKeyDown !== ClassType.prototype.onInputKeyDown) EventBus.subscribe(EventBus.listeners.onInputKeyDown, instance.onInputKeyDown.bind(instance))
 		if (instance.onInputKeyUp !== ClassType.prototype.onInputKeyUp) EventBus.subscribe(EventBus.listeners.onInputKeyUp, instance.onInputKeyUp.bind(instance))
