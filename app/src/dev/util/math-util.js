@@ -9,3 +9,19 @@ export function piecewise(x, y, t) {
 	if (t < x) return t * y / x
 	return (1 - y) * (t - x) / (1 - x) + y
 }
+
+/**
+ * Gets a random integer between two numbers
+ * @param {number} min - lower bound
+ * @param {number} max - upper bound
+ * @return {number}
+ */
+export function range(min, max) {
+	return min + Math.random() * (max - min + 1)
+}
+
+/**
+ * @typedef IntRange
+ * @property {number} min - lower bound
+ * @property {number} max - upper bound
+ */
