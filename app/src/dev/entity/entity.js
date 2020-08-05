@@ -20,15 +20,6 @@ import EventInputKey from "../event/input/event-input-key.js"
  * @extends Animator
  */
 export default class Entity extends Animator {
-	static listeners = {
-		onUpdate: EventBus.createListener(),
-		onInputKeyDown: EventBus.createListener(),
-		onInputKeyUp: EventBus.createListener(),
-		onModeNormal: EventBus.createListener(),
-		onModeExecute: EventBus.createListener(),
-		onModeDeath: EventBus.createListener(),
-		onModeVictory: EventBus.createListener()
-	}
 
 	// region Properties
 	/**
@@ -53,13 +44,7 @@ export default class Entity extends Animator {
 		super()
 		this.position = new Vector()
 
-		if (this.onUpdate !== Entity.prototype.onUpdate) EventBus.subscribe(Entity.listeners.onUpdate, this.onUpdate.bind(this))
-		if (this.onInputKeyDown !== Entity.prototype.onInputKeyDown) EventBus.subscribe(Entity.listeners.onInputKeyDown, this.onInputKeyDown.bind(this))
-		if (this.onInputKeyUp !== Entity.prototype.onInputKeyUp) EventBus.subscribe(Entity.listeners.onInputKeyUp, this.onInputKeyUp.bind(this))
-		if (this.onModeNormal !== Entity.prototype.onModeNormal) EventBus.subscribe(Entity.listeners.onModeNormal, this.onModeNormal.bind(this))
-		if (this.onModeExecute !== Entity.prototype.onModeExecute) EventBus.subscribe(Entity.listeners.onModeExecute, this.onModeExecute.bind(this))
-		if (this.onModeDeath !== Entity.prototype.onModeDeath) EventBus.subscribe(Entity.listeners.onModeDeath, this.onModeDeath.bind(this))
-		if (this.onModeVictory !== Entity.prototype.onModeVictory) EventBus.subscribe(Entity.listeners.onModeVictory, this.onModeVictory.bind(this))
+		EventBus.registerEntityEvents(this, Entity)
 	}
 
 	/**
@@ -169,6 +154,27 @@ export default class Entity extends Animator {
 	 * @instance
 	 */
 	onModeVictory(event) {}
+
+	/**
+	 * Called when a {@link Wave} is about to start
+	 * @listens EventWave
+	 * @param {EventWave} event
+	 *
+	 * @memberOf Entity
+	 * @instance
+	 */
+	onWaveStart(event) {}
+
+	/**
+
+	 * Called when a {@link Wave} is about to end
+	 * @listens EventWave
+	 * @param {EventWave} event
+	 *
+	 * @memberOf Entity
+	 * @instance
+	 */
+	onWaveEnd(event) {}
 
 	// endregion
 	// region Registry methods

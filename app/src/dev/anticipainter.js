@@ -154,7 +154,7 @@ export default class Anticipainter {
 		if (!this.ready) return
 		let event = new EventUpdate()
 		this.level.onUpdate(event)
-		this.eventBus.callEvent(Entity.listeners.onUpdate, event)
+		this.eventBus.callEvent(EventBus.listeners.onUpdate, event)
 	}
 
 	checkFrozenLoop() {
