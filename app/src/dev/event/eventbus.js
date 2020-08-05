@@ -10,7 +10,8 @@ import {Result} from "./event.js";
  * @type {number}
  */
 /**
- * @typedef DefaultEventListener
+ * Interface for implementing default events
+ * @typedef IBaseEventListener
  * @interface
  * @property onUpdate
  * @property onInputKeyDown
@@ -129,7 +130,7 @@ export default class EventBus extends GameModule {
 
 	/**
 	 * Subscribe an object to all {@link Entity} events if needed
-	 * @param {DefaultEventListener} instance
+	 * @param {IBaseEventListener} instance
 	 * @param {Class} ClassType
 	 *
 	 * @memberOf EventBus
