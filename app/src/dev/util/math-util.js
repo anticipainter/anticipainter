@@ -17,7 +17,7 @@ export function piecewise(x, y, t) {
  * @return {number}
  */
 export function range(min, max) {
-	return min + Math.random() * (max - min + 1)
+	return min + Math.floor(Math.random() * (max - min + 1))
 }
 
 /**
