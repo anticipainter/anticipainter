@@ -1,12 +1,14 @@
-import EventBus from "../event/eventbus.js";
 import Sequence from "../progression/sequence.js";
+import Direction from "../util/direction.js";
+import GameObject from "../game-object.js";
 
 /**
  * Abstract {@link Wave} class for creating [Waves]{@link Wave}
  * @class Wave
  * @abstract
  */
-export default class Wave {
+export default class Wave extends GameObject {
+	// TODO Call wave events when necessary
 	/**
 	 * The percent that this {@link Wave} becomes active
 	 * @type {number}
@@ -16,10 +18,6 @@ export default class Wave {
 	 * @private
 	 */
 	threshold
-
-	constructor() {
-		EventBus.subscribeEntityEvents(this, Wave)
-	}
 
 	/**
 	 * Gets the starting distance of the next {@link Sequence}
@@ -81,96 +79,18 @@ export default class Wave {
 	 * @memberOf Wave
 	 * @instance
 	 */
-	makeSequence() {
-		return new Sequence()
+	makeSequence(stage, player) {
+		// TODO
+		let scanDistance = this.getScanDistance()
+		let sequenceLength = this.getSequenceLength()
+		let moves = []
+		for (let i = 0; i < 4; i++) {
+			moves.push(Direction.random())
+		}
+		let sequence = new Sequence(moves, 0, 5000)
+		sequence.initialize()
+		return sequence
 	}
-
-	// region Events
-
-	/**
-	 * Called once every frame
-	 * @listens EventUpdate
-	 * @param {EventUpdate} event
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onUpdate(event) {}
-	/**
-	 * Called when a key is pressed
-	 * @listens EventInputKey
-	 * @param {EventInputKey} event
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onInputKeyDown(event) {}
-	/**
-	 * Called when a key is released
-	 * @listens EventInputKey
-	 * @param {EventInputKey} event
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onInputKeyUp(event) {}
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [NORMAL]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onModeNormal(event) {}
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [EXECUTE]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onModeExecute(event) {}
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [DEATH]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onModeDeath(event) {}
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [VICTORY]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onModeVictory(event) {}
-	/**
-	 * Called when this {@link Wave} is about to start
-	 * @listens EventWave
-	 * @param {EventWave} event
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onWaveStart(event) {}
-	/**
-
-	 * Called when this {@link Wave} is about to end
-	 * @listens EventWave
-	 * @param {EventWave} event
-	 *
-	 * @memberOf Wave
-	 * @instance
-	 */
-	onWaveEnd(event) {}
-
-	// endregion
 
 	/**
 	 * Gets the threshold for this {@link Wave}
