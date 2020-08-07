@@ -81,6 +81,43 @@ export default class GameObject {
 	 */
 	onUpdate(event) {}
 	/**
+	 * Called once every frame during [NORMAL]{@link GameMode} mode
+	 * @listens EventUpdate
+	 * @param {EventUpdate} event
+	 *
+	 * @memberOf GameObject
+	 * @instance
+	 */
+	onUpdateNormal(event) {}
+	/**
+	 * Called once every frame during [EXECUTE]{@link GameMode} mode
+	 * @listens EventUpdate
+	 * @param {EventUpdate} event
+	 *
+	 * @memberOf GameObject
+	 * @instance
+	 */
+	onUpdateExecute(event) {}
+	/**
+	 * Called once every frame during [DEATH]{@link GameMode} mode
+	 * @listens EventUpdate
+	 * @param {EventUpdate} event
+	 *
+	 * @memberOf GameObject
+	 * @instance
+	 */
+	onUpdateDeath(event) {}
+	/**
+	 * Called once every frame during [VICTORY]{@link GameMode} mode
+	 * @listens EventUpdate
+	 * @param {EventUpdate} event
+	 *
+	 * @memberOf GameObject
+	 * @instance
+	 */
+	onUpdateVictory(event) {}
+
+	/**
 	 * Called when a key is pressed
 	 * @listens EventInputKey
 	 * @param {EventInputKey} event
@@ -98,6 +135,7 @@ export default class GameObject {
 	 * @instance
 	 */
 	onInputKeyUp(event) {}
+
 	/**
 	 * Called when the [game]{@link Anticipainter} switches to [NORMAL]{@link GameMode} mode
 	 * @param {EventMode} event
@@ -134,6 +172,7 @@ export default class GameObject {
 	 * @instance
 	 */
 	onModeVictory(event) {}
+
 	/**
 	 * Called when a {@link Wave} is about to start
 	 * @listens EventWave
@@ -152,6 +191,7 @@ export default class GameObject {
 	 * @instance
 	 */
 	onWaveEnd(event) {}
+
 	/**
 	 * Called when a {@link Tile} is painted
 	 * @listens EventTile
