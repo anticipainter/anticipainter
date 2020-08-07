@@ -1,10 +1,7 @@
-import Animator from "./animator.js";
 import Graphics from "../graphics/graphics.js"
 import Vector from "../util/vector.js"
 
-import EventBus from "../event/eventbus.js"
-import EventUpdate from "../event/game/event-update.js"
-import EventInputKey from "../event/input/event-input-key.js"
+import GameObject from "../game-object.js";
 
 /**
  * Object used to store the name and path for a PIXI resource
@@ -17,9 +14,9 @@ import EventInputKey from "../event/input/event-input-key.js"
  * Abstract Entity class for creating game entities
  * @class Entity
  * @abstract
- * @extends Animator
+ * @extends GameObject
  */
-export default class Entity extends Animator {
+export default class Entity extends GameObject {
 
 	// region Properties
 	/**
@@ -43,8 +40,6 @@ export default class Entity extends Animator {
 	constructor() {
 		super()
 		this.position = new Vector()
-
-		EventBus.subscribeEntityEvents(this, Entity)
 	}
 
 	/**
@@ -84,97 +79,6 @@ export default class Entity extends Animator {
 	 * @instance
 	 */
 	onSpriteCreated() {}
-
-	/**
-	 * Called once every frame
-	 * @listens EventUpdate
-	 * @param {EventUpdate} event
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onUpdate(event) {}
-
-	/**
-	 * Called when a key is pressed
-	 * @listens EventInputKey
-	 * @param {EventInputKey} event
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onInputKeyDown(event) {}
-
-	/**
-	 * Called when a key is released
-	 * @listens EventInputKey
-	 * @param {EventInputKey} event
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onInputKeyUp(event) {}
-
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [NORMAL]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onModeNormal(event) {}
-
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [EXECUTE]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onModeExecute(event) {}
-
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [DEATH]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onModeDeath(event) {}
-
-	/**
-	 * Called when the [game]{@link Anticipainter} switches to [VICTORY]{@link GameMode} mode
-	 * @param {EventMode} event
-	 * @listens EventMode
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onModeVictory(event) {}
-
-	/**
-	 * Called when a {@link Wave} is about to start
-	 * @listens EventWave
-	 * @param {EventWave} event
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onWaveStart(event) {}
-
-	/**
-
-	 * Called when a {@link Wave} is about to end
-	 * @listens EventWave
-	 * @param {EventWave} event
-	 *
-	 * @memberOf Entity
-	 * @instance
-	 */
-	onWaveEnd(event) {}
 
 	// endregion
 	// region Registry methods

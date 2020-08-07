@@ -12,16 +12,17 @@ import {ResultPlayerMove} from "../event/player/event-player-move.js";
 import EventMode from "../event/game/event-mode.js";
 import EventBus from "../event/eventbus.js";
 import WaveBuilder from "./builder/builder-waves.js";
+import GameObject from "../game-object.js";
 
 /**
  * Abstract level class for creating levels
  * @class Level
  * @abstract
- * @extends Animator
+ * @extends GameObject
  *
  * @param {Anticipainter} game - Reference to the game instance
  */
-export default class Level extends Animator {
+export default class Level extends GameObject {
 	// region Properties
 	/**
 	 * Reference to the [game]{@link Anticipainter} instance

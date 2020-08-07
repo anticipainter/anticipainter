@@ -1,3 +1,5 @@
+import GameObject from "./game-object.js";
+
 /**
  * Abstract class for creating game modules
  * @class GameModule
@@ -5,7 +7,7 @@
  *
  * @param {Anticipainter} game - Reference to the game instance
  */
-export default class GameModule {
+export default class GameModule extends GameObject {
 	// region Properties
 	/**
 	 * Reference to the [game]{@link Anticipainter} instance
@@ -18,6 +20,8 @@ export default class GameModule {
 	// endregion
 
 	constructor(game) {
+		super()
 		this.game = game
+		this.constructor.subscribeEvents(this)
 	}
 }

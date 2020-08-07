@@ -6,6 +6,7 @@ import Level0 from "./level/levels/level0.js"
 import Level1 from "./level/levels/level1.js"
 import EventUpdate from "./event/game/event-update.js";
 import Entity from "./entity/entity.js";
+import Player from "./game-object.js";
 
 const levels = [Level0, Level1]
 
@@ -120,14 +121,17 @@ export default class Anticipainter {
 		this.level = new levels[this.levelIndex](this)
 		this.level.stage.forEachTile(tile => {
 			this.entities.add(tile)
+			tile.constructor.subscribeEvents(tile)
 			tile.createSprite()
 			Graphics.addSprite(tile)
 		})
 		this.level.stage.forEachWall(wall => {
 			this.entities.add(wall)
+			wall.constructor.subscribeEvents(wall)
 			wall.createSprite()
 			Graphics.addSprite(wall)
 		})
+		Player.subscribeEvents(this.level.player)
 		this.level.player.createSprite()
 		Graphics.addSprite(this.level.player)
 

@@ -22,6 +22,8 @@ import {Result} from "./event.js";
  * @property onModeVictory
  * @property onWaveStart
  * @property onWaveEnd
+ * @property onTilePaintOn
+ * @property onTilePaintOff
  */
 
 /**
@@ -47,7 +49,9 @@ export default class EventBus extends GameModule {
 		onModeDeath: EventBus.createListener(),
 		onModeVictory: EventBus.createListener(),
 		onWaveStart: EventBus.createListener(),
-		onWaveEnd: EventBus.createListener()
+		onWaveEnd: EventBus.createListener(),
+		onTilePaintOn: EventBus.createListener(),
+		onTilePaintOff: EventBus.createListener()
 	}
 
 	/**
@@ -129,21 +133,17 @@ export default class EventBus extends GameModule {
 	}
 
 	/**
-	 * Subscribe an object to all {@link Entity} events if needed
+	 * Subscribe an object to all {@link GameModule} events if needed
 	 * @param {IBaseEventListener} instance
 	 * @param {Class} ClassType
 	 *
 	 * @memberOf EventBus
 	 */
-	static subscribeEntityEvents(instance, ClassType) {
-		if (instance.onUpdate !== ClassType.prototype.onUpdate) EventBus.subscribe(EventBus.listeners.onUpdate, instance.onUpdate.bind(instance))
-		if (instance.onInputKeyDown !== ClassType.prototype.onInputKeyDown) EventBus.subscribe(EventBus.listeners.onInputKeyDown, instance.onInputKeyDown.bind(instance))
-		if (instance.onInputKeyUp !== ClassType.prototype.onInputKeyUp) EventBus.subscribe(EventBus.listeners.onInputKeyUp, instance.onInputKeyUp.bind(instance))
-		if (instance.onModeNormal !== ClassType.prototype.onModeNormal) EventBus.subscribe(EventBus.listeners.onModeNormal, instance.onModeNormal.bind(instance))
-		if (instance.onModeExecute !== ClassType.prototype.onModeExecute) EventBus.subscribe(EventBus.listeners.onModeExecute, instance.onModeExecute.bind(instance))
-		if (instance.onModeDeath !== ClassType.prototype.onModeDeath) EventBus.subscribe(EventBus.listeners.onModeDeath, instance.onModeDeath.bind(instance))
-		if (instance.onModeVictory !== ClassType.prototype.onModeVictory) EventBus.subscribe(EventBus.listeners.onModeVictory, instance.onModeVictory.bind(instance))
-		if (instance.onWaveStart !== ClassType.prototype.onWaveStart) EventBus.subscribe(EventBus.listeners.onWaveStart, instance.onWaveStart.bind(instance))
-		if (instance.onWaveEnd !== ClassType.prototype.onWaveEnd) EventBus.subscribe(EventBus.listeners.onWaveEnd, instance.onWaveEnd.bind(instance))
+	static subscribeBaseEvents(instance, ClassType) {
+		for (let listener in EventBus.listeners) {
+			if (instance[listener] !== ClassType.prototype[listener]) {
+				EventBus.subscribe(EventBus.listeners[listener], instance[listener].bind(instance))
+			}
+		}
 	}
 }
