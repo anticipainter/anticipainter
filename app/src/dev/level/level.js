@@ -1,6 +1,6 @@
-import Animator from "../entity/animator.js";
 import GameMode from "../util/game-mode.js"
 import Stage from "./stage.js"
+import Progression from "../progression/progression.js";
 import TileBuilder from "./builder/builder-tiles.js"
 import Player from "../entity/player.js"
 import Vector from "../util/vector.js"
@@ -49,6 +49,14 @@ export default class Level extends GameObject {
 	 */
 	stage
 	/**
+	 * Reference to the {@link Progression} module
+	 * @type {Progression}
+	 *
+	 * @memberOf Anticipainter
+	 * @instance
+	 */
+	progression
+	/**
 	 * The {@link Player} instance
 	 * @type {Player}
 	 *
@@ -83,14 +91,21 @@ export default class Level extends GameObject {
 		let stageBuilder = new TileBuilder(this.stage)
 		this.generateStage(stageBuilder)
 		stageBuilder.draw()
+
 		let mazeBuilder = new WallBuilder(this.stage, stageBuilder.getOrigin())
 		this.generateMaze(mazeBuilder)
 		mazeBuilder.draw()
+
 		let waveBuilder = new WaveBuilder()
 		this.generateWaves(waveBuilder)
-		let waves = WaveBuilder.getSorted(waveBuilder)
+		this.progression = new Progression(this, WaveBuilder.getSortedList(waveBuilder))
 
 		this.spawnPlayer()
+
+		// TODO redo
+		setTimeout(() => {
+			this.setGameMode(GameMode.NORMAl)
+		}, 1000)
 	}
 
 	/**

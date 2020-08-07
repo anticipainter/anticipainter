@@ -1,5 +1,7 @@
 import Entity from "../entity/entity.js"
 import RenderLayer from "../util/render-layer.js"
+import EventBus from "../event/eventbus.js";
+import EventTile from "../event/tile/event-tile.js";
 
 /**
  * Abstract Tile class for creating tiles
@@ -41,6 +43,8 @@ export default class Tile extends Entity {
 		if (state === this.activated) return
 		this.activated = state
 		if (this.activated) this.animFadeIn()
+		let event = new EventTile(this)
+		EventBus.instance.callEvent(this.activated ? EventBus.listeners.onTilePaintOn : EventBus.listeners.onTilePaintOff, event)
 	}
 
 	// region Animations

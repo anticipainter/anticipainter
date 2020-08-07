@@ -14,7 +14,7 @@ app.renderer.view.style.display = "block"
 app.renderer.autoDensity = true
 app.renderer.resize(view.innerWidth(), view.innerHeight())
 
-let game = new Anticipainter(app, 1)
+let game = new Anticipainter(app, 0)
 
 window.frameLoop = () => {
 	if (Anticipainter.frozen) {

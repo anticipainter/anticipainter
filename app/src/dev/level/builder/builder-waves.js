@@ -52,13 +52,13 @@ export default class WaveBuilder {
 	}
 
 	/**
-	 * Gets the sorted map of [Waves]{@link Wave}
+	 * Gets the sorted list of [Waves]{@link Wave}
 	 * @param {WaveBuilder} builder
-	 * @return {Map<number, waves>}
+	 * @return {Wave[]}
 	 *
 	 * @memberOf WaveBuilder
 	 */
-	static getSorted(builder) {
-		return new Map([...builder.waves.entries()].sort())
+	static getSortedList(builder) {
+		return [...builder.waves.values()].sort(item => item.getThreshold())
 	}
 }
