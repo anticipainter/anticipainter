@@ -11,6 +11,7 @@ import {Result} from "../event/event.js";
 import {ResultPlayerMove} from "../event/player/event-player-move.js";
 import EventMode from "../event/game/event-mode.js";
 import EventBus from "../event/eventbus.js";
+import WaveBuilder from "./builder/builder-waves.js";
 
 /**
  * Abstract level class for creating levels
@@ -84,6 +85,9 @@ export default class Level extends Animator {
 		let mazeBuilder = new WallBuilder(this.stage, stageBuilder.getOrigin())
 		this.generateMaze(mazeBuilder)
 		mazeBuilder.draw()
+		let waveBuilder = new WaveBuilder()
+		this.generateWaves(waveBuilder)
+		let waves = WaveBuilder.getSorted(waveBuilder)
 
 		this.spawnPlayer()
 	}
@@ -119,6 +123,15 @@ export default class Level extends Animator {
 		// builder.queueBorder(WallStandard)
 		builder.queueMaze(WallStandard)
 	}
+
+	/**
+	 * Creates the [Waves]{@link Wave} and keeps track of them using a [builder]{@link WaveBuilder}
+	 * @param {WaveBuilder} builder
+	 *
+	 * @memberOf Level
+	 * @instance
+	 */
+	generateWaves(builder) {}
 
 	/**
 	 * Decides the starting [position]{@link Vector} for the {@link Player}
