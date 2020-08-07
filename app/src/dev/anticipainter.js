@@ -33,7 +33,6 @@ export default class Anticipainter {
 	app
 	/**
 	 * Reference to the {@link EventBus} module
-	 * @property eventBus
 	 * @type {EventBus}
 	 *
 	 * @memberOf Anticipainter
@@ -42,7 +41,6 @@ export default class Anticipainter {
 	eventBus
 	/**
 	 * Reference to the {@link Graphics} module
-	 * @property graphics
 	 * @type {Graphics}
 	 *
 	 * @memberOf Anticipainter
@@ -51,7 +49,6 @@ export default class Anticipainter {
 	graphics
 	/**
 	 * Reference to the {@link Input} module
-	 * @property input
 	 * @type {Input}
 	 *
 	 * @memberOf Anticipainter
@@ -60,7 +57,6 @@ export default class Anticipainter {
 	input
 	/**
 	 * Reference to the {@link Controls} module
-	 * @property controls
 	 * @type {Controls}
 	 *
 	 * @memberOf Anticipainter
@@ -69,7 +65,6 @@ export default class Anticipainter {
 	controls
 	/**
 	 * Reference to the {@link Level} instance
-	 * @property level
 	 * @type {Level}
 	 *
 	 * @memberOf Anticipainter
@@ -78,7 +73,6 @@ export default class Anticipainter {
 	level
 	/**
 	 * The index of the {@link Level}
-	 * @property levelIndex
 	 * @type {number}
 	 *
 	 * @memberOf Anticipainter
@@ -87,7 +81,6 @@ export default class Anticipainter {
 	levelIndex
 	/**
 	 * Set of all the [Entities]{@link Entity} currently active
-	 * @property entities
 	 * @type {Set<Entity>}
 	 *
 	 * @memberOf Anticipainter
