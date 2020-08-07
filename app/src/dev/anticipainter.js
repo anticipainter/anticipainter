@@ -7,6 +7,7 @@ import Level1 from "./level/levels/level1.js"
 import EventUpdate from "./event/game/event-update.js";
 import Entity from "./entity/entity.js";
 import Player from "./game-object.js";
+import GameMode from "./util/game-mode.js";
 
 const levels = [Level0, Level1]
 
@@ -149,9 +150,15 @@ export default class Anticipainter {
 	 */
 	update() {
 		if (!this.ready) return
+		let specific = EventBus.listeners.onUpdateNormal
+		if (GameMode.equal(this.level.gameMode, GameMode.EXECUTION)) specific = EventBus.listeners.onUpdateExecute
+		else if (GameMode.equal(this.level.gameMode, GameMode.DEATH)) specific = EventBus.listeners.onUpdateDeath
+		else if (GameMode.equal(this.level.gameMode, GameMode.VICTORY)) specific = EventBus.listeners.onUpdateVictory
+
 		let event = new EventUpdate()
 		this.level.onUpdate(event)
 		this.eventBus.callEvent(EventBus.listeners.onUpdate, event)
+		this.eventBus.callEvent(specific, event)
 	}
 
 	checkFrozenLoop() {

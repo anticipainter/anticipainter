@@ -42,6 +42,10 @@ let LISTENER_COUNT = 0
 export default class EventBus extends GameModule {
 	static listeners = {
 		onUpdate: EventBus.createListener(),
+		onUpdateNormal: EventBus.createListener(),
+		onUpdateExecute: EventBus.createListener(),
+		onUpdateDeath: EventBus.createListener(),
+		onUpdateVictory: EventBus.createListener(),
 		onInputKeyDown: EventBus.createListener(),
 		onInputKeyUp: EventBus.createListener(),
 		onModeNormal: EventBus.createListener(),
