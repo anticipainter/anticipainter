@@ -7,6 +7,16 @@ import Sequence from "../progression/sequence.js";
  * @abstract
  */
 export default class Wave {
+	/**
+	 * The percent that this {@link Wave} becomes active
+	 * @type {number}
+	 *
+	 * @memberOf Wave
+	 * @instance
+	 * @private
+	 */
+	threshold
+
 	constructor() {
 		EventBus.subscribeEntityEvents(this, Wave)
 	}
@@ -161,4 +171,26 @@ export default class Wave {
 	onWaveEnd(event) {}
 
 	// endregion
+
+	/**
+	 * Gets the threshold for this {@link Wave}
+	 * @return {number}
+	 *
+	 * @memberOf Wave
+	 * @instance
+	 */
+	getThreshold() {
+		return this.threshold
+	}
+
+	/**
+	 * Sets the threshold for a give {@link Wave}
+	 * @param {Wave} wave
+	 * @param {number} threshold
+	 *
+	 * @memberOf Wave
+	 */
+	static setThreshold(wave, threshold) {
+		wave.threshold = threshold
+	}
 }

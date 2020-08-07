@@ -1,3 +1,5 @@
+import Wave from "../../wave/wave.js";
+
 /**
  * Helper class for adding [Waves]{@link Wave}
  * @class WaveBuilder
@@ -15,19 +17,20 @@ export default class WaveBuilder {
 
 	/**
 	 * Adds a {@link Wave} to the level based on a threshold
-	 * @param threshold
-	 * @param wave
+	 * @param {number} threshold
+	 * @param {Wave} wave
 	 *
 	 * @memberOf WaveBuilder
 	 * @instance
 	 */
 	add(threshold, wave) {
+		Wave.setThreshold(wave, threshold)
 		this.waves.set(threshold, wave)
 	}
 
 	/**
 	 * Removes a {@link Wave} from the level based on a threshold
-	 * @param threshold
+	 * @param {number} threshold
 	 * @return {boolean}
 	 *
 	 * @memberOf WaveBuilder
