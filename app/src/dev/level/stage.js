@@ -264,4 +264,17 @@ export default class Stage {
 			if (wall !== undefined) callback(wall)
 		})
 	}
+
+	/**
+	 * Gets the current number of [Tiles]{@link Tile} on the {@link Stage}
+	 * @return {number}
+	 *
+	 * @memberOf Stage
+	 * @instance
+	 */
+	getTileCount() {
+		let count = 0
+		this.forEachTile(tile => {count++})
+		return count
+	}
 }
