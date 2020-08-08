@@ -348,6 +348,7 @@ export default class Player extends Entity {
 	}
 
 	onInputKeyDown(event) {
+		if (GameMode.equal(this.level.gameMode, GameMode.EXECUTION)) return
 		if (this.moveQueue.length <= 1) {
 			if (Controls.MOVE_LEFT.includes(event.key)) this.moveQueue.push(Direction.LEFT)
 			if (Controls.MOVE_RIGHT.includes(event.key)) this.moveQueue.push(Direction.RIGHT)

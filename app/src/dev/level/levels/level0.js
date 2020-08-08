@@ -17,6 +17,6 @@ export default class Level0 extends Level {
 	}
 
 	generateWaves(builder) {
-		builder.add(0.2, new WaveStandard(2, 5000, 2, 25))
+		builder.add(0.2, new WaveStandard(2, 5000, 2, 250))
 	}
 }

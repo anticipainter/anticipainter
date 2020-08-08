@@ -2,6 +2,8 @@ import Entity from "../entity/entity.js"
 import RenderLayer from "../util/render-layer.js"
 import EventBus from "../event/eventbus.js";
 import EventTile from "../event/tile/event-tile.js";
+import GameMode from "../util/game-mode.js";
+import Anticipainter from "../anticipainter.js";
 
 /**
  * Abstract Tile class for creating tiles
@@ -42,24 +44,39 @@ export default class Tile extends Entity {
 	setActivated(state) {
 		if (state === this.activated) return
 		this.activated = state
-		if (this.activated) this.animFadeIn()
-		let event = new EventTile(this)
-		EventBus.instance.callEvent(this.activated ? EventBus.listeners.onTilePaintOn : EventBus.listeners.onTilePaintOff, event)
+		if (this.activated) this.animFadeOn()
+		let listener = this.activated ? EventBus.listeners.onTilePaintOn : EventBus.listeners.onTilePaintOff
+		let event = new EventTile(undefined, this)
+		EventBus.instance.callEvent(listener, event)
 	}
 
 	// region Animations
 
 	/**
-	 * Animation for fading this {@link Tile} in
+	 * Animation for fading this {@link Tile} on
 	 *
 	 * @memberOf Tile
 	 * @instance
 	 */
-	animFadeIn() {
+	animFadeOn() {
 		this.animate("fadeIn", 500, now => {
 			this.sprite.alpha = 0.15 + now * (0.5 - 0.15)
 		}, () => {
 			this.sprite.alpha = 0.5
+		})
+	}
+
+	/**
+	 * Animation for fading this {@link Tile} off
+	 *
+	 * @memberOf Tile
+	 * @instance
+	 */
+	animFadeOff() {
+		this.animate("fadeIn", 500, now => {
+			this.sprite.alpha = 0.5 - now * (0.5 - 0.15)
+		}, () => {
+			this.sprite.alpha = 0.15
 		})
 	}
 
@@ -96,6 +113,7 @@ export default class Tile extends Entity {
 	 * @instance
 	 */
 	onPlayerMove(event) {
+		if (!GameMode.equal(event.player.level.gameMode, GameMode.EXECUTION)) return
 		if (this.activated) return
 		this.setActivated(true)
 	}

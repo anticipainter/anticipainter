@@ -1,5 +1,8 @@
 import GameModule from "../game-module.js";
 import GameMode from "../util/game-mode.js";
+import EventWave from "../event/game/event-wave.js";
+import EventBus from "../event/eventbus.js";
+import EventCommand from "../event/sequence/event-command.js";
 
 /**
  * The progression module
@@ -36,7 +39,23 @@ export default class Progression extends GameModule {
 	 * @memberOf Progression
 	 * @instance
 	 */
-	index
+	indexWave
+	/**
+	 * Reference to the current {@link Wave}
+	 * @type {Wave}
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	currentWave
+	/**
+	 * Index of the current [move]{@link Direction} in the {@link Wave}
+	 * @type {number}
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	indexMove
 	/**
 	 * Object for keeping track of the score
 	 * @type {{total: number, count: number}}
@@ -53,6 +72,22 @@ export default class Progression extends GameModule {
 	 * @instance
 	 */
 	sequence
+	/**
+	 * The time the next move in the {@link Sequence} should happen
+	 * @type {number}
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	nextMoveTime
+	/**
+	 * If the {@link Wave} should change after the current {@link Sequence}
+	 * @type {boolean}
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	awaitingWaveChange
 
 	/**
 	 * Create a new {@link Progression} module
@@ -63,13 +98,29 @@ export default class Progression extends GameModule {
 		super(level.game)
 		this.level = level
 		this.waves = waves
-		this.index = 0
+		this.indexWave = 0
+		this.currentWave = this.waves[this.indexWave]
 		this.score = {
 			count: 0,
 			total: this.level.stage.getTileCount()
 		}
-		this.sequence = this.waves[0].makeSequence(this.level.stage, this.level.player)
+		this.updateScoreDisplay()
+		this.generateSequence()
+		this.awaitingWaveChange = false
+	}
+
+	/**
+	 * Generates a new {@link Sequence} based of the current {@link Wave}'s attributes
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	generateSequence() {
+		this.indexMove = 0
+		this.sequence = this.currentWave.makeSequence(this.level.stage, this.level.player)
 		this.sequence.initialize()
+		this.nextMoveTime = this.sequence.timeDelayEnd
+		this.game.graphics.display.clearSequence()
 		this.game.graphics.display.showSequence(this.sequence)
 	}
 
@@ -81,54 +132,83 @@ export default class Progression extends GameModule {
 	 */
 	checkWaveChange() {
 		let percent = this.score.count / this.score.total
-		if (this.index !== 0 && percent < this.waves[this.index].getThreshold()) {
-			this.index--
-		} else if (this.index < this.waves.length - 1 && percent >= this.waves[this.index + 1].getThreshold()) {
-			this.index++
+		if (this.indexWave !== 0 && percent < this.waves[this.indexWave].getThreshold()) {
+			this.indexWave--
+			this.awaitingWaveChange = true
+		} else if (this.indexWave < this.waves.length - 1 && percent >= this.waves[this.indexWave + 1].getThreshold()) {
+			this.indexWave++
+			this.awaitingWaveChange = true
 		}
+	}
+
+	/**
+	 * Updates the score display to show the current score
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	updateScoreDisplay() {
+		this.game.graphics.display.setScore(this.score.count, this.score.total)
 	}
 
 	// region Events
 
+	onModeNormal(event) {
+		if (this.awaitingWaveChange) {
+			this.awaitingWaveChange = false
+			this.currentWave.onWaveEnd(new EventWave(this.currentWave))
+			this.currentWave = this.waves[this.indexWave]
+			this.currentWave.onWaveStart(new EventWave(this.currentWave))
+		}
+	}
+
+	onModeExecute(event) {
+		this.game.graphics.display.dimSequence()
+	}
+
+	onCommandStart(event) {
+		this.level.player.queueMove(event.direction)
+		this.game.graphics.display.scaleDirection(event.index, () => {
+			this.game.eventBus.callEvent(EventBus.listeners.onCommandEnd, event)
+		})
+	}
+
+	onCommandEnd(event) {
+		if (event.index === event.length - 1) {
+			this.generateSequence()
+			this.level.setGameMode(GameMode.NORMAl)
+		}
+	}
+
 	onUpdate(event) {
-		this.game.graphics.display.setTimer((this.sequence.timeStart - Date.now()) / 1000, 5)
+		this.game.graphics.display.setTimer((this.sequence.timeDelayEnd - Date.now()) / 1000, 5)
 	}
 
 	onUpdateNormal(event) {
 		let now = Date.now()
-		if (now >= this.sequence.timeStart) {
+		if (now >= this.nextMoveTime) {
 			this.level.setGameMode(GameMode.EXECUTION)
-			this.game.graphics.display.dimSequence()
 		}
 	}
 
 	onUpdateExecute(event) {
-		// TODO completely redo
-		let tempTime = 15
-		this.onUpdateExecute.timeout = this.onUpdateExecute.timeout || tempTime
-		this.onUpdateExecute.timeout--
-		if (this.onUpdateExecute.timeout === 0) {
-			let move = this.sequence.moves.shift()
-			this.level.player.queueMove(move)
-			this.game.graphics.display.scaleDirection(this.sequence.length - this.sequence.moves.length - 1)
-			this.onUpdateExecute.timeout = tempTime
-			if (this.sequence.moves.length === 0) {
-				this.sequence = this.waves[0].makeSequence(this.level.stage, this.level.player)
-				this.sequence.initialize()
-				this.level.setGameMode(GameMode.NORMAl)
-				this.game.graphics.display.clearSequence()
-				this.game.graphics.display.showSequence(this.sequence)
-			}
+		let now = Date.now()
+		if (now >= this.nextMoveTime) {
+			this.nextMoveTime = now + this.currentWave.getSequenceTiming()
+			let command = new EventCommand(this.sequence.moves, this.indexMove++)
+			this.game.eventBus.callEvent(EventBus.listeners.onCommandStart, command)
 		}
 	}
 
 	onTilePaintOn(event) {
 		this.score.count++
+		this.updateScoreDisplay()
 		this.checkWaveChange()
 	}
 
 	onTilePaintOff(event) {
 		this.score.count--
+		this.updateScoreDisplay()
 		this.checkWaveChange()
 	}
 

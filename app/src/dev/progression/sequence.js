@@ -38,10 +38,18 @@ export default class Sequence {
 	 */
 	delay
 	/**
+	 * Time this {@link Sequence} was initialized
+	 * @type {number}
+	 *
+	 * @memberOf Sequence
+	 * @instance
+	 */
+	timeDelayStart
+	/**
 	 * Time this {@link Sequence} is scheduled to start
 	 * @type {number}
 	 */
-	timeStart
+	timeDelayEnd
 
 	constructor(moves, scanDistance, delay) {
 		this.moves = moves
@@ -51,6 +59,7 @@ export default class Sequence {
 	}
 
 	initialize() {
-		this.timeStart = Date.now() + this.delay
+		this.timeDelayStart = Date.now()
+		this.timeDelayEnd = this.timeDelayStart + this.delay
 	}
 }

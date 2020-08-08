@@ -121,11 +121,12 @@ export default class Display extends GameModule {
 	/**
 	 * Runs the scale animation on a specific arrow
 	 * @param {number} index
+	 * @param {CallableFunction} [callback]
 	 *
 	 * @memberOf Display
 	 * @instance
 	 */
-	scaleDirection(index) {
+	scaleDirection(index, callback) {
 		let child = $(this.views.sequence.children()[index])
 		child.animate({opacity: 1.0}, 100, function() { })
 		let maxScale = Display.arrowScaleMax - 1
@@ -137,7 +138,8 @@ export default class Display extends GameModule {
 				if (now < 0.5) scale += maxScale * (now * 2)
 				else scale += maxScale * 2 * (1 - now)
 				arrow.attr("transform", `scale(${scale})`)
-			}
+			},
+			complete: callback
 		})
 	}
 

@@ -57,7 +57,7 @@ export default class Wave extends GameObject {
 	 * @instance
 	 */
 	getSequenceTiming() {
-		return 0;
+		return 250;
 	}
 
 	/**
