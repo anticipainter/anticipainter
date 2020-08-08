@@ -1,5 +1,6 @@
 import Wall from "./wall.js"
 import RenderLayer from "../util/render-layer.js"
+import Orientation from "../util/orientation.js";
 
 /**
  * Hazard {@link Wall} class
@@ -10,6 +11,11 @@ import RenderLayer from "../util/render-layer.js"
  * @inner
  */
 export default class WallHazard extends Wall {
+	getRegistryName() {
+		if (Orientation.equal(this.orientation, Orientation.VERTICAL)) return "hazard_vertical"
+		return this.constructor.getRegistryName()
+	}
+
 	static getRenderLayer() {
 		return RenderLayer.HAZARD
 	}
