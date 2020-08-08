@@ -131,6 +131,7 @@ export default class Player extends Entity {
 			this.animBonk(oldPos, direction)
 		}).onResult(ResultPlayerMove.DIE, () => {
 			this.animDeath(oldPos, direction)
+			this.level.setGameMode(GameMode.DEATH)
 		}).onResult(Result.ANY, () => {
 			tileA.onPlayerMove(event)
 		})
@@ -348,7 +349,7 @@ export default class Player extends Entity {
 	}
 
 	onInputKeyDown(event) {
-		if (GameMode.equal(this.level.gameMode, GameMode.EXECUTION)) return
+		if (!GameMode.equal(this.level.gameMode, GameMode.NORMAl)) return
 		if (this.moveQueue.length <= 1) {
 			if (Controls.MOVE_LEFT.includes(event.key)) this.moveQueue.push(Direction.LEFT)
 			if (Controls.MOVE_RIGHT.includes(event.key)) this.moveQueue.push(Direction.RIGHT)
