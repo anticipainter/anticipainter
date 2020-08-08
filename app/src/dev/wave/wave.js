@@ -96,7 +96,6 @@ export default class Wave extends GameObject {
 		let scanDistance = this.getScanDistance()
 		let sequenceInterval = this.getSequenceInterval()
 		let sequenceLength = this.getSequenceLength()
-		console.log(sequenceLength)
 		let moves = []
 		for (let i = 0; i < sequenceLength; i++) {
 			moves.push(Direction.random())

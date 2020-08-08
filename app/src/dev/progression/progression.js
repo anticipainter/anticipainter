@@ -126,12 +126,6 @@ export default class Progression extends GameModule {
 		this.speedUp = false
 	}
 
-	getNextStartTime() {
-		let now = Date.now()
-		if (!this.speedUp) return now
-
-	}
-
 	/**
 	 * Generates a new {@link Sequence} based of the current {@link Wave}'s attributes
 	 *
