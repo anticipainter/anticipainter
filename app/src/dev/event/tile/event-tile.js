@@ -16,6 +16,10 @@ export default class EventTile extends EventStage {
 	tile
 	// endregion
 
+	/**
+	 * @param {Stage} stage
+	 * @param {Tile} tile
+	 */
 	constructor(stage, tile) {
 		super(stage)
 		this.tile = tile

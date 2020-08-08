@@ -19,6 +19,12 @@ export default class EventPlayerMove extends EventPlayer {
 	direction
 	// endregion
 
+	/**
+	 *
+	 * @param {Player} player
+	 * @param {Direction} direction
+	 * @param {Stage} stage
+	 */
 	constructor(player, direction, stage) {
 		super(stage, player)
 		this.stage = stage

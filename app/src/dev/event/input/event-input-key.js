@@ -39,6 +39,13 @@ export default class EventInputKey extends BaseEvent {
 	meta
 	// endregion
 
+	/**
+	 * @param {number} key
+	 * @param {boolean} shift
+	 * @param {boolean} ctrl
+	 * @param {boolean} alt
+	 * @param {boolean} meta
+	 */
 	constructor(key, shift, ctrl, alt, meta) {
 		super();
 		this.key = key

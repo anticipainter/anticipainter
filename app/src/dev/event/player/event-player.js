@@ -16,6 +16,10 @@ export default class EventPlayer extends EventStage {
 	player
 	// endregion
 
+	/**
+	 * @param {Stage} stage
+	 * @param {Player} player
+	 */
 	constructor(stage, player) {
 		super(stage)
 		this.player = player
