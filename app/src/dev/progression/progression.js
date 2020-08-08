@@ -171,10 +171,7 @@ export default class Progression extends GameModule {
 	 * @instance
 	 */
 	updateScoreDisplay() {
-		// this.game.graphics.display.setScore(this.score.count, this.score.total)
-		this.animate("score", 100, now => {
-			this.game.graphics.display.setScore(Math.floor(this.score.count * now), this.score.total)
-		})
+		this.game.graphics.display.setScore(this.score.count, this.score.total)
 	}
 
 	// region Events
