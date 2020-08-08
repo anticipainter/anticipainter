@@ -57,7 +57,7 @@ export default class Display extends GameModule {
 	 * @instance
 	 */
 	setTimer(time, max, updateRing = true) {
-		time = Math.max(time, 0)
+		time = Math.min(Math.max(time, 0), max)
 		let num = Math.ceil(time)
 		let angle = Math.round((1 - (time / Math.ceil(max))) * 360)
 		this.views.number.text(num)

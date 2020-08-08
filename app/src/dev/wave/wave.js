@@ -42,7 +42,7 @@ export default class Wave extends GameObject {
 	/**
 	 * Gets the time between this {@link Sequence} and the next
 	 * @abstract
-	 * @returns {number} time in seconds before next {@link Sequence}
+	 * @returns {number} time in ms before next {@link Sequence}
 	 *
 	 * @memberOf Wave
 	 * @instance
@@ -50,14 +50,26 @@ export default class Wave extends GameObject {
 	getSequenceInterval() {}
 
 	/**
+	 * Gets how fast the timer should last when speeding up.
+	 * Must be a deterministic value in milliseconds
+	 * @returns {number} time in ms the timer lasts when sped-up
+	 *
+	 * @memberOf Wave
+	 * @instance
+	 */
+	getSpeedUpDuration() {
+		return 750
+	}
+
+	/**
 	 * Gets the time between moves in a {@link Sequence}
-	 * @returns {number}
+	 * @returns {number} time in ms between {@link Sequence} commands
 	 *
 	 * @memberOf Wave
 	 * @instance
 	 */
 	getSequenceTiming() {
-		return 250;
+		return 250
 	}
 
 	/**
@@ -82,12 +94,14 @@ export default class Wave extends GameObject {
 	makeSequence(stage, player) {
 		// TODO
 		let scanDistance = this.getScanDistance()
+		let sequenceInterval = this.getSequenceInterval()
 		let sequenceLength = this.getSequenceLength()
+		console.log(sequenceLength)
 		let moves = []
-		for (let i = 0; i < 4; i++) {
+		for (let i = 0; i < sequenceLength; i++) {
 			moves.push(Direction.random())
 		}
-		let sequence = new Sequence(moves, 0, 5000)
+		let sequence = new Sequence(moves, scanDistance, sequenceInterval)
 		sequence.initialize()
 		return sequence
 	}

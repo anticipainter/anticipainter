@@ -88,6 +88,22 @@ export default class Progression extends GameModule {
 	 * @instance
 	 */
 	awaitingWaveChange
+	/**
+	 * If the {@link Player} is currently speeding-up
+	 * @type {boolean}
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	speedUp
+	/**
+	 * Time the {@link Player} started speeding up
+	 * @type {number}
+	 *
+	 * @memberOf Progression
+	 * @instance
+	 */
+	speedUpStartTime
 
 	/**
 	 * Create a new {@link Progression} module
@@ -107,6 +123,13 @@ export default class Progression extends GameModule {
 		this.updateScoreDisplay()
 		this.generateSequence()
 		this.awaitingWaveChange = false
+		this.speedUp = false
+	}
+
+	getNextStartTime() {
+		let now = Date.now()
+		if (!this.speedUp) return now
+
 	}
 
 	/**
@@ -148,7 +171,10 @@ export default class Progression extends GameModule {
 	 * @instance
 	 */
 	updateScoreDisplay() {
-		this.game.graphics.display.setScore(this.score.count, this.score.total)
+		// this.game.graphics.display.setScore(this.score.count, this.score.total)
+		this.animate("score", 100, now => {
+			this.game.graphics.display.setScore(Math.floor(this.score.count * now), this.score.total)
+		})
 	}
 
 	// region Events
@@ -180,15 +206,13 @@ export default class Progression extends GameModule {
 		}
 	}
 
-	onUpdate(event) {
-		this.game.graphics.display.setTimer((this.sequence.timeDelayEnd - Date.now()) / 1000, 5)
-	}
-
 	onUpdateNormal(event) {
-		let now = Date.now()
-		if (now >= this.nextMoveTime) {
+		let speedUpTime = this.currentWave.getSpeedUpDuration()
+		if (this.speedUp) this.nextMoveTime -= (this.sequence.delay - speedUpTime) / speedUpTime * 1000 * event.deltaTime
+		if (Date.now() >= this.nextMoveTime) {
 			this.level.setGameMode(GameMode.EXECUTION)
 		}
+		this.game.graphics.display.setTimer((this.nextMoveTime - Date.now()) / 1000, this.sequence.delay / 1000)
 	}
 
 	onUpdateExecute(event) {
@@ -198,6 +222,7 @@ export default class Progression extends GameModule {
 			let command = new EventCommand(this.sequence.moves, this.indexMove++)
 			this.game.eventBus.callEvent(EventBus.listeners.onCommandStart, command)
 		}
+		this.game.graphics.display.setTimer(0, 1)
 	}
 
 	onTilePaintOn(event) {
@@ -210,6 +235,17 @@ export default class Progression extends GameModule {
 		this.score.count--
 		this.updateScoreDisplay()
 		this.checkWaveChange()
+	}
+
+	onInputKeyDown(event) {
+		if (event.key === 32) {
+			this.speedUp = true
+			this.speedUpStartTime = Date.now()
+		}
+	}
+
+	onInputKeyUp(event) {
+		if (event.key === 32) this.speedUp = false
 	}
 
 	// endregion

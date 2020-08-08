@@ -97,6 +97,7 @@ export default class Anticipainter {
 	 * @instance
 	 */
 	ready
+	lastFrameTime
 	// endregion
 
 	constructor(app, levelIndex) {
@@ -137,6 +138,7 @@ export default class Anticipainter {
 		Graphics.addSprite(this.level.player)
 
 		this.ready = true
+		this.lastFrameTime = Date.now()
 		this.app.ticker.add(() => {
 			if (!Anticipainter.frozen) this.update()
 		})
@@ -149,13 +151,16 @@ export default class Anticipainter {
 	 * @instance
 	 */
 	update() {
+		let now = Date.now()
+		let deltaTime = (now - this.lastFrameTime) / 1000
+		this.lastFrameTime = now
 		if (!this.ready) return
 		let specific = EventBus.listeners.onUpdateNormal
 		if (GameMode.equal(this.level.gameMode, GameMode.EXECUTION)) specific = EventBus.listeners.onUpdateExecute
 		else if (GameMode.equal(this.level.gameMode, GameMode.DEATH)) specific = EventBus.listeners.onUpdateDeath
 		else if (GameMode.equal(this.level.gameMode, GameMode.VICTORY)) specific = EventBus.listeners.onUpdateVictory
 
-		let event = new EventUpdate()
+		let event = new EventUpdate(deltaTime)
 		this.level.onUpdate(event)
 		this.eventBus.callEvent(EventBus.listeners.onUpdate, event)
 		this.eventBus.callEvent(specific, event)
