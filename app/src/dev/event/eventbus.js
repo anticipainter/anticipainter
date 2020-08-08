@@ -55,7 +55,9 @@ export default class EventBus extends GameModule {
 		onWaveStart: EventBus.createListener(),
 		onWaveEnd: EventBus.createListener(),
 		onTilePaintOn: EventBus.createListener(),
-		onTilePaintOff: EventBus.createListener()
+		onTilePaintOff: EventBus.createListener(),
+		onCommandStart: EventBus.createListener(),
+		onCommandEnd: EventBus.createListener()
 	}
 
 	/**

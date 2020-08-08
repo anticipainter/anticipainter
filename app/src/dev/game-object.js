@@ -211,6 +211,25 @@ export default class GameObject {
 	 */
 	onTilePaintOff(event) {}
 
+	/**
+	 * Called when a {@link Sequence} starts executing a [move]{@link Direction}
+	 * @listens EventCommand
+	 * @param {EventCommand} event
+	 *
+	 * @memberOf GameObject
+	 * @instance
+	 */
+	onCommandStart(event) {}
+	/**
+	 * Called when a {@link Sequence} finishes executing a [move]{@link Direction}
+	 * @listens EventCommand
+	 * @param {EventCommand} event
+	 *
+	 * @memberOf GameObject
+	 * @instance
+	 */
+	onCommandEnd(event) {}
+
 	// endregion
 
 	/**
