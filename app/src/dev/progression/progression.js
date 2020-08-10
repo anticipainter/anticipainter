@@ -193,7 +193,7 @@ export default class Progression extends GameModule {
 	onCommandEnd(event) {
 		if (event.index === event.length - 1) {
 			this.generateSequence()
-			this.level.setGameMode(GameMode.NORMAl)
+			this.level.setGameMode(GameMode.NORMAL)
 		}
 	}
 

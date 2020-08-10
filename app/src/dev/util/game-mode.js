@@ -21,7 +21,7 @@ export default class GameMode extends Enum {
 	 *
 	 * @memberOf GameMode
 	 */
-	static NORMAl = new GameMode(1, "NORMAL")
+	static NORMAL = new GameMode(1, "NORMAL")
 	/**
 	 * The EXECUTION {@link GameMode}
 	 * @type {GameMode}

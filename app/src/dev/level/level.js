@@ -104,7 +104,7 @@ export default class Level extends GameObject {
 
 		// TODO redo
 		setTimeout(() => {
-			this.setGameMode(GameMode.NORMAl)
+			this.setGameMode(GameMode.NORMAL)
 		}, 1000)
 	}
 
@@ -201,7 +201,7 @@ export default class Level extends GameObject {
 		if (GameMode.equal(gameMode, this.gameMode)) return
 		this.gameMode = gameMode
 		let event = new EventMode()
-		if (GameMode.equal(this.gameMode, GameMode.NORMAl)) this.game.eventBus.callEvent(EventBus.listeners.onModeNormal, event)
+		if (GameMode.equal(this.gameMode, GameMode.NORMAL)) this.game.eventBus.callEvent(EventBus.listeners.onModeNormal, event)
 		if (GameMode.equal(this.gameMode, GameMode.EXECUTION)) this.game.eventBus.callEvent(EventBus.listeners.onModeExecute, event)
 		if (GameMode.equal(this.gameMode, GameMode.DEATH)) this.game.eventBus.callEvent(EventBus.listeners.onModeDeath, event)
 		if (GameMode.equal(this.gameMode, GameMode.VICTORY)) this.game.eventBus.callEvent(EventBus.listeners.onModeVictory, event)
