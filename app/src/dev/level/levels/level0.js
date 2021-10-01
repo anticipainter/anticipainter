@@ -1,7 +1,7 @@
+import Vector from "../../util/vector.js"
 import Level from "../level.js"
 import TileStandard from "../../tile/tile-standard.js"
-import Vector from "../../util/vector.js"
-import WaveStandard from "../../wave/wave-standard.js";
+import WaveStandard from "../../wave/wave-standard.js"
 
 /**
  * The tutorial level

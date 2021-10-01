@@ -88,55 +88,80 @@ class Maze extends Shape {
 	}
 
 	draw(stage, origin) {
-		// copy tiles from stage to draft
+		// copy tiles from stage to workspace
 		let workspace = Array(stage.size.y).fill(undefined).map(function() {return Object.assign(Array(stage.size.x).fill(undefined))})
 		stage.forEachTile(function(tile) {
 			workspace[tile.position.y][tile.position.x] = false
 		})
-		let initial = true
-		while (true) {
-			// find the position of an available tile
-			let available = []
-			stage.size.iterate(function(vector) {
-				if (!([true, undefined].includes(workspace[vector.y][vector.x]))) {
-					available.push(vector)
+		// use workspace to divide stage into zones
+		// false = not yet assigned to zone, true = assigned to zone
+		let zones = []
+		let zone
+		function trace(vector) {
+			workspace[vector.y][vector.x] = true
+			zone[vector.y][vector.x] = false
+			for (let direction of Direction.all()) {
+				let scan = Vector.add(vector, Direction.toVector(direction))
+				if (scan.x >= 0 && scan.y >= 0 && scan.x < stage.size.x && scan.y < stage.size.y && workspace[scan.y][scan.x] === false) {
+					trace(scan)
 				}
-			})
-			let base = available[Math.floor(Math.random() * available.length)]
-			if (base === undefined) break
-			let current = base
-			if (initial) {
-				for (let facing of Direction.all()) stage.setWall(current, facing, this.WallType)
-				workspace[current.y][current.x] = true
-				initial = false
-			} else {
-				// draw the path
-				while (workspace[current.y][current.x] !== true) {
-					// find a direction that points to a valid tile location
-					let directions = Direction.all()
-					let valid = []
-					for (let direction of directions) {
-						let scan = Vector.add(current, Direction.toVector(direction))
-						if (workspace[scan.y] !== undefined && workspace[scan.y][scan.x] !== undefined) {
-							valid.push(direction)
-						}
+			}
+		}
+		stage.size.iterate(function(vector) {
+			if (workspace[vector.y][vector.x] === false) {
+				zone = Array(stage.size.y).fill(undefined).map(function() {return Object.assign(Array(stage.size.x).fill(undefined))})
+				trace(vector)
+				zones.push(zone)
+			}
+		})
+		// generate maze for each zone
+		// false = not yet used for generation, true = used for generation
+		for (let zone of zones) {
+			let initial = true
+			while (true) {
+				// find the position of an available tile
+				let available = []
+				stage.size.iterate(function (vector) {
+					if (!([true, undefined].includes(zone[vector.y][vector.x]))) {
+						available.push(vector)
 					}
-					let direction = valid[Math.floor(Math.random() * valid.length)]
-					// move to the next tile
-					workspace[current.y][current.x] = direction
-					current = Vector.add(current, Direction.toVector(direction))
-				}
-				// follow the path and place walls
-				current = base
-				let direction = undefined
-				while (workspace[current.y][current.x] !== true) {
+				})
+				let base = available[Math.floor(Math.random() * available.length)]
+				if (base === undefined) break // if there are no tiles left to select, algorithm ends
+				let current = base
+				if (initial) {
 					for (let facing of Direction.all()) stage.setWall(current, facing, this.WallType)
+					zone[current.y][current.x] = true
+					initial = false
+				} else {
+					// draw the path
+					while (zone[current.y][current.x] !== true) {
+						// find a direction that points to a valid tile location
+						let directions = Direction.all()
+						let valid = []
+						for (let direction of directions) {
+							let scan = Vector.add(current, Direction.toVector(direction))
+							if (zone[scan.y] !== undefined && zone[scan.y][scan.x] !== undefined) {
+								valid.push(direction)
+							}
+						}
+						let direction = valid[Math.floor(Math.random() * valid.length)]
+						// move to the next tile
+						zone[current.y][current.x] = direction
+						current = Vector.add(current, Direction.toVector(direction))
+					}
+					// follow the path and place walls
+					current = base
+					let direction = undefined
+					while (zone[current.y][current.x] !== true) {
+						for (let facing of Direction.all()) stage.setWall(current, facing, this.WallType)
+						if (direction !== undefined) stage.setWall(current, Direction.inverse(direction), undefined)
+						direction = zone[current.y][current.x]
+						zone[current.y][current.x] = true
+						current = Vector.add(current, Direction.toVector(direction))
+					}
 					if (direction !== undefined) stage.setWall(current, Direction.inverse(direction), undefined)
-					direction = workspace[current.y][current.x]
-					workspace[current.y][current.x] = true
-					current = Vector.add(current, Direction.toVector(direction))
 				}
-				if (direction !== undefined) stage.setWall(current, Direction.inverse(direction), undefined)
 			}
 		}
 	}
